@@ -24,9 +24,11 @@ public class LoginPanel extends JPanel{
 	JButton guestButton;
 	
 	CardLayout cardLayout;
+	JPanel outerPanelForCardLayout;
 	
 	//constructor
-	public LoginPanel(CardLayout cardLayout){
+	public LoginPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
+		this.outerPanelForCardLayout = outerPanelForCardLayout; 
 		this.cardLayout = cardLayout;
 		initializeVariables();
 		createGUI();
@@ -68,7 +70,7 @@ public class LoginPanel extends JPanel{
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
 			
-				
+				cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");
 				//TODO check with data base, see if account exists
 				//get information from pw and logintf
 				//if its okay to log in, make an if statement so that I link them to following page
@@ -85,8 +87,8 @@ public class LoginPanel extends JPanel{
 		//guest button clicked
 		guestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				//TODO 
-				//go to single tetris battle game
+				
+				cardLayout.show(outerPanelForCardLayout, "guestTetrisPanel");
 			}
 		});
 		

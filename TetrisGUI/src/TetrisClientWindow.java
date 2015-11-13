@@ -29,28 +29,32 @@ public class TetrisClientWindow extends JFrame{
 		
 		//create all panels to add to cardLayout
 		//give them all a name
-		LoginPanel loginPanel = new LoginPanel(cardLayout);
-		outerPanelForCardLayout.add(loginPanel, "loginPanel");
-		//other layouts
-		//other layouts
 		
+		HostJoinPanel hostJoinPanel = new HostJoinPanel(cardLayout, outerPanelForCardLayout);
+		LoginPanel loginPanel = new LoginPanel(cardLayout, outerPanelForCardLayout);
+		HostPanel hostPanel = new HostPanel(cardLayout, outerPanelForCardLayout);
+		JoinPanel joinPanel = new JoinPanel(cardLayout, outerPanelForCardLayout);
+		TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout);
+		GuestTetrisPanel guestTetrisPanel = new GuestTetrisPanel(cardLayout, outerPanelForCardLayout);
+		
+		outerPanelForCardLayout.add(loginPanel, "loginPanel");
+		outerPanelForCardLayout.add(hostJoinPanel, "hostJoinPanel");
+		outerPanelForCardLayout.add(hostPanel, "hostPanel");
+		outerPanelForCardLayout.add(joinPanel, "joinPanel");
+		outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
+		outerPanelForCardLayout.add(guestTetrisPanel, "guestTetrisPanel");
+		
+		
+
 		add(outerPanelForCardLayout);
 		
-		//My notes - how to use cardlayouts
-		/*
-		JPanel secondPanel = new JPanel();
-		JButton button2 = new JButton("2");
-		button2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae){
-				c1.show(outerPanel, "first");
-			}
-		});
 		
-		outerPanel.add(firstPanel, "first");
-		outerPanel.add(secondPanel, "second");
-		*/
+	
 		
 		setVisible(true);
+		
+		//TODO
+		//set default operation close on exit
 	}
 	
 	public static void main(String[] args) {
