@@ -75,17 +75,14 @@ public class LoginPanel extends JPanel{
 		//login button clicked
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				//TODO check with data base, see if account exists
-				//get information from pw and logintf
-				//if its okay to log in, make an if statement so that I link them to following page
 				MySQLDriver msql = new MySQLDriver();
 				msql.connect();
-				if(msql.doesExist(loginTF.getText()) && msql.passwordMatches(loginTF.getText(), passwordTF.getText())) {
+				if(msql.doesExist(loginTF.getText()) && msql.passwordMatches(loginTF.getText(), passwordTF.getText())) { //it is okay to login
 					System.out.println("user logged in with username: " + loginTF.getText() + " and password: " + passwordTF.getText());
 					cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");
-				}  else if (!msql.doesExist(loginTF.getText()))
+				}  else if (!msql.doesExist(loginTF.getText())) //username does not exist
 					JOptionPane.showMessageDialog(null, "Username does not exist! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
-				else
+				else //password does not match username
 					JOptionPane.showMessageDialog(null, "Password does not match username! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
 
 				msql.stop();
@@ -97,9 +94,10 @@ public class LoginPanel extends JPanel{
 			public void actionPerformed(ActionEvent ae){
 				MySQLDriver msql = new MySQLDriver();
 				msql.connect();
-				if(msql.doesExist(loginTF.getText())) {
+				if(msql.doesExist(loginTF.getText())) { //username already exists
 					JOptionPane.showMessageDialog(null, "Username already exists! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
-				} else {
+				} else { //adds the username and password to the database
+					//TODO: hash the password that gets stored
 					msql.add(loginTF.getText(), passwordTF.getText());
 					System.out.println("user created with username: " + loginTF.getText() + " and password: " + passwordTF.getText());
 					cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");

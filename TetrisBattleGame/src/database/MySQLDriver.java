@@ -39,7 +39,7 @@ public class MySQLDriver {
 		 }
 	}
 	
-	public boolean doesExist(String userName) {
+	public boolean doesExist(String userName) { //checks if a username exists
 		try {
 			PreparedStatement ps = con.prepareStatement(selectUserName);
 			ps.setString(1, userName);
@@ -56,7 +56,7 @@ public class MySQLDriver {
 		return false;
 	}
 	
-	public void add(String userName, String password) {
+	public void add(String userName, String password) { //adds a user to the database
 		try {
 			PreparedStatement ps = con.prepareStatement(addUser);
 			ps.setString(1, userName);
@@ -69,7 +69,7 @@ public class MySQLDriver {
 		}
 	}
 	
-	public boolean passwordMatches(String userName, String password) {
+	public boolean passwordMatches(String userName, String password) { //checks if the given username and password match
 		try {
 			PreparedStatement ps = con.prepareStatement(checkPassword);
 			ResultSet result = ps.executeQuery();
