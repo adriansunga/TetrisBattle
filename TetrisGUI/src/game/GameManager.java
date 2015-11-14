@@ -27,9 +27,15 @@ public class GameManager {
 	}
 	
 	// Check to see if the piece can move down further
-//	private boolean canMoveDown() {
-//		
-//	}
+	private boolean canMoveDown() {
+		// if the spot is occupied and it's not my piece then false
+		
+	}
+	
+	// if I occupy a certain given spot
+	private boolean isMyPiece(int x, int y) {
+		
+	}
 	
 	
 	
