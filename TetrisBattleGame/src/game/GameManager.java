@@ -31,15 +31,12 @@ public class GameManager {
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMoveDown() {
-<<<<<<< HEAD
-		// if the spot is occupied and it's not my piece then false
-		//hi iman
-		//adrian
-=======
 		for (Point point : currentPieceLocation) {
-			
+			//if ()
 		}
->>>>>>> 906d1317e217107dbdeb8785da266636174bab55
+		
+		
+		return false;
 	}
 
 	// if I occupy a certain given spot
@@ -53,6 +50,15 @@ public class GameManager {
 		}
 		System.out.println("isMyPiece is returning false");
 		return false;
+	}
+	
+	// Returns next lowest point (if null, then out of bounds)
+	private Point nextPoint(Point p) {
+		// Is at bottom?
+		if (p.getY() == matrixHeight - 1) {
+			return null;
+		} 
+		return new Point((int)p.getX(),(int) p.getY() + 1);
 	}
 
 }
