@@ -7,10 +7,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import database.MySQLDriver;
+
 public class LoginPanel extends JPanel{
+	private static final long serialVersionUID = 1L;
 	
 	JLabel loginLabel;
 	JLabel passwordLabel;
@@ -71,18 +75,36 @@ public class LoginPanel extends JPanel{
 		//login button clicked
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-			
-				cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");
 				//TODO check with data base, see if account exists
 				//get information from pw and logintf
 				//if its okay to log in, make an if statement so that I link them to following page
+				MySQLDriver msql = new MySQLDriver();
+				msql.connect();
+				if(msql.doesExist(loginTF.getText()) && msql.passwordMatches(loginTF.getText(), passwordTF.getText())) {
+					System.out.println("user logged in with username: " + loginTF.getText() + " and password: " + passwordTF.getText());
+					cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");
+				}  else if (!msql.doesExist(loginTF.getText()))
+					JOptionPane.showMessageDialog(null, "Username does not exist! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(null, "Password does not match username! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+
+				msql.stop();
 			}
 		});
 		
 		//create user button clicked
 		createUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				
+				MySQLDriver msql = new MySQLDriver();
+				msql.connect();
+				if(msql.doesExist(loginTF.getText())) {
+					JOptionPane.showMessageDialog(null, "Username already exists! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					msql.add(loginTF.getText(), passwordTF.getText());
+					System.out.println("user created with username: " + loginTF.getText() + " and password: " + passwordTF.getText());
+					cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");
+				}
+				msql.stop();
 			}
 		});
 		
