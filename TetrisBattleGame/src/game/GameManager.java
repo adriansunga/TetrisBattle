@@ -29,13 +29,16 @@ public class GameManager {
 	// Check to see if the piece can move down further
 	private boolean canMoveDown() {
 		// if the spot is occupied and it's not my piece then false
-		//hi iman
+		
 		
 	}
 	
 	// if I occupy a certain given spot
 	private boolean isMyPiece(int x, int y) {
-		
+		Point thisSpot = new Point(x, y);
+		for (Point point : currentPieceLocation) {
+			//HEY ADRIAN ;) ;P
+		}
 	}
 	
 	
