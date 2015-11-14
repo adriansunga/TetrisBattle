@@ -50,6 +50,8 @@ public class JoinPanel extends JPanel{
 	private void addActionAdapters(){	
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
+				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout);
+				outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
 				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");
 			}
 		});

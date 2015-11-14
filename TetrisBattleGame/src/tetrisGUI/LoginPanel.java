@@ -66,7 +66,7 @@ public class LoginPanel extends JPanel{
 		
 	}
 	
-	public String getUser() {
+	public String getUserName() {
 		return loginTF.getText();
 	}
 	
@@ -79,6 +79,8 @@ public class LoginPanel extends JPanel{
 				msql.connect();
 				if(msql.doesExist(loginTF.getText()) && msql.passwordMatches(loginTF.getText(), passwordTF.getPassword())) { //it is okay to login
 					System.out.println("user logged in with username: " + loginTF.getText() + " and password: " + new String(passwordTF.getPassword()));
+					WelcomePanel welcomePanel = new WelcomePanel(cardLayout, outerPanelForCardLayout, getUserName());
+					outerPanelForCardLayout.add(welcomePanel, "welcomePanel");
 					cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 				}  else if (!msql.doesExist(loginTF.getText())) //username does not exist
 					JOptionPane.showMessageDialog(null, "Username does not exist! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
@@ -100,6 +102,8 @@ public class LoginPanel extends JPanel{
 					//TODO: hash the password that gets stored
 					msql.add(loginTF.getText(), passwordTF.getPassword());
 					System.out.println("user created with username: " + loginTF.getText() + " and password: " + new String(passwordTF.getPassword()));
+					WelcomePanel welcomePanel = new WelcomePanel(cardLayout, outerPanelForCardLayout, getUserName());
+					outerPanelForCardLayout.add(welcomePanel, "welcomePanel");
 					cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 				}
 				msql.stop();
@@ -109,7 +113,8 @@ public class LoginPanel extends JPanel{
 		//guest button clicked
 		guestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				
+				GuestTetrisPanel guestTetrisPanel = new GuestTetrisPanel(cardLayout, outerPanelForCardLayout);
+				outerPanelForCardLayout.add(guestTetrisPanel, "guestTetrisPanel");
 				cardLayout.show(outerPanelForCardLayout, "guestTetrisPanel");
 			}
 		});

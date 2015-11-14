@@ -42,22 +42,8 @@ public class TetrisClientWindow extends JFrame{
 		outerPanelForCardLayout = new JPanel();
 		cardLayout = new CardLayout();
 		outerPanelForCardLayout.setLayout(cardLayout);
-
-		HostJoinPanel hostJoinPanel = new HostJoinPanel(cardLayout, outerPanelForCardLayout);
 		LoginPanel loginPanel = new LoginPanel(cardLayout, outerPanelForCardLayout);
-		WelcomePanel welcomePanel = new WelcomePanel(cardLayout, outerPanelForCardLayout, loginPanel.getUser());
-		HostPanel hostPanel = new HostPanel(cardLayout, outerPanelForCardLayout);
-		JoinPanel joinPanel = new JoinPanel(cardLayout, outerPanelForCardLayout);
-		TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout);
-		GuestTetrisPanel guestTetrisPanel = new GuestTetrisPanel(cardLayout, outerPanelForCardLayout);
-		
 		outerPanelForCardLayout.add(loginPanel, "loginPanel");
-		outerPanelForCardLayout.add(welcomePanel, "welcomePanel");
-		outerPanelForCardLayout.add(hostJoinPanel, "hostJoinPanel");
-		outerPanelForCardLayout.add(hostPanel, "hostPanel");
-		outerPanelForCardLayout.add(joinPanel, "joinPanel");
-		outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
-		outerPanelForCardLayout.add(guestTetrisPanel, "guestTetrisPanel");
 	}
 	
 	public void createHelpMenu(){
