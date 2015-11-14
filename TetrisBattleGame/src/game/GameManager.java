@@ -31,7 +31,7 @@ public class GameManager {
 	private boolean canMoveDown() {
 		// if the spot is occupied and it's not my piece then false
 		//hi iman
-		
+		//iman
 	}
 	
 	// if I occupy a certain given spot
