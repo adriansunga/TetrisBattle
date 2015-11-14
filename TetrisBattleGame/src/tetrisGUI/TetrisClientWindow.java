@@ -54,9 +54,7 @@ public class TetrisClientWindow extends JFrame{
 	
 		
 		setVisible(true);
-		
-		//TODO
-		//set default operation close on exit
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public static void main(String[] args) {
