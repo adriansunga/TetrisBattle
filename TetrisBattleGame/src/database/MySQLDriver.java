@@ -56,11 +56,12 @@ public class MySQLDriver {
 		return false;
 	}
 	
-	public void add(String userName, String password) { //adds a user to the database
+	public void add(String userName, char[] password) { //adds a user to the database
 		try {
 			PreparedStatement ps = con.prepareStatement(addUser);
+			String spassword = new String(password);
 			ps.setString(1, userName);
-			ps.setString(2, password);
+			ps.setString(2, spassword);
 			ps.executeUpdate();
 			System.out.println("Adding username: " + userName + "to the database.");
 		} catch (SQLException e) {
@@ -69,12 +70,13 @@ public class MySQLDriver {
 		}
 	}
 	
-	public boolean passwordMatches(String userName, String password) { //checks if the given username and password match
+	public boolean passwordMatches(String userName, char[] password) { //checks if the given username and password match
 		try {
 			PreparedStatement ps = con.prepareStatement(checkPassword);
 			ResultSet result = ps.executeQuery();
+			String spassword = new String(password);
 			while(result.next()) {
-				if(result.getString("USERNAME").equals(userName) && result.getString("PASSWORD").equals(password))
+				if(result.getString("USERNAME").equals(userName) && result.getString("PASSWORD").equals(spassword))
 					return true;
 			} 
 		} catch (SQLException e) {

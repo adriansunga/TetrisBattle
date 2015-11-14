@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class WelcomePanel extends JPanel{
@@ -13,10 +14,13 @@ public class WelcomePanel extends JPanel{
 	private JPanel outerPanelForCardLayout;
 	
 	private JButton play;
+	private JLabel welcome;
+	private String username;
 
 	public WelcomePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, String username){
 		this.outerPanelForCardLayout = outerPanelForCardLayout; 
 		this.cardLayout = cardLayout;
+		this.username = username;
 		initializeVariables();
 		createGUI();
 		addActionAdapters();
@@ -24,10 +28,12 @@ public class WelcomePanel extends JPanel{
 	
 	public void initializeVariables() {
 		play = new JButton("Play");
+		welcome = new JLabel("Welcome " + username + "!");
 	}
 	
 	public void createGUI() {
 		add(play);
+		add(welcome);
 	}
 	
 	public void addActionAdapters() {
