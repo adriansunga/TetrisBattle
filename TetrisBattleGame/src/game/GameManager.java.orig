@@ -32,14 +32,14 @@ public class GameManager {
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMoveDown() {
 <<<<<<< HEAD
-		// if the spot is occupied and it's not my piece then false
-		//hi iman
-		//adrian
-=======
 		for (Point point : currentPieceLocation) {
 			
 		}
->>>>>>> 906d1317e217107dbdeb8785da266636174bab55
+=======
+		// if the spot is occupied and it's not my piece then false
+		//hi iman
+		//iman
+>>>>>>> c6fcf6b6a739b519391d4a8a59a309410bf1dfa4
 	}
 
 	// if I occupy a certain given spot

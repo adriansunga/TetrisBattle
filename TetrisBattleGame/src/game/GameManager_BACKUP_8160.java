@@ -25,21 +25,25 @@ public class GameManager {
 			}
 		}
 		return true;
+<<<<<<< HEAD
 		//nat
+=======
+		//iman
+>>>>>>> f678c30ef5fbfbc02b54f1130f8b5a99f0ca19f4
 	}
 
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMoveDown() {
 <<<<<<< HEAD
-		// if the spot is occupied and it's not my piece then false
-		//hi iman
-		//adrian
-=======
 		for (Point point : currentPieceLocation) {
 			
 		}
->>>>>>> 906d1317e217107dbdeb8785da266636174bab55
+=======
+		// if the spot is occupied and it's not my piece then false
+		//hi iman
+		
+>>>>>>> f678c30ef5fbfbc02b54f1130f8b5a99f0ca19f4
 	}
 
 	// if I occupy a certain given spot
