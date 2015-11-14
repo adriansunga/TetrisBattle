@@ -45,6 +45,8 @@ public class HostPanel extends JPanel{
 		
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
+				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout);
+				outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
 				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");
 			}
 		});

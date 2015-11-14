@@ -19,8 +19,8 @@ public class WelcomePanel extends JPanel{
 
 	public WelcomePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, String username){
 		this.outerPanelForCardLayout = outerPanelForCardLayout; 
-		this.cardLayout = cardLayout;
 		this.username = username;
+		this.cardLayout = cardLayout;
 		initializeVariables();
 		createGUI();
 		addActionAdapters();
@@ -32,13 +32,15 @@ public class WelcomePanel extends JPanel{
 	}
 	
 	public void createGUI() {
-		add(play);
 		add(welcome);
+		add(play);
 	}
 	
 	public void addActionAdapters() {
 		play.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae) {
+				HostJoinPanel hostJoinPanel = new HostJoinPanel(cardLayout, outerPanelForCardLayout);
+				outerPanelForCardLayout.add(hostJoinPanel, "hostJoinPanel");
 				cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");
 			}
 		});
