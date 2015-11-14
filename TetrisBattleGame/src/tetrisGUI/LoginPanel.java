@@ -21,9 +21,6 @@ public class LoginPanel extends JPanel{
 	private JTextField loginTF;
 	private JTextField passwordTF;
 	
-	//picture for tetris battle logo
-	private Image tetrisBattleImage;
-	
 	private JButton loginButton;
 	private JLabel orLabel;
 	private JButton createUserButton;
@@ -65,6 +62,7 @@ public class LoginPanel extends JPanel{
 		add(passwordTF);
 		
 		add(loginButton);
+		add(orLabel);
 		add(createUserButton);
 		add(guestButton);
 		
