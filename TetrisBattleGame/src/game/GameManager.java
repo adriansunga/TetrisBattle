@@ -11,11 +11,35 @@ public class GameManager {
 	private final int matrixWidth = 10;
 	private Point[] currentPieceLocation;
 	private Color backgroundColor = Color.GRAY;
+	private int pieceSpeed = 1000; // in ms
 
 	public GameManager() {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		Arrays.fill(boardTiles, Color.GRAY);
 
+	}
+
+	public void dropPiece(Piece piece) {
+		boolean canDrop = true;
+		while (canDrop) {
+			try {
+			    Thread.sleep(pieceSpeed); 
+			    
+			    if (canMoveDown()) {
+			    	
+			    }
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
+	}
+
+	// TODO: WARNING: there may be some null pointer errors as we need to
+	// find a way to handle when the piece is off of the board when it starts
+	// (for now im neglecting that case. we could maybe avoid this by having the
+	// first few indexes of the matrix be above the board? idk)
+	private void setCurrentPieceLocation(Piece piece) {
+		
 	}
 
 	// Check to see if you should send a line
@@ -41,8 +65,6 @@ public class GameManager {
 				return false;
 			}
 		}
-		
-		
 		return true;
 	}
 
@@ -57,14 +79,14 @@ public class GameManager {
 		System.out.println("isMyPiece is returning false");
 		return false;
 	}
-	
+
 	// Returns next lowest point (if null, then out of bounds)
 	private Point nextPoint(Point p) {
 		// Is at bottom?
 		if (p.getY() == matrixHeight - 1) {
 			return null;
-		} 
-		return new Point((int)p.getX(),(int) p.getY() + 1);
+		}
+		return new Point((int) p.getX(), (int) p.getY() + 1);
 	}
 
 }
