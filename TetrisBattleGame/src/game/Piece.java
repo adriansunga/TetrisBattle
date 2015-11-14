@@ -8,7 +8,7 @@ public abstract class Piece
 {	
 	private Color color;
 
-	private ArrayList<Point> locations;
+	private ArrayList<Point> location;
 	
 	protected boolean[][] orientations;	
 	private int index;	//orientation index
@@ -22,7 +22,7 @@ public abstract class Piece
 	
 	public void moveDown()
 	{
-		for(Point p : locations)
+		for(Point p : location)
 		{
 			p.setLocation(p.getX(), p.getY()+1);
 		}
@@ -34,6 +34,11 @@ public abstract class Piece
 		index %= 4;
 		
 		return this;
+	}
+	
+	public ArrayList<Point> getLocation()
+	{
+		return location;
 	}
 	
 	public boolean[] getOrientation()
