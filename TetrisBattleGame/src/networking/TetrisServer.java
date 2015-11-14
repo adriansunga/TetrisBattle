@@ -12,7 +12,7 @@ public class TetrisServer {
 		ttVector = new Vector<TetrisThread>();
 		try {
 			ServerSocket ss = new ServerSocket(port);
-			while(ttVector.size() < 1) {
+			while(ttVector.size() < 2) {
 				Socket s = ss.accept();
 				System.out.println("Connected: " + s.getInetAddress());
 				TetrisThread tt = new TetrisThread(s, this);
