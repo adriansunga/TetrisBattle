@@ -16,21 +16,21 @@ import database.MySQLDriver;
 public class LoginPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	JLabel loginLabel;
-	JLabel passwordLabel;
-	JTextField loginTF;
-	JTextField passwordTF;
+	private JLabel loginLabel;
+	private JLabel passwordLabel;
+	private JTextField loginTF;
+	private JTextField passwordTF;
 	
 	//picture for tetris battle logo
-	Image tetrisBattleImage;
+	private Image tetrisBattleImage;
 	
-	JButton loginButton;
-	JLabel orLabel;
-	JButton createUserButton;
-	JButton guestButton;
+	private JButton loginButton;
+	private JLabel orLabel;
+	private JButton createUserButton;
+	private JButton guestButton;
 	
-	CardLayout cardLayout;
-	JPanel outerPanelForCardLayout;
+	private CardLayout cardLayout;
+	private JPanel outerPanelForCardLayout;
 	
 	//constructor
 	public LoginPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){

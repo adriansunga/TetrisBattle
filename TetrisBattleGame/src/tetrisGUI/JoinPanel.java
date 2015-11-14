@@ -12,14 +12,14 @@ import javax.swing.JTextField;
 public class JoinPanel extends JPanel{
 
 	private static final long serialVersionUID = -3365559486379271363L;
-	JLabel ipLabel;
-	JTextField ipTF;
-	JLabel portLabel;
-	JTextField portTF;
-	JButton continueButton;
+	private JLabel ipLabel;
+	private JTextField ipTF;
+	private JLabel portLabel;
+	private JTextField portTF;
+	private JButton continueButton;
 	
-	CardLayout cardLayout;
-	JPanel outerPanelForCardLayout;
+	private CardLayout cardLayout;
+	private JPanel outerPanelForCardLayout;
 	
 	//constructor
 	public JoinPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
