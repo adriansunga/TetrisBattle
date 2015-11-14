@@ -10,6 +10,7 @@ public class GameManager {
 	private final int matrixHeight = 20;
 	private final int matrixWidth = 10;
 	private Point[] currentPieceLocation;
+	private Color backgroundColor = Color.GRAY;
 
 	public GameManager() {
 		boardTiles = new Color[matrixHeight][matrixWidth];
@@ -20,28 +21,33 @@ public class GameManager {
 	// Check to see if you should send a line
 	private boolean isLineFull() {
 		for (int i = 0; i < matrixWidth; i++) {
-			if (boardTiles[matrixHeight - 1][i] == Color.GRAY) {
+			if (boardTiles[matrixHeight - 1][i].equals(backgroundColor)) {
 				return false;
 			}
 		}
 		return true;
-		//nat
 	}
 
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMoveDown() {
 		for (Point point : currentPieceLocation) {
-			//if ()
+			Point nextPoint = nextPoint(point);
+			if (nextPoint.equals(null)) {
+				return false;
+			}
+			// if there's someone else's piece blocking you
+			if (!boardTiles[nextPoint.x][nextPoint.y].equals(backgroundColor) && !isMyPiece(nextPoint)) {
+				return false;
+			}
 		}
 		
 		
-		return false;
+		return true;
 	}
 
 	// if I occupy a certain given spot
-	private boolean isMyPiece(int x, int y) {
-		Point thisSpot = new Point(x, y);
+	private boolean isMyPiece(Point thisSpot) {
 		for (Point point : currentPieceLocation) {
 			if (thisSpot.equals(point)) {
 				System.out.println("isMyPiece is returning true");
