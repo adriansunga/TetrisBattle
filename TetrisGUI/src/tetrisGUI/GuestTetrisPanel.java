@@ -1,3 +1,5 @@
+package tetrisGUI;
+
 import java.awt.CardLayout;
 import java.awt.Image;
 
@@ -29,11 +31,13 @@ public class GuestTetrisPanel extends JPanel{
 	private void initializeVariables(){
 		boardPanel = new BoardPanel();
 	}
+	
 	private void createGUI(){
 		add(new JLabel("Top"));
 		add(boardPanel);
 		add(new JLabel("Bottom"));
 	}
+	
 	private void addActionAdapters(){
 		
 	}
