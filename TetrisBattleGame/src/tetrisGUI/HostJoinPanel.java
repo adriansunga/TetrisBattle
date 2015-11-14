@@ -45,6 +45,8 @@ public class HostJoinPanel extends JPanel{
 		//host button clicked
 		hostButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
+				HostPanel hostPanel = new HostPanel(cardLayout, outerPanelForCardLayout);
+				outerPanelForCardLayout.add(hostPanel, "hostPanel");
 				cardLayout.show(outerPanelForCardLayout, "hostPanel");
 			}
 		});
@@ -53,6 +55,8 @@ public class HostJoinPanel extends JPanel{
 		//join button clicked
 		joinButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
+				JoinPanel joinPanel = new JoinPanel(cardLayout, outerPanelForCardLayout);
+				outerPanelForCardLayout.add(joinPanel, "joinPanel");
 				cardLayout.show(outerPanelForCardLayout, "joinPanel");
 			}
 		});
