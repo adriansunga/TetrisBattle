@@ -5,7 +5,11 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class TilePanel extends JPanel{
-	Color color = Color.BLACK;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3396514054069793883L;
+	private Color color = Color.BLACK;
 	
 	public TilePanel(){
         setBackground(color);  

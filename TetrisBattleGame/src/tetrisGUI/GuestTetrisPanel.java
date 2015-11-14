@@ -7,18 +7,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GuestTetrisPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -585498416770344734L;
 	private JLabel tetrisLabel;
-	JPanel sideBarPanel;
-	JPanel scorePanel;
-	JPanel nextPeicePanel;
-	JLabel scoreLabel;
-	JLabel scoreTextLabel;
-	JLabel nextPieceTextLabel;
-	Image nextPieceImage;
-	BoardPanel boardPanel;
+	private JPanel sideBarPanel;
+	private JPanel scorePanel;
+	private JPanel nextPeicePanel;
+	private JLabel scoreLabel;
+	private JLabel scoreTextLabel;
+	private JLabel nextPieceTextLabel;
+	private Image nextPieceImage;
+	private BoardPanel boardPanel;
 	
-	CardLayout cardLayout;
-	JPanel outerPanelForCardLayout;
+	private CardLayout cardLayout;
+	private JPanel outerPanelForCardLayout;
 	
 	public GuestTetrisPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
 		this.cardLayout = cardLayout;

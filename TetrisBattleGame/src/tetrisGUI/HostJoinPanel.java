@@ -11,12 +11,12 @@ import javax.swing.JPanel;
 public class HostJoinPanel extends JPanel{
 
 	private static final long serialVersionUID = -3365559486379271363L;
-	JLabel tetrisBattleLabel;
-	JButton hostButton;
-	JButton joinButton;
+	private JLabel tetrisBattleLabel;
+	private JButton hostButton;
+	private JButton joinButton;
 	
-	CardLayout cardLayout;
-	JPanel outerPanelForCardLayout;
+	private CardLayout cardLayout;
+	private JPanel outerPanelForCardLayout;
 	
 	//constructor
 	public HostJoinPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){

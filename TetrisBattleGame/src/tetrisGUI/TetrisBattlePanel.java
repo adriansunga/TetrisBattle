@@ -14,8 +14,8 @@ public class TetrisBattlePanel extends JPanel{
 	private static final long serialVersionUID = -3365559486379271363L;
 
 	
-	CardLayout cardLayout;
-	JPanel outerPanelForCardLayout;
+	private CardLayout cardLayout;
+	private JPanel outerPanelForCardLayout;
 	
 	//constructor
 	public TetrisBattlePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
