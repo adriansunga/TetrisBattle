@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.Timer;
@@ -21,24 +20,20 @@ public class GameManager {
 	private int pieceSpeed = 1000; // in ms
 	
 	private BoardPanel boardPanel;
-	private PiecePlacer piecePlacer;
 	
+	private PiecePlacer piecePlacer;
+	private Piece currentPiece;
 	private Timer dropPieceTimer;
 	private boolean canDrop;
-	
-	private Piece currentPiece;
 
-	public GameManager() {
+	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		Arrays.fill(boardTiles, Color.GRAY);
-		
-		boardPanel = new BoardPanel();
-		piecePlacer = new PiecePlacer();
-		
-		dropPieceTimer = null;
-		canDrop = true;
+		this.piecePlacer = piecePlacer;
 		currentPiece = null;
-
+		boardPanel = new BoardPanel();
+		
+		canDrop = true;
 	}
 	
 	public void nextPiece()
@@ -59,7 +54,7 @@ public class GameManager {
 				boardPanel.revalidate();
 				boardPanel.repaint();
 				
-				canDrop = checkIfDroppable();
+				canDrop = canMoveDown();
 				
 				if(!canDrop)
 				{	
@@ -71,27 +66,14 @@ public class GameManager {
 		dropPieceTimer.start();
 	}
 	
-	private boolean checkIfDroppable()
-	{
-		ArrayList<Point> loc = currentPiece.getLocation();
-		
-		for(Point p : loc)
-		{
-			if(boardTiles[(int)p.getX()][(int)p.getY()+1] == Color.GRAY)
-			{
-				return false;
-			}
-		}
-		
-		return true;
-	}
+	
 
 	// TODO: WARNING: there may be some null pointer errors as we need to
 	// find a way to handle when the piece is off of the board when it starts
 	// (for now im neglecting that case. we could maybe avoid this by having the
 	// first few indexes of the matrix be above the board? idk)
 	private void setCurrentPieceLocation(Piece piece) {
-	
+		
 	}
 
 	// Check to see if you should send a line
