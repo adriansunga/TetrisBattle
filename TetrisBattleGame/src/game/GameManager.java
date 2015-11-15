@@ -35,11 +35,13 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
-		boardPanel = new BoardPanel(this);
 		
 		canDrop = true;
 	}
 	
+	public void setBoardPanel(BoardPanel bp) {
+		boardPanel = bp;
+	}
 	public void nextPiece()
 	{
 		currentPiece = piecePlacer.nextPiece();
@@ -54,7 +56,7 @@ public class GameManager {
 			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
-				currentPiece.moveDown();
+				currentPiece.dropDown();
 				boardPanel.revalidate();
 				boardPanel.repaint();
 				
@@ -129,9 +131,9 @@ public class GameManager {
 
 	public void move(String direction) {
 		if (direction.equals("left") && canMoveLeft()) {
-			
+			currentPiece.shiftLeft();
 		} else if (direction.equals("right") && canMoveRight()){ // right
-			
+			currentPiece.shiftRight();
 		}
 	}
 	
