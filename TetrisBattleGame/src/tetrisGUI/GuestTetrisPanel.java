@@ -72,6 +72,7 @@ public class GuestTetrisPanel extends JPanel{
 		//center 
 		centerPanel = new JPanel();
 		boardPanel = new BoardPanel(gameManager);
+		gameManager.setBoardPanel(boardPanel);
 		
 		//west
 		sideBarPanel = new JPanel();
