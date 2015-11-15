@@ -21,13 +21,17 @@ public class GameManager {
 	}
 
 	public void dropPiece(Piece piece) {
+		setCurrentPieceLocation(piece);
 		boolean canDrop = true;
 		while (canDrop) {
 			try {
 			    Thread.sleep(pieceSpeed); 
 			    
 			    if (canMoveDown()) {
+			    	lowerPiece(); //deals with currentPosition array
 			    	
+			    } else {
+			    	canDrop = false;
 			    }
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
