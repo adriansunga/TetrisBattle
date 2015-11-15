@@ -17,7 +17,7 @@ public class GameManager {
 	private final int matrixWidth = 10;
 	private Point[] currentPieceLocation;
 	private Color backgroundColor = Color.GRAY;
-	private int pieceSpeed = 1000; // in ms
+	private int pieceSpeed = 1000; // in milliseconds
 	
 	private BoardPanel boardPanel;
 	
@@ -25,25 +25,35 @@ public class GameManager {
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
 	private boolean canDrop;
+	
+	private int score;
 
 	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		Arrays.fill(boardTiles, Color.GRAY);
 		this.piecePlacer = piecePlacer;
-		currentPiece = null;
 		boardPanel = new BoardPanel();
 		
 		canDrop = true;
+		
 	}
 	
-	public void nextPiece()
+	
+	public void play()
+	{
+		// Can't put in constructor if gameManager is created before time of use
+		currentPiece = piecePlacer.nextPiece();
+	}
+	
+	private void nextPiece()
 	{
 		currentPiece = piecePlacer.nextPiece();
 		
 		dropPiece(currentPiece);
 	}
 
-	public void dropPiece(Piece piece) {
+	private void dropPiece(Piece piece)
+	{
 		currentPiece = piece;
 		
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener(){
@@ -58,12 +68,51 @@ public class GameManager {
 				
 				if(!canDrop)
 				{	
+					canDrop = true;
 					dropPieceTimer.stop();
 					nextPiece();
 				}
 			}
 		});		
 		dropPieceTimer.start();
+	}
+	
+	public void sendGarbageLine()
+	{
+		//Networking
+		//tetrisClient.sendMessage("garbageline");
+	}
+	
+	public void receiveGarbageLine()
+	{
+		//Determine location of notch
+		int notchLoc = (int) Math.random()*10;
+		
+		//Populate row with vals accounting for notch
+		boolean[] garbageRow = new boolean[10];
+		for(int i = 0; i < garbageRow.length; i++)
+		{
+			if(i != notchLoc)
+			{
+				garbageRow[i] = true;
+			}
+			else
+			{
+				garbageRow[i] = false;
+			}
+		}
+		
+		//Change tileMatrix accordingly
+		
+		
+		//refresh boardPanel
+		
+	}
+	
+	private void increaseSpeed()
+	{
+		//Tentative factor
+		pieceSpeed /= 8;
 	}
 	
 	
@@ -89,7 +138,7 @@ public class GameManager {
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMoveDown() {
-		for (Point point : currentPieceLocation) {
+		for (Point point : currentPiece.getLocation()) {
 			Point nextPoint = nextPoint(point);
 			if (nextPoint.equals(null)) {
 				return false;
