@@ -24,13 +24,30 @@ public abstract class Piece
 	}
 	
 	
-	public void moveDown()
+	public void dropDown()
 	{
 		for(Point p : location)
 		{
 			p.setLocation(p.getX(), p.getY()+1);
 		}
 	}
+	
+	public void shiftRight()
+	{
+		for(Point p : location)
+		{
+			p.setLocation(p.getX()+1, p.getY());
+		}
+	}
+	
+	public void shiftLeft()
+	{
+		for(Point p : location)
+		{
+			p.setLocation(p.getX()-1, p.getY());
+		}
+	}
+	
 	
 	public Piece rotate()
 	{

@@ -27,11 +27,14 @@ public class GameManager {
 	private boolean canDrop;
 	
 	private int score;
+	
+	private boolean isMultiplayer;
 
-	public GameManager(PiecePlacer piecePlacer) {
+	public GameManager(PiecePlacer piecePlacer, boolean isMultiplayer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		Arrays.fill(boardTiles, Color.GRAY);
 		this.piecePlacer = piecePlacer;
+		this.isMultiplayer = isMultiplayer;
 		boardPanel = new BoardPanel();
 		
 		canDrop = true;
@@ -60,7 +63,7 @@ public class GameManager {
 			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
-				currentPiece.moveDown();
+				currentPiece.dropDown();
 				boardPanel.revalidate();
 				boardPanel.repaint();
 				
@@ -115,6 +118,33 @@ public class GameManager {
 		pieceSpeed /= 8;
 	}
 	
+	
+	public void rotatePiece()
+	{
+		currentPiece.rotate();
+		
+		//refresh board?
+		//boardPanel.revalidate();
+		//boardPanel.repaint();
+	}
+	
+	public void shiftRight()
+	{
+		currentPiece.shiftRight();
+		
+		//refresh board?
+		//boardPanel.revalidate();
+		//boardPanel.repaint();
+	}
+	
+	public void shiftLeft()
+	{
+		currentPiece.shiftLeft();
+		
+		//refresh board?
+		//boardPanel.revalidate();
+		//boardPanel.repaint();
+	}
 	
 
 	// TODO: WARNING: there may be some null pointer errors as we need to
