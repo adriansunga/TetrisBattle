@@ -35,7 +35,6 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
-		testFunction();
 		canDrop = true;
 	}
 	
@@ -138,7 +137,7 @@ public class GameManager {
 		
 	}
 	
-	private void testFunction() {
+	public void testFunction() {
 		boardTiles[5][5] = Color.red;
 		updateView();
 	}
