@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
@@ -40,6 +41,8 @@ public class GuestTetrisPanel extends JPanel{
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 	
+	private Image bg;
+	
 	public GuestTetrisPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
 		this.cardLayout = cardLayout;
 		this.outerPanelForCardLayout = outerPanelForCardLayout;
@@ -49,6 +52,9 @@ public class GuestTetrisPanel extends JPanel{
 	}
 	
 	private void initializeVariables(){
+		
+		ImageIcon image2 = new ImageIcon("images/backgrounds/GuestBackground.jpg");
+		bg = image2.getImage();
 		
 		//north
 		tetrisTitle = new JLabel("Tetris",JLabel.CENTER);
@@ -75,6 +81,7 @@ public class GuestTetrisPanel extends JPanel{
 		nextPieceTextLabel.setFont(font);
 		nextPieceImageButton = new JButton();
 		
+		//TODO make it get next peice from manager
 		ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
 		Image img = originalButton.getImage();
 		Image newImage = img.getScaledInstance(originalButton.getIconWidth()/(10), originalButton.getIconHeight()/10, java.awt.Image.SCALE_SMOOTH);
@@ -87,10 +94,15 @@ public class GuestTetrisPanel extends JPanel{
 	
 	private void createGUI(){
 		
+		
+		
 		setLayout(new BorderLayout());
+		
 		
 		//north
 		add(tetrisTitle, BorderLayout.NORTH);
+		//add(tetrisTitle);
+		
 		
 		//west
 		sideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
@@ -112,13 +124,22 @@ public class GuestTetrisPanel extends JPanel{
 		sideBarPanel.add(Box.createGlue());
 		
 		add(sideBarPanel, BorderLayout.WEST);
-		
+		//add(sideBarPanel);
+				
 		//center
 		centerPanel.add(boardPanel);
 		add(centerPanel, BorderLayout.CENTER);
+		//add(centerPanel);
+		
 	}
 	
 	private void addActionAdapters(){
+		
+	}
+	
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
 		
 	}
 	
