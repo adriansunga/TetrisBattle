@@ -21,6 +21,8 @@ public class GameManager {
 	private int pieceSpeed = 1000; // in ms
 	
 	private BoardPanel boardPanel;
+	private PiecePlacer piecePlacer;
+	
 	private Timer dropPieceTimer;
 	private boolean canDrop;
 	
@@ -31,10 +33,19 @@ public class GameManager {
 		Arrays.fill(boardTiles, Color.GRAY);
 		
 		boardPanel = new BoardPanel();
+		piecePlacer = new PiecePlacer();
+		
 		dropPieceTimer = null;
 		canDrop = true;
 		currentPiece = null;
 
+	}
+	
+	public void nextPiece()
+	{
+		currentPiece = piecePlacer.nextPiece();
+		
+		dropPiece(currentPiece);
 	}
 
 	public void dropPiece(Piece piece) {
@@ -53,11 +64,11 @@ public class GameManager {
 				if(!canDrop)
 				{	
 					dropPieceTimer.stop();
+					nextPiece();
 				}
 			}
 		});		
 		dropPieceTimer.start();
-	
 	}
 	
 	private boolean checkIfDroppable()
