@@ -122,7 +122,7 @@ public class TetrisBattlePanel extends JPanel{
 		
 		//north
 		//TODO delete this line
-		oppUsername = "Oponent's name";
+		oppUsername = "oppName";
 		oppTetrisTitle = new JLabel(oppUsername,JLabel.CENTER);
 		oppTetrisTitle.setFont(font);
 		
