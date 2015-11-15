@@ -136,7 +136,12 @@ public class TetrisBattlePanel extends JPanel{
 		//center 
 		oppCenterPanel = new JPanel();
 		
-		oppBoardPanel = new BoardPanel();
+		//TODO
+		//delete this, this needs to be passed in by networking
+		PiecePlacer DELETEpiecePlacer = new PiecePlacer();
+		GameManager DELETEgameManager = new GameManager(DELETEpiecePlacer);
+		oppBoardPanel = new BoardPanel(DELETEgameManager);
+		//TODO
 		
 		//west
 		oppSideBarPanel = new JPanel();
@@ -271,4 +276,6 @@ public class TetrisBattlePanel extends JPanel{
 	protected void paintComponent(Graphics g) {
 		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
+	
+
 }

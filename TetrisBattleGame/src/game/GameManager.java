@@ -16,7 +16,7 @@ public class GameManager {
 	private final int matrixHeight = 20;
 	private final int matrixWidth = 10;
 	private Point[] currentPieceLocation;
-	private Color backgroundColor = Color.GRAY;
+	private Color backgroundColor = Color.BLACK;
 	private int pieceSpeed = 1000; // in ms
 	
 	private BoardPanel boardPanel;
@@ -28,7 +28,11 @@ public class GameManager {
 
 	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
-		Arrays.fill(boardTiles, Color.GRAY);
+		for(int i = 0; i < matrixHeight; i++){
+			for(int j = 0; j < matrixWidth; j++){
+				boardTiles[i][j] = backgroundColor;
+			}
+		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
 		boardPanel = new BoardPanel(this);
