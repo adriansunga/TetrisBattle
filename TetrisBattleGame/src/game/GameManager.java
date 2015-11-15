@@ -12,11 +12,12 @@ public class GameManager {
 	private Point[] currentPieceLocation;
 	private Color backgroundColor = Color.GRAY;
 	private int pieceSpeed = 1000; // in ms
+	private PiecePlacer piecePlacer;
 
-	public GameManager() {
+	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		Arrays.fill(boardTiles, Color.GRAY);
-
+		this.piecePlacer = piecePlacer;
 	}
 
 	public void dropPiece(Piece piece) {
