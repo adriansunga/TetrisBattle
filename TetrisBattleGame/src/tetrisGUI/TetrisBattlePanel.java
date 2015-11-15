@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import game.GameManager;
+import game.PiecePlacer;
+
 public class TetrisBattlePanel extends JPanel{
 
 	private static final long serialVersionUID = -3365559486379271363L;
@@ -57,6 +60,9 @@ public class TetrisBattlePanel extends JPanel{
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 	
+	private GameManager gameManager;
+	private PiecePlacer piecePlacer;
+	
 	//constructor
 	public TetrisBattlePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
 		this.cardLayout = cardLayout;
@@ -75,15 +81,16 @@ public class TetrisBattlePanel extends JPanel{
 		LeftPanel.setLayout(new BorderLayout());
 
 		
+		piecePlacer = new PiecePlacer();
+		gameManager = new GameManager(piecePlacer);
+
 		//north
-		username = "My name";
-		tetrisTitle = new JLabel(username,JLabel.CENTER);
+		tetrisTitle = new JLabel("Tetris",JLabel.CENTER);
 		tetrisTitle.setFont(font);
-		
+
 		//center 
 		centerPanel = new JPanel();
-		
-		boardPanel = new BoardPanel();
+		boardPanel = new BoardPanel(gameManager);
 		
 		//west
 		sideBarPanel = new JPanel();

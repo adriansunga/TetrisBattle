@@ -12,6 +12,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import game.GameManager;
+
 public class BoardPanel extends JPanel {
 	/**
 	 * 
@@ -19,8 +21,10 @@ public class BoardPanel extends JPanel {
 	private static final long serialVersionUID = 1705626207127777875L;
 	private TilePanel[][] tileMatrix;
 	// private GameManager gameManager;
-
-	public BoardPanel() {
+	private GameManager gm;
+	
+	public BoardPanel(GameManager gm) {
+		this.gm = gm;
 		initializeVariables();
 		createGUI();
 

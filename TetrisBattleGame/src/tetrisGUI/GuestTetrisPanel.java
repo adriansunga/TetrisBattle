@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import game.GameManager;
+import game.PiecePlacer;
+
 public class GuestTetrisPanel extends JPanel{
 	/**
 	 * 
@@ -41,6 +44,9 @@ public class GuestTetrisPanel extends JPanel{
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 	
+	private GameManager gameManager;
+	private PiecePlacer piecePlacer;
+	
 	private Image bg;
 	
 	public GuestTetrisPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
@@ -56,13 +62,16 @@ public class GuestTetrisPanel extends JPanel{
 		ImageIcon image2 = new ImageIcon("images/backgrounds/GuestBackground.jpg");
 		bg = image2.getImage();
 		
+		piecePlacer = new PiecePlacer();
+		gameManager = new GameManager(piecePlacer);
+
 		//north
 		tetrisTitle = new JLabel("Tetris",JLabel.CENTER);
 		tetrisTitle.setFont(titleFont);
-		
+
 		//center 
 		centerPanel = new JPanel();
-		boardPanel = new BoardPanel();
+		boardPanel = new BoardPanel(gameManager);
 		
 		//west
 		sideBarPanel = new JPanel();
