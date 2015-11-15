@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
@@ -50,7 +51,7 @@ public class TetrisBattlePanel extends JPanel{
 	private JPanel oppCenterPanel;
 	private BoardPanel oppBoardPanel;
 	
-	
+	private Image bg;
 	
 	
 	private CardLayout cardLayout;
@@ -67,8 +68,12 @@ public class TetrisBattlePanel extends JPanel{
 	
 	private void initializeVariables(){
 		
+		ImageIcon image2 = new ImageIcon("images/backgrounds/vs.jpg");
+		bg = image2.getImage();
+		
 		LeftPanel = new JPanel();
 		LeftPanel.setLayout(new BorderLayout());
+
 		
 		//north
 		username = "My name";
@@ -77,13 +82,16 @@ public class TetrisBattlePanel extends JPanel{
 		
 		//center 
 		centerPanel = new JPanel();
+		
 		boardPanel = new BoardPanel();
 		
 		//west
 		sideBarPanel = new JPanel();
+		
 		sideBarPanel.setLayout(new BoxLayout(sideBarPanel, BoxLayout.Y_AXIS));
 		
 		scorePanel = new JPanel();
+		
 		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
 		scoreLabel = new JLabel("Lines Sent:");
 		scoreLabel.setFont(font);
@@ -91,6 +99,7 @@ public class TetrisBattlePanel extends JPanel{
 		scoreTextLabel = new JLabel(Integer.toString(score));
 		
 		nextPeicePanel = new JPanel();
+		
 		nextPeicePanel.setLayout(new BoxLayout(nextPeicePanel, BoxLayout.Y_AXIS));
 		nextPieceTextLabel = new JLabel("Next Piece:");
 		nextPieceTextLabel.setFont(font);
@@ -108,6 +117,7 @@ public class TetrisBattlePanel extends JPanel{
 		
 		
 		RightPanel = new JPanel();
+		
 		RightPanel.setLayout(new BorderLayout());
 		
 		//north
@@ -118,10 +128,12 @@ public class TetrisBattlePanel extends JPanel{
 		
 		//center 
 		oppCenterPanel = new JPanel();
+		
 		oppBoardPanel = new BoardPanel();
 		
 		//west
 		oppSideBarPanel = new JPanel();
+	
 		oppSideBarPanel.setLayout(new BoxLayout(oppSideBarPanel, BoxLayout.Y_AXIS));
 		
 		oppScorePanel = new JPanel();
@@ -132,6 +144,7 @@ public class TetrisBattlePanel extends JPanel{
 		oppScoreTextLabel = new JLabel(Integer.toString(oppScore));
 		
 		oppNextPeicePanel = new JPanel();
+
 		oppNextPeicePanel.setLayout(new BoxLayout(oppNextPeicePanel, BoxLayout.Y_AXIS));
 		oppNextPieceTextLabel = new JLabel("Next Piece:");
 		oppNextPieceTextLabel.setFont(font);
@@ -153,6 +166,8 @@ public class TetrisBattlePanel extends JPanel{
 
 		LeftPanel.setLayout(new BorderLayout());
 		
+		LeftPanel.setOpaque(false);
+		
 		//north
 		LeftPanel.add(tetrisTitle, BorderLayout.NORTH);
 		//LeftPanel.add(tetrisTitle);
@@ -161,13 +176,15 @@ public class TetrisBattlePanel extends JPanel{
 		//west
 		sideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 		sideBarPanel.add(Box.createGlue());
-		
+		sideBarPanel.setOpaque(false);
+		nextPeicePanel.setOpaque(false);
 		nextPeicePanel.add(nextPieceTextLabel);
 		nextPeicePanel.add(nextPieceImageButton);
 		nextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
 		sideBarPanel.add(nextPeicePanel);
 		sideBarPanel.add(Box.createGlue());
 		
+		scorePanel.setOpaque(false);
 		scorePanel.add(scoreLabel);
 		scorePanel.add(scoreTextLabel);
 		scorePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
@@ -184,6 +201,7 @@ public class TetrisBattlePanel extends JPanel{
 				
 		//center
 		centerPanel.add(boardPanel);
+		centerPanel.setOpaque(false);
 		LeftPanel.add(centerPanel, BorderLayout.CENTER);
 		//LeftPanel.add(centerPanel);
 		
@@ -198,23 +216,25 @@ public class TetrisBattlePanel extends JPanel{
 		
 		
 		RightPanel.setLayout(new BorderLayout());
-		
+		RightPanel.setOpaque(false);
 		//north
 		RightPanel.add(oppTetrisTitle, BorderLayout.NORTH);
 		//RightPanel.add(oppTetrisTitle);
 		
 		
 		//west
+		oppSideBarPanel.setOpaque(false);
 		oppSideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 		oppSideBarPanel.add(Box.createGlue());
 		
-		
+		oppNextPeicePanel.setOpaque(false);
 		oppNextPeicePanel.add(oppNextPieceTextLabel);
 		oppNextPeicePanel.add(oppNextPieceImageButton);
 		oppNextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
 		oppSideBarPanel.add(oppNextPeicePanel);
 		oppSideBarPanel.add(Box.createGlue());
 		
+		oppScorePanel.setOpaque(false);
 		oppScorePanel.add(oppScoreLabel);
 		oppScorePanel.add(oppScoreTextLabel);
 		oppScorePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
@@ -229,6 +249,7 @@ public class TetrisBattlePanel extends JPanel{
 		//RightPanel.add(oppSideBarPanel);
 				
 		//center
+		oppCenterPanel.setOpaque(false);
 		oppCenterPanel.add(oppBoardPanel);
 		RightPanel.add(oppCenterPanel, BorderLayout.CENTER);
 		//RightPanel.add(oppCenterPanel);
@@ -238,5 +259,9 @@ public class TetrisBattlePanel extends JPanel{
 	
 	private void addActionAdapters(){
 		
+	}
+	
+	protected void paintComponent(Graphics g) {
+		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
 }

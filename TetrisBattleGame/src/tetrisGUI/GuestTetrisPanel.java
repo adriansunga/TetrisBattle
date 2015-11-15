@@ -108,12 +108,14 @@ public class GuestTetrisPanel extends JPanel{
 		sideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 		sideBarPanel.add(Box.createGlue());
 		
+		scorePanel.setOpaque(false);
 		scorePanel.add(scoreLabel);
 		scorePanel.add(scoreTextLabel);
 		scorePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 		sideBarPanel.add(scorePanel);
 		sideBarPanel.add(Box.createGlue());
 		
+		nextPeicePanel.setOpaque(false);
 		nextPeicePanel.add(nextPieceTextLabel);
 		nextPeicePanel.add(nextPieceImageButton);
 		nextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
@@ -124,9 +126,11 @@ public class GuestTetrisPanel extends JPanel{
 		sideBarPanel.add(Box.createGlue());
 		
 		add(sideBarPanel, BorderLayout.WEST);
+		sideBarPanel.setOpaque(false);
 		//add(sideBarPanel);
 				
 		//center
+		centerPanel.setOpaque(false);
 		centerPanel.add(boardPanel);
 		add(centerPanel, BorderLayout.CENTER);
 		//add(centerPanel);
@@ -138,9 +142,7 @@ public class GuestTetrisPanel extends JPanel{
 	}
 	
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
 		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
-		
 	}
 	
 }
