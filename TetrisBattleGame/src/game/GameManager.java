@@ -131,16 +131,19 @@ public class GameManager {
 
 	public void move(String direction) {
 		if (direction.equals("left") && canMove("left")) {
-			setToBackground();
+			setToBackground(backgroundColor);
 			currentPiece.shiftLeft();
-		} else if (direction.equals("right") && canMove("right")) { // right
+			setToBackground(currentPiece.getColor());
+		} else if (direction.equals("right") && canMove("right")) {
 			currentPiece.shiftRight();
 		}
 	}
 
 	// sets points where piece is to black so you can redraw the new positions
-	private void setToBackground() {
-
+	private void setToBackground(Color color) {
+		for (Point point : currentPiece.getLocation()) {
+			boardTiles[point.x][point.y] = color;
+		}
 	}
 
 	public void testFunction() {
