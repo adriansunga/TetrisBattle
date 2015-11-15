@@ -18,9 +18,9 @@ public class GameManager {
 	private Point[] currentPieceLocation;
 	private Color backgroundColor = Color.BLACK;
 	private int pieceSpeed = 1000; // in ms
-	
+
 	private BoardPanel boardPanel;
-	
+
 	private PiecePlacer piecePlacer;
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
@@ -28,8 +28,8 @@ public class GameManager {
 
 	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
-		for(int i = 0; i < matrixHeight; i++){
-			for(int j = 0; j < matrixWidth; j++){
+		for (int i = 0; i < matrixHeight; i++) {
+			for (int j = 0; j < matrixWidth; j++) {
 				boardTiles[i][j] = backgroundColor;
 			}
 		}
@@ -37,54 +37,50 @@ public class GameManager {
 		currentPiece = null;
 		canDrop = true;
 	}
-	
+
 	public void setBoardPanel(BoardPanel bp) {
 		boardPanel = bp;
 	}
-	public void nextPiece()
-	{
+
+	public void nextPiece() {
 		currentPiece = piecePlacer.nextPiece();
-		
+
 		dropPiece(currentPiece);
 	}
 
 	public void dropPiece(Piece piece) {
 		currentPiece = piece;
-		
-		dropPieceTimer = new Timer(pieceSpeed, new ActionListener(){
+
+		dropPieceTimer = new Timer(pieceSpeed, new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent ae)
-			{
+			public void actionPerformed(ActionEvent ae) {
 				currentPiece.dropDown();
 				boardPanel.revalidate();
 				boardPanel.repaint();
-				
-				canDrop = canMoveDown();
-				
-				if(!canDrop)
-				{	
+
+				canDrop = canMove("down");
+
+				if (!canDrop) {
 					dropPieceTimer.stop();
 					nextPiece();
 				}
 			}
-		});		
+		});
 		dropPieceTimer.start();
 	}
-	
-	
 
 	// TODO: WARNING: there may be some null pointer errors as we need to
 	// find a way to handle when the piece is off of the board when it starts
 	// (for now im neglecting that case. we could maybe avoid this by having the
 	// first few indexes of the matrix be above the board? idk)
 	private void setCurrentPieceLocation(Piece piece) {
-		
+
 	}
 
 	// Check to see if you should send a line
-	private boolean isLineFull() {
+	private boolean isLineFull(int rowNumber) {
 		for (int i = 0; i < matrixWidth; i++) {
-			if (boardTiles[matrixHeight - 1][i].equals(backgroundColor)) {
+			if (boardTiles[rowNumber][i].equals(backgroundColor)) {
 				return false;
 			}
 		}
@@ -93,9 +89,9 @@ public class GameManager {
 
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
-	private boolean canMoveDown() {
+	private boolean canMove(String direction) {
 		for (Point point : currentPiece.getLocation()) {
-			Point nextPoint = nextPoint(point);
+			Point nextPoint = nextPoint(point, direction);
 			if (nextPoint.equals(null)) {
 				return false;
 			}
@@ -113,39 +109,49 @@ public class GameManager {
 	}
 
 	// Returns next lowest point (if null, then out of bounds)
-	private Point nextPoint(Point p) {
-		// Is at bottom?
-		if (p.getY() == matrixHeight - 1) {
-			return null;
+	private Point nextPoint(Point p, String direction) {
+		if (direction.equals("down")) {
+			// Is at bottom?
+			if (p.getY() == matrixHeight - 1) {
+				return null;
+			}
+			return new Point((int) p.getX(), (int) p.getY() + 1);
+		} else if (direction.equals("left")) {
+			if (p.getX() == 0) {
+				return null;
+			}
+			return new Point((int) p.getX() - 1, (int) p.getY());
+		} else { // right
+			if (p.getY() == matrixWidth - 1) {
+				return null;
+			}
+			return new Point((int) p.getX() + 1, (int) p.getY());
 		}
-		return new Point((int) p.getX(), (int) p.getY() + 1);
 	}
 
 	public void move(String direction) {
-		if (direction.equals("left") && canMoveLeft()) {
+		if (direction.equals("left") && canMove("left")) {
+			setToBackground();
 			currentPiece.shiftLeft();
-		} else if (direction.equals("right") && canMoveRight()){ // right
+		} else if (direction.equals("right") && canMove("right")) { // right
 			currentPiece.shiftRight();
 		}
 	}
-	
-	private boolean canMoveLeft() {
-		
+
+	// sets points where piece is to black so you can redraw the new positions
+	private void setToBackground() {
+
 	}
-	
-	private boolean canMoveRight() {
-		
-	}
-	
+
 	public void testFunction() {
 		boardTiles[5][5] = Color.red;
 		updateView();
 	}
-	
+
 	private void updateView() {
 		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
-		for (int i =0; i < matrixHeight; i++) {
-			for (int j = 0; j < matrixWidth; j++ ) {
+		for (int i = 0; i < matrixHeight; i++) {
+			for (int j = 0; j < matrixWidth; j++) {
 				tileMatrix[i][j].setColor(boardTiles[i][j]);
 			}
 		}

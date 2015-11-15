@@ -60,6 +60,7 @@ public class BoardPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvt) {
+			System.out.println("key action performed..");
 			String keyCode = actionEvt.getActionCommand();
 			switch (keyCode) {
 			case "VK_UP":
