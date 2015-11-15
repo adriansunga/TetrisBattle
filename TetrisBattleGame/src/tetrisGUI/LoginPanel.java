@@ -148,6 +148,8 @@ public class LoginPanel extends JPanel{
 					cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 				}  else if (!msql.doesExist(loginTF.getText())) //username does not exist
 					JOptionPane.showMessageDialog(null, "Username does not exist! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+				else if (loginTF.getText().equals("") || passwordTF.getPassword().length == 1) //username does not exist
+					JOptionPane.showMessageDialog(null, "Username or password not entered! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
 				else //password does not match username
 					JOptionPane.showMessageDialog(null, "Password does not match username! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
 
@@ -162,7 +164,9 @@ public class LoginPanel extends JPanel{
 				msql.connect();
 				if(msql.doesExist(loginTF.getText())) { //username already exists
 					JOptionPane.showMessageDialog(null, "Username already exists! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
-				} else { //adds the username and password to the database
+				} else if (loginTF.getText().equals("") || passwordTF.getPassword().length == 1) //username does not exist
+					JOptionPane.showMessageDialog(null, "Username or password not entered! Try again!", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+				else { //adds the username and password to the database
 					//TODO: hash the password that gets stored
 					msql.add(loginTF.getText(), passwordTF.getPassword());
 					System.out.println("user created with username: " + loginTF.getText() + " and password: " + new String(passwordTF.getPassword()));

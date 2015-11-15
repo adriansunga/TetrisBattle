@@ -3,8 +3,11 @@ package tetrisGUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,6 +19,7 @@ public class HelpMenu extends JFrame{
 	private JScrollPane jsp;
 	private JPanel infoPanel;
 	private String[] words = {"Tetris Battle Help Menu",};
+	private Image bg;
 	
 	HelpMenu() {
 		super("Help Menu");
@@ -34,5 +38,11 @@ public class HelpMenu extends JFrame{
 		jsp.getViewport().setBackground(new Color(211,191,143));
 		add(jsp);
 		setLocationRelativeTo(null);
+		ImageIcon image2 = new ImageIcon("images/backgrounds/GuestBackground.png");
+		bg = image2.getImage();
+	}
+	
+	protected void paintComponent(Graphics g) {
+		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
 }

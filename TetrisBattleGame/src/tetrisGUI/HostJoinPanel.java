@@ -30,7 +30,7 @@ public class HostJoinPanel extends JPanel{
 	private void initializeVariables(){
 		tetrisBattleLabel = new JLabel("Tetris Battle");
 		hostButton = new JButton("Host");
-		joinButton = new JButton("join");
+		joinButton = new JButton("Join");
 	}
 	
 	private void createGUI(){
