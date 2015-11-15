@@ -45,7 +45,6 @@ public class HostPanel extends JPanel{
 		
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				//TODO: go to a waiting for clients page (pass in as parameters the port)
 				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout);
 				outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
 				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");
