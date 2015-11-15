@@ -17,7 +17,7 @@ public class GameManager {
 	private final int matrixWidth = 10;
 	private Point[] currentPieceLocation;
 	private Color backgroundColor = Color.GRAY;
-	private int pieceSpeed = 1000; // in milliseconds
+	private int pieceSpeed = 1000; // in ms
 	
 	private BoardPanel boardPanel;
 	
@@ -25,45 +25,32 @@ public class GameManager {
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
 	private boolean canDrop;
-	
-	private int score;
-	
-	private boolean isMultiplayer;
 
-	public GameManager(PiecePlacer piecePlacer, boolean isMultiplayer) {
+	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		Arrays.fill(boardTiles, Color.GRAY);
 		this.piecePlacer = piecePlacer;
-		this.isMultiplayer = isMultiplayer;
-		boardPanel = new BoardPanel();
+		currentPiece = null;
+		boardPanel = new BoardPanel(this);
 		
 		canDrop = true;
-		
 	}
 	
-	
-	public void play()
-	{
-		// Can't put in constructor if gameManager is created before time of use
-		currentPiece = piecePlacer.nextPiece();
-	}
-	
-	private void nextPiece()
+	public void nextPiece()
 	{
 		currentPiece = piecePlacer.nextPiece();
 		
 		dropPiece(currentPiece);
 	}
 
-	private void dropPiece(Piece piece)
-	{
+	public void dropPiece(Piece piece) {
 		currentPiece = piece;
 		
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
-				currentPiece.dropDown();
+				currentPiece.moveDown();
 				boardPanel.revalidate();
 				boardPanel.repaint();
 				
@@ -71,7 +58,6 @@ public class GameManager {
 				
 				if(!canDrop)
 				{	
-					canDrop = true;
 					dropPieceTimer.stop();
 					nextPiece();
 				}
@@ -80,71 +66,6 @@ public class GameManager {
 		dropPieceTimer.start();
 	}
 	
-	public void sendGarbageLine()
-	{
-		//Networking
-		//tetrisClient.sendMessage("garbageline");
-	}
-	
-	public void receiveGarbageLine()
-	{
-		//Determine location of notch
-		int notchLoc = (int) Math.random()*10;
-		
-		//Populate row with vals accounting for notch
-		boolean[] garbageRow = new boolean[10];
-		for(int i = 0; i < garbageRow.length; i++)
-		{
-			if(i != notchLoc)
-			{
-				garbageRow[i] = true;
-			}
-			else
-			{
-				garbageRow[i] = false;
-			}
-		}
-		
-		//Change tileMatrix accordingly
-		
-		
-		//refresh boardPanel
-		
-	}
-	
-	private void increaseSpeed()
-	{
-		//Tentative factor
-		pieceSpeed /= 8;
-	}
-	
-	
-	public void rotatePiece()
-	{
-		currentPiece.rotate();
-		
-		//refresh board?
-		//boardPanel.revalidate();
-		//boardPanel.repaint();
-	}
-	
-	public void shiftRight()
-	{
-		currentPiece.shiftRight();
-		
-		//refresh board?
-		//boardPanel.revalidate();
-		//boardPanel.repaint();
-	}
-	
-	public void shiftLeft()
-	{
-		currentPiece.shiftLeft();
-		
-		//refresh board?
-		//boardPanel.revalidate();
-		//boardPanel.repaint();
-	}
 	
 
 	// TODO: WARNING: there may be some null pointer errors as we need to
@@ -168,7 +89,7 @@ public class GameManager {
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMoveDown() {
-		for (Point point : currentPiece.getLocation()) {
+		for (Point point : currentPieceLocation) {
 			Point nextPoint = nextPoint(point);
 			if (nextPoint.equals(null)) {
 				return false;
@@ -202,4 +123,19 @@ public class GameManager {
 		return new Point((int) p.getX(), (int) p.getY() + 1);
 	}
 
+	public void move(String direction) {
+		if (direction.equals("left") && canMoveLeft()) {
+			
+		} else if (direction.equals("right") && canMoveRight()){ // right
+			
+		}
+	}
+	
+	private boolean canMoveLeft() {
+		
+	}
+	
+	private boolean canMoveRight() {
+		
+	}
 }
