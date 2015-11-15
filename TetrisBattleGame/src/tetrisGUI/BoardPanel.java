@@ -119,4 +119,7 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	public TilePanel[][] getTileMatrix() {
+		return tileMatrix;
+	}
 }

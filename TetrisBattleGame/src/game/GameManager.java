@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 import javax.swing.Timer;
 
 import tetrisGUI.BoardPanel;
+import tetrisGUI.TilePanel;
 
 public class GameManager {
 
@@ -35,7 +35,7 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
-		
+		testFunction();
 		canDrop = true;
 	}
 	
@@ -95,7 +95,7 @@ public class GameManager {
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMoveDown() {
-		for (Point point : currentPieceLocation) {
+		for (Point point : currentPiece.getLocation()) {
 			Point nextPoint = nextPoint(point);
 			if (nextPoint.equals(null)) {
 				return false;
@@ -110,14 +110,7 @@ public class GameManager {
 
 	// if I occupy a certain given spot
 	private boolean isMyPiece(Point thisSpot) {
-		for (Point point : currentPieceLocation) {
-			if (thisSpot.equals(point)) {
-				System.out.println("isMyPiece is returning true");
-				return true;
-			}
-		}
-		System.out.println("isMyPiece is returning false");
-		return false;
+		return currentPiece.getLocation().contains(thisSpot);
 	}
 
 	// Returns next lowest point (if null, then out of bounds)
@@ -143,5 +136,19 @@ public class GameManager {
 	
 	private boolean canMoveRight() {
 		
+	}
+	
+	private void testFunction() {
+		boardTiles[5][5] = Color.red;
+		updateView();
+	}
+	
+	private void updateView() {
+		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
+		for (int i =0; i < matrixHeight; i++) {
+			for (int j = 0; j < matrixWidth; j++ ) {
+				tileMatrix[i][j].setColor(boardTiles[i][j]);
+			}
+		}
 	}
 }
