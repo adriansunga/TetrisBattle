@@ -5,5 +5,7 @@ public class IPiece extends Piece
 	public IPiece()
 	{
 		super();
+		
+		setUpOrientations("ipiece");
 	}
 }

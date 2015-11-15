@@ -5,5 +5,7 @@ public class ZPiece extends Piece
 	public ZPiece()
 	{
 		super();
+		
+		setUpOrientations("zpiece");
 	}
 }

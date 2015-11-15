@@ -4,8 +4,8 @@ public class LPiece extends Piece
 {
 	public LPiece()
 	{
-		super();
+		super();	
 		
-		orientations = new boolean[4][4];	
+		setUpOrientations("lpiece");
 	}
 }
