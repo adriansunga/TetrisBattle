@@ -29,41 +29,6 @@ public class BoardPanel extends JPanel {
 		initializeVariables();
 		createGUI();
 
-		this.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("inside keytyped");
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				System.out.println("inside keypressed");
-				int keyCode = e.getKeyCode();
-				switch (keyCode) {
-				case KeyEvent.VK_UP:
-					System.out.println("up key pressed");
-					break;
-				case KeyEvent.VK_DOWN:
-					System.out.println("down key pressed");
-					break;
-				case KeyEvent.VK_LEFT:
-					System.out.println("left key pressed");
-					break;
-				case KeyEvent.VK_RIGHT:
-					System.out.println("right key pressed");
-					break;
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("inside keyreleased");
-
-			}
-
-		});
 		setKeyBindings();
 	}
 
@@ -77,14 +42,14 @@ public class BoardPanel extends JPanel {
 		String vkUp = "VK_UP";
 		String vkDown = "VK_DOWN";
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkLeft);
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkUp);
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkDown);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
 		
 		actionMap.put(vkLeft, new KeyAction(vkLeft));
 		actionMap.put(vkRight, new KeyAction(vkRight));
-		actionMap.put(vkLeft, new KeyAction(vkUp));
-		actionMap.put(vkRight, new KeyAction(vkDown));
+		actionMap.put(vkUp, new KeyAction(vkUp));
+		actionMap.put(vkDown, new KeyAction(vkDown));
 
 	}
 
@@ -95,7 +60,21 @@ public class BoardPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvt) {
-			System.out.println(actionEvt.getActionCommand() + " pressed");
+			String keyCode = actionEvt.getActionCommand();
+			switch (keyCode) {
+			case "VK_UP":
+				System.out.println("up key pressed");
+				break;
+			case "VK_DOWN":
+				System.out.println("down key pressed");
+				break;
+			case "VK_LEFT":
+				System.out.println("left key pressed");
+				break;
+			case "VK_RIGHT":
+				System.out.println("right key pressed");
+				break;
+			}
 		}
 	}
 
