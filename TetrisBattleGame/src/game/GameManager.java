@@ -2,7 +2,14 @@ package game;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.swing.Timer;
+
+import tetrisGUI.BoardPanel;
 
 public class GameManager {
 
@@ -12,31 +19,71 @@ public class GameManager {
 	private Point[] currentPieceLocation;
 	private Color backgroundColor = Color.GRAY;
 	private int pieceSpeed = 1000; // in ms
+	
+	private BoardPanel boardPanel;
 	private PiecePlacer piecePlacer;
+	
+	private Timer dropPieceTimer;
+	private boolean canDrop;
+	
+	private Piece currentPiece;
 
-	public GameManager(PiecePlacer piecePlacer) {
+	public GameManager() {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		Arrays.fill(boardTiles, Color.GRAY);
-		this.piecePlacer = piecePlacer;
+		
+		boardPanel = new BoardPanel();
+		piecePlacer = new PiecePlacer();
+		
+		dropPieceTimer = null;
+		canDrop = true;
+		currentPiece = null;
+
+	}
+	
+	public void nextPiece()
+	{
+		currentPiece = piecePlacer.nextPiece();
+		
+		dropPiece(currentPiece);
 	}
 
 	public void dropPiece(Piece piece) {
-		setCurrentPieceLocation(piece);
-		boolean canDrop = true;
-		while (canDrop) {
-			try {
-			    Thread.sleep(pieceSpeed); 
-			    
-			    if (canMoveDown()) {
-			    	lowerPiece(); //deals with currentPosition array
-			    	
-			    } else {
-			    	canDrop = false;
-			    }
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
+		currentPiece = piece;
+		
+		dropPieceTimer = new Timer(pieceSpeed, new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				currentPiece.moveDown();
+				boardPanel.revalidate();
+				boardPanel.repaint();
+				
+				canDrop = checkIfDroppable();
+				
+				if(!canDrop)
+				{	
+					dropPieceTimer.stop();
+					nextPiece();
+				}
+			}
+		});		
+		dropPieceTimer.start();
+	}
+	
+	private boolean checkIfDroppable()
+	{
+		ArrayList<Point> loc = currentPiece.getLocation();
+		
+		for(Point p : loc)
+		{
+			if(boardTiles[(int)p.getX()][(int)p.getY()+1] == Color.GRAY)
+			{
+				return false;
 			}
 		}
+		
+		return true;
 	}
 
 	// TODO: WARNING: there may be some null pointer errors as we need to
@@ -44,7 +91,7 @@ public class GameManager {
 	// (for now im neglecting that case. we could maybe avoid this by having the
 	// first few indexes of the matrix be above the board? idk)
 	private void setCurrentPieceLocation(Piece piece) {
-		
+	
 	}
 
 	// Check to see if you should send a line
