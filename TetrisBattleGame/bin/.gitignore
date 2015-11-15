@@ -1,2 +1,5 @@
 /database/
+/tetrisGUI/
 /game/
+/networking/
+*.class
