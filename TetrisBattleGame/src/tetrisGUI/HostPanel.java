@@ -9,18 +9,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import networking.TetrisServer;
+
 public class HostPanel extends JPanel{
 
 	private static final long serialVersionUID = -3365559486379271363L;
 	private JLabel portLabel;
 	private JTextField portTF;
 	private JButton continueButton;
-	
+	private String username;
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 	
 	//constructor
-	public HostPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
+	public HostPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, String username){
+		this.username = username;
 		this.cardLayout = cardLayout;
 		this.outerPanelForCardLayout = outerPanelForCardLayout;
 		initializeVariables();
@@ -46,9 +49,10 @@ public class HostPanel extends JPanel{
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
 				//TODO: go to a waiting for clients page (pass in as parameters the port)
-				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout);
+				TetrisServer ts = new TetrisServer(Integer.parseInt(portTF.getText()), username);
+				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout, ts.getTC());
 				outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
-				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");
+				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");		
 			}
 		});
 	}
