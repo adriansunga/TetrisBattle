@@ -25,6 +25,7 @@ public class BoardPanel extends JPanel {
 	
 	public BoardPanel(GameManager gm) {
 		this.gm = gm;
+		gm.setBoardPanel(this);
 		initializeVariables();
 		createGUI();
 

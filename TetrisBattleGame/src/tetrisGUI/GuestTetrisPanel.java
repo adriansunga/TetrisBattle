@@ -134,12 +134,13 @@ public class GuestTetrisPanel extends JPanel{
 		sideBarPanel.add(Box.createGlue());
 		sideBarPanel.add(Box.createGlue());
 		
-		add(sideBarPanel, BorderLayout.WEST);
+		//add(sideBarPanel, BorderLayout.WEST);
 		sideBarPanel.setOpaque(false);
 		//add(sideBarPanel);
 				
 		//center
 		centerPanel.setOpaque(false);
+		centerPanel.add(sideBarPanel);
 		centerPanel.add(boardPanel);
 		add(centerPanel, BorderLayout.CENTER);
 		//add(centerPanel);
