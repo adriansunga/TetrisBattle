@@ -31,7 +31,7 @@ public abstract class Piece
 	{
 		for(Point p : location)
 		{
-			p.setLocation(p.getX(), p.getY()+1);
+			p.setLocation(p.getX() + 1, p.getY());
 		}
 	}
 	
@@ -39,7 +39,7 @@ public abstract class Piece
 	{
 		for(Point p : location)
 		{
-			p.setLocation(p.getX()+1, p.getY());
+			p.setLocation(p.getX(), p.getY() -1);
 		}
 	}
 	
@@ -47,7 +47,7 @@ public abstract class Piece
 	{
 		for(Point p : location)
 		{
-			p.setLocation(p.getX()-1, p.getY());
+			p.setLocation(p.getX(), p.getY() + 1);
 		}
 	}
 	
