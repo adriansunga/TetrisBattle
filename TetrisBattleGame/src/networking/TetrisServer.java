@@ -12,9 +12,13 @@ public class TetrisServer {
 	private Vector<TetrisThread> ttVector;
 	private String username;
 	private TetrisClient tc;
+	private CardLayout cardLayout;
+	private JPanel outerPanelForCardLayout;
 	
 	public TetrisServer(int port, String username, JPanel outerPanelForCardLayout, CardLayout cardLayout) {
 		ttVector = new Vector<TetrisThread>();
+		this.cardLayout = cardLayout;
+		this.outerPanelForCardLayout = outerPanelForCardLayout;
 		this.username = username;
 		try {
 			ServerSocket ss = new ServerSocket(port);
@@ -33,6 +37,9 @@ public class TetrisServer {
 	
 	public TetrisClient getTC() {
 		return tc;
+	}
+	public void disconnect(TetrisThread tt) {
+		cardLayout.show(outerPanelForCardLayout, "loginPanel");
 	}
 	
 	public void sendMessageToAllClients(String message, TetrisThread sender) {
