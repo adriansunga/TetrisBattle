@@ -52,14 +52,9 @@ public class GameManager {
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				setToBackground(backgroundColor);
-				currentPiece.dropDown();
-				setToBackground(currentPiece.getColor());
-				updateView();
-
-				canDrop = canMove("down");
-
-				if (!canDrop) {
+				if (canMove("down")) {
+					move("down");
+				} else {
 					dropPieceTimer.stop();
 					nextPiece();
 				}
@@ -99,9 +94,7 @@ public class GameManager {
 		for (int i = 0; i < garbageRow.length; i++) {
 			if (garbageRow[i]) {
 				boardTiles[matrixHeight - 1][i] = Color.GRAY;
-			}
-			else
-			{
+			} else {
 				boardTiles[matrixHeight - 1][i] = backgroundColor;
 			}
 		}
@@ -179,6 +172,11 @@ public class GameManager {
 		} else if (direction.equals("right") && canMove("right")) {
 			setToBackground(backgroundColor);
 			currentPiece.shiftRight();
+			setToBackground(currentPiece.getColor());
+			updateView();
+		} else if (direction.equals("down") && canMove("down")) {
+			setToBackground(backgroundColor);
+			currentPiece.dropDown();
 			setToBackground(currentPiece.getColor());
 			updateView();
 		}
