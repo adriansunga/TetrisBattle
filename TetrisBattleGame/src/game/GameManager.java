@@ -66,6 +66,54 @@ public class GameManager {
 		});
 		dropPieceTimer.start();
 	}
+	
+	public void sendGarbageLine()
+	{
+		//Networking
+		//tetrisClient.sendMessage("garbageline");
+	}
+	
+	public void receiveGarbageLine()
+	{
+		//Determine location of the notch
+		int notchLoc = (int) Math.random()*10;
+		
+		//Populate row with vals accounting for notch
+		boolean[] garbageRow = new boolean[10];
+		for(int i = 0; i < garbageRow.length; i++)
+		{
+			if(i != notchLoc)
+			{
+				garbageRow[i] = true;
+			}
+			else
+			{
+				garbageRow[i] = false;
+			}
+		}
+		
+		//Change tile matrix accordingly
+		
+		//Push tiles up
+		for(int r = 0; r < matrixHeight-1; r++)
+		{
+			for(int c = 0; c < matrixWidth; c++)
+			{
+				boardTiles[r][c] = boardTiles[r+1][c];
+			}
+		}
+		//Add garbage row to the bottom
+		for(int i = 0; i < garbageRow.length; i++)
+		{
+			if(garbageRow[i])
+			{
+				boardTiles[matrixHeight-1][i] = Color.GRAY;
+			}
+		}
+		
+		//Refresh BoardPanel
+		updateView();
+	}
 
 	// TODO: WARNING: there may be some null pointer errors as we need to
 	// find a way to handle when the piece is off of the board when it starts
