@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
@@ -44,19 +45,10 @@ public class GameManager {
 	public void nextPiece() {
 		currentPiece = piecePlacer.nextPiece();
 
-<<<<<<< .merge_file_FytcvX
-		dropPiece(currentPiece);
-	}
-
-	public void dropPiece(Piece piece) {
-		currentPiece = piece;
-
-=======
 		dropPiece();
 	}
 
 	public void dropPiece() {
->>>>>>> .merge_file_1WScyJ
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -140,10 +132,12 @@ public class GameManager {
 			setToBackground(backgroundColor);
 			currentPiece.shiftLeft();
 			setToBackground(currentPiece.getColor());
+			updateView();
 		} else if (direction.equals("right") && canMove("right")) {
 			setToBackground(backgroundColor);
 			currentPiece.shiftRight();
 			setToBackground(currentPiece.getColor());
+			updateView();
 		}
 	}
 
@@ -155,8 +149,20 @@ public class GameManager {
 	}
 
 	public void testFunction() {
-		boardTiles[5][5] = Color.red;
+		currentPiece = new OPiece();
+		System.out.println("current piece: "+ currentPiece);
+		ArrayList<Point> location = new ArrayList<Point>();
+		location.add(new Point(0,0));
+		location.add(new Point(0,1));
+		location.add(new Point(1,1));
+		location.add(new Point(1,0));
+
+		currentPiece.setLocation(location);
+		setToBackground(currentPiece.getColor());
+		System.out.println("current piece color: "+ currentPiece.getColor());
 		updateView();
+//		boardTiles[5][5] = Color.red;
+//		updateView();
 	}
 
 	private void updateView() {

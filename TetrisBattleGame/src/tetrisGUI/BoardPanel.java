@@ -65,15 +65,18 @@ public class BoardPanel extends JPanel {
 			switch (keyCode) {
 			case "VK_UP":
 				System.out.println("up key pressed");
+				gm.testFunction();
 				break;
 			case "VK_DOWN":
 				System.out.println("down key pressed");
 				break;
 			case "VK_LEFT":
 				System.out.println("left key pressed");
+				gm.move("left");
 				break;
 			case "VK_RIGHT":
 				System.out.println("right key pressed");
+				gm.move("right");
 				break;
 			}
 		}
