@@ -66,7 +66,7 @@ public class WelcomePanel extends JPanel{
 		add(welcome);
 		add(playPanel);
 		add(Box.createGlue());
-		ImageIcon image2 = new ImageIcon("images/backgrounds/rainbow.png");
+		ImageIcon image2 = new ImageIcon("images/backgrounds/tetrisWelcome.jpg");
 		bg = image2.getImage();
 	}
 	
