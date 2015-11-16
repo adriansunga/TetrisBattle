@@ -220,26 +220,12 @@ public class TetrisBattlePanel extends JPanel{
 		centerPanel.add(boardPanel);
 		centerPanel.setOpaque(false);
 		LeftPanel.add(centerPanel, BorderLayout.CENTER);
-		//LeftPanel.add(centerPanel);
 		
 		add(LeftPanel);
 		
-	
-		
-		
-		
-		
-		
-		
-		
 		RightPanel.setLayout(new BorderLayout());
 		RightPanel.setOpaque(false);
-		//north
 		RightPanel.add(oppTetrisTitle, BorderLayout.NORTH);
-		//RightPanel.add(oppTetrisTitle);
-		
-		
-		//west
 		oppSideBarPanel.setOpaque(false);
 		oppSideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 		oppSideBarPanel.add(Box.createGlue());
@@ -272,6 +258,11 @@ public class TetrisBattlePanel extends JPanel{
 		//RightPanel.add(oppCenterPanel);
 		
 		add(RightPanel);
+		try {
+			new PlayMusic();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void addActionAdapters(){

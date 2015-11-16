@@ -12,7 +12,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -57,6 +56,11 @@ public class GuestTetrisPanel extends JPanel{
 		initializeVariables();
 		createGUI();
 		addActionAdapters();
+		try {
+			new PlayMusic();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void initializeVariables(){
