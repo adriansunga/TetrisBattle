@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class TetrisClient extends Thread{
@@ -43,7 +44,8 @@ public class TetrisClient extends Thread{
 		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisClient.run(): " + ioe.getMessage());
 		} finally {
-			cardLayout.show(outerPanelForCardLayout, "loginPanel");
+			JOptionPane.showMessageDialog(null, "Host has left the game.", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+			cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 		}
 	}
 	

@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class TetrisServer {
@@ -39,7 +40,8 @@ public class TetrisServer {
 		return tc;
 	}
 	public void disconnect(TetrisThread tt) {
-		cardLayout.show(outerPanelForCardLayout, "loginPanel");
+		JOptionPane.showMessageDialog(null, "Client has left the game.", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+		cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 	}
 	
 	public void sendMessageToAllClients(String message, TetrisThread sender) {
