@@ -38,7 +38,7 @@ public class GuestTetrisPanel extends JPanel{
 	private int score = 0;
 	private JPanel nextPeicePanel;
 	private JLabel nextPieceTextLabel;
-	private NextPiecePanel;
+	private NextPiecePanel nextImage;
 	private JPanel jp;
 	
 	private JPanel centerPanel;
