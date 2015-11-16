@@ -87,6 +87,7 @@ public class TetrisBattlePanel extends JPanel{
 		
 		piecePlacer = new PiecePlacer();
 		gameManager = new GameManager(piecePlacer, tc);
+		tc.setGameManager(gameManager);
 
 		//north
 		tetrisTitle = new JLabel(username,JLabel.CENTER);

@@ -10,6 +10,8 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import game.GameManager;
+
 public class TetrisClient extends Thread{
 	private BufferedReader br;
 	private PrintWriter pw;
@@ -17,6 +19,7 @@ public class TetrisClient extends Thread{
 	private String name;
 	private JPanel outerPanelForCardLayout;
 	private CardLayout cardLayout;
+	private GameManager gm;
 	
 	public TetrisClient(String hostname, int port, String name, JPanel outerPanelForCardLayout, CardLayout cardLayout) {
 		this.name = name;
@@ -47,6 +50,10 @@ public class TetrisClient extends Thread{
 			JOptionPane.showMessageDialog(null, "Host has left the game.", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
 			cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 		}
+	}
+	
+	public void setGameManager(GameManager gm) {
+		this.gm = gm;
 	}
 	
 	public void sendMessage(String message) {
