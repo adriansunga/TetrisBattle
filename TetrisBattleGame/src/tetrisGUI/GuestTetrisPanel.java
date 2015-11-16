@@ -3,6 +3,7 @@ package tetrisGUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -28,15 +29,17 @@ public class GuestTetrisPanel extends JPanel{
 	Font font = new Font("Tetris Mania Type", Font.BOLD, 20);
 	
 	private JLabel tetrisTitle;
-	
+	private JPanel titlePanel;
 	private JPanel sideBarPanel;
 	private JPanel scorePanel;
+	private JPanel leftPanel;
 	private JLabel scoreLabel;
 	private JLabel scoreTextLabel;
 	private int score = 0;
 	private JPanel nextPeicePanel;
 	private JLabel nextPieceTextLabel;
-	private JButton nextPieceImageButton;
+	private NextPiecePanel;
+	private JPanel jp;
 	
 	private JPanel centerPanel;
 	private BoardPanel boardPanel;
@@ -58,19 +61,29 @@ public class GuestTetrisPanel extends JPanel{
 	}
 	
 	private void initializeVariables(){
+		jp = new JPanel();
+		jp.setPreferredSize(new Dimension(20, 20));
 		
-		ImageIcon image2 = new ImageIcon("images/backgrounds/GuestBackground.jpg");
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		ImageIcon image2 = new ImageIcon("images/backgrounds/guestbg.jpg");
 		bg = image2.getImage();
 		
 		piecePlacer = new PiecePlacer();
 		gameManager = new GameManager(piecePlacer);
+		
+		leftPanel = new JPanel();
+		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+		titlePanel = new JPanel();
 
 		//north
-		tetrisTitle = new JLabel("Tetris",JLabel.CENTER);
-		tetrisTitle.setFont(titleFont);
+		ImageIcon image1 = new ImageIcon("images/Tetris_Title.jpg");
+		Image img1 = image1.getImage();
+		Image newImage1 = img1.getScaledInstance(image1.getIconWidth()/2, image1.getIconHeight()/2, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon ButtonImage3 = new ImageIcon(newImage1);
+		tetrisTitle = new JLabel(ButtonImage3);
 
 		//center 
-		centerPanel = new JPanel();
 		boardPanel = new BoardPanel(gameManager);
 		gameManager.setBoardPanel(boardPanel);
 		
@@ -89,34 +102,24 @@ public class GuestTetrisPanel extends JPanel{
 		nextPeicePanel.setLayout(new BoxLayout(nextPeicePanel, BoxLayout.Y_AXIS));
 		nextPieceTextLabel = new JLabel("Next Piece:");
 		nextPieceTextLabel.setFont(font);
-		nextPieceImageButton = new JButton();
-		
-		//TODO make it get next peice from manager
-		ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
-		Image img = originalButton.getImage();
-		Image newImage = img.getScaledInstance(originalButton.getIconWidth()/(10), originalButton.getIconHeight()/10, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon ButtonImage1 = new ImageIcon(newImage);
-		nextPieceImageButton.setBorderPainted( false );
-		nextPieceImageButton.setFocusPainted( false );
-		nextPieceImageButton.setIcon(ButtonImage1);
+		nextImage = new NextPiecePanel(piecePlacer);
 		
 	}
 	
 	private void createGUI(){
-		
-		
-		
-		setLayout(new BorderLayout());
-		
-		
-		//north
-		add(tetrisTitle, BorderLayout.NORTH);
-		//add(tetrisTitle);
-		
-		
 		//west
 		sideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 		sideBarPanel.add(Box.createGlue());
+		
+		nextPeicePanel.setOpaque(false);
+		nextPeicePanel.add(nextPieceTextLabel);
+		jp.add(nextImage);
+		jp.setOpaque(false);
+		nextPeicePanel.setPreferredSize(new Dimension(40,150));
+		nextPeicePanel.add(jp);
+		nextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
+		sideBarPanel.add(Box.createGlue());
+		sideBarPanel.add(nextPeicePanel);
 		
 		scorePanel.setOpaque(false);
 		scorePanel.add(scoreLabel);
@@ -125,26 +128,29 @@ public class GuestTetrisPanel extends JPanel{
 		sideBarPanel.add(scorePanel);
 		sideBarPanel.add(Box.createGlue());
 		
-		nextPeicePanel.setOpaque(false);
-		nextPeicePanel.add(nextPieceTextLabel);
-		nextPeicePanel.add(nextPieceImageButton);
-		nextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
-		sideBarPanel.add(nextPeicePanel);
+		sideBarPanel.add(Box.createGlue());
+		sideBarPanel.add(Box.createGlue());
+		sideBarPanel.add(Box.createGlue());
 		
-		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(Box.createGlue());
+		titlePanel.add(tetrisTitle, BorderLayout.CENTER);
+		titlePanel.setOpaque(false);
 		
 		//add(sideBarPanel, BorderLayout.WEST);
 		sideBarPanel.setOpaque(false);
+		boardPanel.setOpaque(false);
 		//add(sideBarPanel);
+		
+		leftPanel.setOpaque(false);
+		leftPanel.add(titlePanel);
+		leftPanel.add(sideBarPanel);
+		leftPanel.add(Box.createGlue());
 				
 		//center
-		centerPanel.setOpaque(false);
-		centerPanel.add(sideBarPanel);
-		centerPanel.add(boardPanel);
-		add(centerPanel, BorderLayout.CENTER);
-		//add(centerPanel);
+		add(Box.createGlue());
+		add(leftPanel);
+		add(Box.createGlue());
+		add(boardPanel);
+		add(Box.createGlue());
 		
 	}
 	

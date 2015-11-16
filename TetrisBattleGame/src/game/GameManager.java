@@ -102,7 +102,7 @@ public class GameManager {
 			}
 			else
 			{
-				boardTiles[matrixHeight - 1][i] = Color.BLACK;
+				boardTiles[matrixHeight - 1][i] = backgroundColor;
 			}
 		}
 
