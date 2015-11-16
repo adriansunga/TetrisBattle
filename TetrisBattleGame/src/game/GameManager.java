@@ -15,7 +15,6 @@ public class GameManager {
 	private Color[][] boardTiles;
 	private final int matrixHeight = 20;
 	private final int matrixWidth = 10;
-	private Point[] currentPieceLocation;
 	private Color backgroundColor = Color.BLACK;
 	private int pieceSpeed = 1000; // in ms
 
@@ -135,7 +134,9 @@ public class GameManager {
 			currentPiece.shiftLeft();
 			setToBackground(currentPiece.getColor());
 		} else if (direction.equals("right") && canMove("right")) {
+			setToBackground(backgroundColor);
 			currentPiece.shiftRight();
+			setToBackground(currentPiece.getColor());
 		}
 	}
 
