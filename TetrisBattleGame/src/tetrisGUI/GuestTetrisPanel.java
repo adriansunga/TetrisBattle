@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import game.GameManager;
 import game.PiecePlacer;
@@ -24,23 +25,24 @@ public class GuestTetrisPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = -585498416770344734L;
 	
-	Font titleFont = new Font("Tetris Mania Type", Font.BOLD, 40);
-	Font font = new Font("Tetris Mania Type", Font.BOLD, 20);
+	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
 	
 	private JLabel tetrisTitle;
 	private JPanel titlePanel;
-	private JPanel sideBarPanel;
-	private JPanel scorePanel;
 	private JPanel leftPanel;
 	private JLabel scoreLabel;
-	private JLabel scoreTextLabel;
+	private JLabel scoreTextLabel, levelNumberLabel, levelLabel;
 	private int score = 0;
 	private JPanel nextPiecePanel;
 	private JLabel nextPieceTextLabel;
 	private NextPiecePanel nextImage;
 	private JPanel jp;
+	private JPanel nextPanel, scoresPanel, levelPanel, scorePanel;
+	private JPanel scoresTextLabelPanel, nextPieceTextLabelPanel, scoresLabelPanel;
 	
 	private BoardPanel boardPanel;
+	
+	private JPanel levelsLabelPanel, levelsTextLabelPanel;
 	
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
@@ -64,6 +66,17 @@ public class GuestTetrisPanel extends JPanel{
 	}
 	
 	private void initializeVariables(){
+		nextPanel = new JPanel();
+		levelPanel = new JPanel();
+		scoresPanel = new JPanel();
+		levelLabel = new JLabel("level = ");
+		levelLabel.setFont(font);
+		//TODO: get level from game manager
+		levelNumberLabel = new JLabel("0");
+		levelNumberLabel.setFont(font);
+		levelPanel = new JPanel();
+		levelsLabelPanel = new JPanel();
+		levelsTextLabelPanel = new JPanel();
 		jp = new JPanel();
 		jp.setPreferredSize(new Dimension(20, 20));
 		
@@ -91,61 +104,87 @@ public class GuestTetrisPanel extends JPanel{
 		gameManager.setBoardPanel(boardPanel);
 		
 		//west
-		sideBarPanel = new JPanel();
-		sideBarPanel.setLayout(new BoxLayout(sideBarPanel, BoxLayout.Y_AXIS));
-		
 		scorePanel = new JPanel();
-		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
-		scoreLabel = new JLabel("Lines Cleared:");
+		scoresTextLabelPanel = new JPanel();
+		nextPieceTextLabelPanel = new JPanel();
+		scoresLabelPanel = new JPanel();
+		scoreLabel = new JLabel("Lines Cleared");
 		scoreLabel.setFont(font);
 		//TODO make it get score from game manager
 		scoreTextLabel = new JLabel(Integer.toString(score));
-		
+		scoreTextLabel.setFont(font);
+		scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		scoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
 		nextPiecePanel = new JPanel();
-		nextPiecePanel.setLayout(new BoxLayout(nextPiecePanel, BoxLayout.Y_AXIS));
-		nextPieceTextLabel = new JLabel("Next Piece:");
+		nextPieceTextLabel = new JLabel("Next Piece");
 		nextPieceTextLabel.setFont(font);
 		nextImage = new NextPiecePanel(piecePlacer);
+		nextPieceTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
 		
 	}
 	
 	private void createGUI(){
 		//west
-		sideBarPanel.add(Box.createGlue());
-		
 		nextPiecePanel.setOpaque(false);
-		nextPiecePanel.add(nextPieceTextLabel);
+		nextPieceTextLabelPanel.add(nextPieceTextLabel, BorderLayout.CENTER);
 		jp.add(nextImage);
 		jp.setOpaque(false);
-		nextPiecePanel.setPreferredSize(new Dimension(40,150));
+		nextPiecePanel.setLayout(new BoxLayout(nextPiecePanel, BoxLayout.Y_AXIS));
+		nextPiecePanel.add(nextPieceTextLabel);
+		nextPieceTextLabelPanel.setOpaque(false);
 		nextPiecePanel.add(jp);
-		nextPiecePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
-		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(nextPiecePanel);
+		nextPiecePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.GREEN));
+		nextPiecePanel.setPreferredSize(new Dimension(300, 150));
+		nextPiecePanel.setMaximumSize(new Dimension(300, 150));
+		nextPiecePanel.setMinimumSize(new Dimension(300, 150));
+		
+		levelPanel.setOpaque(false);
+		levelsLabelPanel.setOpaque(false);
+		levelsTextLabelPanel.setOpaque(false);
+		levelsLabelPanel.add(levelLabel, BorderLayout.CENTER);
+		levelsTextLabelPanel.add(levelNumberLabel, BorderLayout.SOUTH);
+		levelPanel.add(levelsLabelPanel, BorderLayout.NORTH);
+		levelPanel.add(levelsTextLabelPanel, BorderLayout.SOUTH);
+		levelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.YELLOW));
+		levelPanel.setPreferredSize(new Dimension(300,50));
+		levelPanel.setMaximumSize(new Dimension(300, 50));
+		levelPanel.setMinimumSize(new Dimension(300, 50));
 		
 		scorePanel.setOpaque(false);
-		scorePanel.add(scoreLabel);
-		scorePanel.add(scoreTextLabel);
-		scorePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
-		sideBarPanel.add(scorePanel);
-		sideBarPanel.add(Box.createGlue());
-		
-		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(Box.createGlue());
-		
-		titlePanel.add(tetrisTitle, BorderLayout.CENTER);
+		scoresLabelPanel.setOpaque(false);
+		scoresTextLabelPanel.setOpaque(false);
+		scoresLabelPanel.add(scoreLabel, BorderLayout.CENTER);
+		scoresTextLabelPanel.add(scoreTextLabel, BorderLayout.SOUTH);
+		scorePanel.add(scoresLabelPanel, BorderLayout.NORTH);
+		scorePanel.add(scoresTextLabelPanel, BorderLayout.SOUTH);
+		scorePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLUE));
+		scorePanel.setPreferredSize(new Dimension(300, 90));
+		scorePanel.setMaximumSize(new Dimension(300, 90));
+		scorePanel.setMinimumSize(new Dimension(300, 90));
+
+		titlePanel.add(tetrisTitle, BorderLayout.NORTH);
 		titlePanel.setOpaque(false);
 		
 		//add(sideBarPanel, BorderLayout.WEST);
-		sideBarPanel.setOpaque(false);
 		boardPanel.setOpaque(false);
 		//add(sideBarPanel);
-		
+		nextPanel.add(nextPiecePanel, BorderLayout.CENTER);
+		scoresPanel.add(scorePanel, BorderLayout.CENTER);
 		leftPanel.setOpaque(false);
+		levelPanel.setOpaque(false);
+		titlePanel.setOpaque(false);
+		scoresPanel.setOpaque(false);
+		nextPanel.setOpaque(false);
 		leftPanel.add(titlePanel);
-		leftPanel.add(sideBarPanel);
+		leftPanel.add(nextPanel);
+		leftPanel.add(levelPanel);
+		leftPanel.add(scoresPanel);
 		leftPanel.add(Box.createGlue());
+		leftPanel.add(Box.createGlue());
+
+		
 				
 		//center
 		add(Box.createGlue());
