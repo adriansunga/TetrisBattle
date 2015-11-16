@@ -44,12 +44,19 @@ public class GameManager {
 	public void nextPiece() {
 		currentPiece = piecePlacer.nextPiece();
 
+<<<<<<< .merge_file_FytcvX
 		dropPiece(currentPiece);
 	}
 
 	public void dropPiece(Piece piece) {
 		currentPiece = piece;
 
+=======
+		dropPiece();
+	}
+
+	public void dropPiece() {
+>>>>>>> .merge_file_1WScyJ
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
