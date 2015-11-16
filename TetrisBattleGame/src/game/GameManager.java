@@ -100,6 +100,10 @@ public class GameManager {
 			if (garbageRow[i]) {
 				boardTiles[matrixHeight - 1][i] = Color.GRAY;
 			}
+			else
+			{
+				boardTiles[matrixHeight - 1][i] = Color.BLACK;
+			}
 		}
 
 		// Refresh BoardPanel
