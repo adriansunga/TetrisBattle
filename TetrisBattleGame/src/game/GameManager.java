@@ -140,7 +140,7 @@ public class GameManager {
 	private boolean canMove(String direction) {
 		for (Point point : currentPiece.getLocation()) {
 			Point nextPoint = nextPoint(point, direction);
-			if (nextPoint.equals(null)) {
+			if (nextPoint == null) {
 				return false;
 			}
 			// if there's someone else's piece blocking you
@@ -160,8 +160,8 @@ public class GameManager {
 	private Point nextPoint(Point p, String direction) {
 		if (direction.equals("down")) {
 			// Is at bottom?
-			System.out.println("p.getY= " + p.getY());
-			if (p.getY() == matrixHeight - 1) {
+			System.out.println("p.getx= " + p.getX());
+			if (p.getX() == matrixHeight - 1) {
 				return null;
 			}
 			return new Point((int) p.getX(), (int) p.getY() + 1);
