@@ -53,7 +53,7 @@ public class JoinPanel extends JPanel{
 	private void addActionAdapters(){	
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				TetrisClient tc = new TetrisClient(ipTF.getText(), Integer.parseInt(portTF.getText()), username);
+				TetrisClient tc = new TetrisClient(ipTF.getText(), Integer.parseInt(portTF.getText()), username, outerPanelForCardLayout, cardLayout);
 				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout, tc);
 				outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
 				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");

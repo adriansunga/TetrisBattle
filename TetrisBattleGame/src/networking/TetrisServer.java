@@ -1,21 +1,24 @@
 package networking;
 
+import java.awt.CardLayout;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
+
+import javax.swing.JPanel;
 
 public class TetrisServer {
 	private Vector<TetrisThread> ttVector;
 	private String username;
 	private TetrisClient tc;
 	
-	public TetrisServer(int port, String username) {
+	public TetrisServer(int port, String username, JPanel outerPanelForCardLayout, CardLayout cardLayout) {
 		ttVector = new Vector<TetrisThread>();
 		this.username = username;
 		try {
 			ServerSocket ss = new ServerSocket(port);
-			tc = new TetrisClient("localhost", port, username);
+			tc = new TetrisClient("localhost", port, username, outerPanelForCardLayout, cardLayout);
 			while(ttVector.size() < 2) {
 				Socket s = ss.accept();
 				System.out.println("Connected: " + s.getInetAddress());

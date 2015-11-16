@@ -43,7 +43,7 @@ public class TetrisThread extends Thread {
 		} catch(IOException ioe) {
 			System.out.println("ioe in TetrisThread.run(): " + ioe.getMessage());
 		} finally {
-			//client has disconnected
+			//TODO: go back to the main menu
 		}
 	}
 }

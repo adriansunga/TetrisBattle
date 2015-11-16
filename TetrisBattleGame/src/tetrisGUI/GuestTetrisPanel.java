@@ -36,12 +36,11 @@ public class GuestTetrisPanel extends JPanel{
 	private JLabel scoreLabel;
 	private JLabel scoreTextLabel;
 	private int score = 0;
-	private JPanel nextPeicePanel;
+	private JPanel nextPiecePanel;
 	private JLabel nextPieceTextLabel;
 	private NextPiecePanel nextImage;
 	private JPanel jp;
 	
-	private JPanel centerPanel;
 	private BoardPanel boardPanel;
 	
 	private CardLayout cardLayout;
@@ -98,8 +97,8 @@ public class GuestTetrisPanel extends JPanel{
 		//TODO make it get score from game manager
 		scoreTextLabel = new JLabel(Integer.toString(score));
 		
-		nextPeicePanel = new JPanel();
-		nextPeicePanel.setLayout(new BoxLayout(nextPeicePanel, BoxLayout.Y_AXIS));
+		nextPiecePanel = new JPanel();
+		nextPiecePanel.setLayout(new BoxLayout(nextPiecePanel, BoxLayout.Y_AXIS));
 		nextPieceTextLabel = new JLabel("Next Piece:");
 		nextPieceTextLabel.setFont(font);
 		nextImage = new NextPiecePanel(piecePlacer);
@@ -108,18 +107,17 @@ public class GuestTetrisPanel extends JPanel{
 	
 	private void createGUI(){
 		//west
-		sideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
 		sideBarPanel.add(Box.createGlue());
 		
-		nextPeicePanel.setOpaque(false);
-		nextPeicePanel.add(nextPieceTextLabel);
+		nextPiecePanel.setOpaque(false);
+		nextPiecePanel.add(nextPieceTextLabel);
 		jp.add(nextImage);
 		jp.setOpaque(false);
-		nextPeicePanel.setPreferredSize(new Dimension(40,150));
-		nextPeicePanel.add(jp);
-		nextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
+		nextPiecePanel.setPreferredSize(new Dimension(40,150));
+		nextPiecePanel.add(jp);
+		nextPiecePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
 		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(nextPeicePanel);
+		sideBarPanel.add(nextPiecePanel);
 		
 		scorePanel.setOpaque(false);
 		scorePanel.add(scoreLabel);
