@@ -72,4 +72,9 @@ public class PiecePlacer
 		currentPiece = pieces.get(index++);
 		return currentPiece;
 	}
+	
+	public Piece nextNextPiece()
+	{
+		return nextNextPiece();
+	}
 }
