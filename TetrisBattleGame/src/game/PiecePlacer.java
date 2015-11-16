@@ -13,11 +13,18 @@ public class PiecePlacer
 	
 	private int index;
 	private int seed;
+	
+	private Piece nextNextPiece;
+	private Piece currentPiece;
 		
 	public PiecePlacer()
 	{		
 		index = 0;
 		seed = 0;
+		
+		currentPiece = null;
+		nextNextPiece = null;
+		
 		
 		pieceTypes = new Piece[7];
 		pieceTypes[0] = new IPiece();
@@ -51,8 +58,18 @@ public class PiecePlacer
 			index = 0;
 			Collections.shuffle(pieces, new Random(seed));
 			seed++;
+
+			currentPiece = nextNextPiece;
+			nextNextPiece = pieces.get(0);
+			
+			return currentPiece;
+		}
+		else
+		{
+			nextNextPiece = pieces.get(index+1);
 		}
 		
-		return pieces.get(index++);
+		currentPiece = pieces.get(index++);
+		return currentPiece;
 	}
 }
