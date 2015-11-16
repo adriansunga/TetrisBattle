@@ -9,13 +9,18 @@ import java.net.Socket;
 public class TetrisClient extends Thread{
 	private BufferedReader br;
 	private PrintWriter pw;
+	private String opponentName;
+	private String name;
 	
-	public TetrisClient(String hostname, int port) {
+	public TetrisClient(String hostname, int port, String name) {
+		this.name = name;
 		try {
 			Socket s = new Socket(hostname, port);
 			br = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			pw = new PrintWriter(s.getOutputStream());
 			this.start();
+			pw.println("name:" + name);
+			pw.flush();
 		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisClient constructor: " + ioe.getMessage());
 		}
@@ -37,7 +42,24 @@ public class TetrisClient extends Thread{
 		}
 	}
 	
+	public PrintWriter getPW() {
+		return pw;
+	}
+	
 	public void parseMessage(String message) {
-		
+		if(message.substring(0, 4).equals("name"))
+			parseName(message);
+	}
+	
+	public String getUserName() {
+		return name;
+	}
+	
+	public String getOpponentName() {
+		return opponentName;
+	}
+	
+	public void parseName(String message) {
+		opponentName = message.substring(5);
 	}
 }

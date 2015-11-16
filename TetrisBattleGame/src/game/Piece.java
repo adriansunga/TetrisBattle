@@ -23,6 +23,9 @@ public abstract class Piece
 		orientations = new boolean[4][4][4];
 	}
 	
+	public void setLocation(ArrayList<Point> location) {
+		this.location = location;
+	}
 	
 	public void dropDown()
 	{
@@ -123,5 +126,9 @@ public abstract class Piece
 	public Color getColor()
 	{
 		return color;
+	}
+
+	public void setColor(Color newColor) {
+		color = newColor;
 	}
 }

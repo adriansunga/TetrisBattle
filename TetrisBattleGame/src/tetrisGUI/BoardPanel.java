@@ -22,7 +22,7 @@ public class BoardPanel extends JPanel {
 	private TilePanel[][] tileMatrix;
 	// private GameManager gameManager;
 	private GameManager gm;
-
+	
 	public BoardPanel(GameManager gm) {
 		this.gm = gm;
 		gm.setBoardPanel(this);
@@ -42,14 +42,14 @@ public class BoardPanel extends JPanel {
 		String vkUp = "VK_UP";
 		String vkDown = "VK_DOWN";
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkLeft);
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkUp);
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkDown);
-
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
+		
 		actionMap.put(vkLeft, new KeyAction(vkLeft));
 		actionMap.put(vkRight, new KeyAction(vkRight));
-		actionMap.put(vkLeft, new KeyAction(vkUp));
-		actionMap.put(vkRight, new KeyAction(vkDown));
+		actionMap.put(vkUp, new KeyAction(vkUp));
+		actionMap.put(vkDown, new KeyAction(vkDown));
 
 	}
 
@@ -60,19 +60,24 @@ public class BoardPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvt) {
+			System.out.println("key action performed..");
 			String keyCode = actionEvt.getActionCommand();
 			switch (keyCode) {
 			case "VK_UP":
 				System.out.println("up key pressed");
+				gm.testFunction();
 				break;
 			case "VK_DOWN":
 				System.out.println("down key pressed");
+				gm.dropPiece();
 				break;
 			case "VK_LEFT":
 				System.out.println("left key pressed");
+				gm.move("left");
 				break;
 			case "VK_RIGHT":
 				System.out.println("right key pressed");
+				gm.move("right");
 				break;
 			}
 		}
