@@ -1,10 +1,11 @@
 package database;
 
-import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.Driver;
 
@@ -13,6 +14,9 @@ public class MySQLDriver {
 	private final static String selectUserName = "SELECT * FROM USERS WHERE USERNAME=?";
 	private final static String addUser = "INSERT INTO USERS(USERNAME, PASSWORD) VALUES (?,?)";
 	private final static String checkPassword = "SELECT USERNAME, PASSWORD FROM USERS";
+	private final static String readScores = "SELECT USER FROM SCORES";
+	private final static String readScores2 = "SELECT SCORE FROM SCORES";
+	private final static String addScore = "INSERT INTO SCORES(USER, SCORE) VALUES (?,?)";
 	
 	public MySQLDriver() {
 		 try {
@@ -54,6 +58,50 @@ public class MySQLDriver {
 			}
 		System.out.println("unable to find a user with name: " + userName);
 		return false;
+	}
+	
+	public ArrayList<String> readScores() {
+		ArrayList<String> users = new ArrayList<String>();
+		try {
+			PreparedStatement ps = con.prepareStatement(readScores);
+			ResultSet result = ps.executeQuery();
+			System.out.println(result.getFetchSize());
+			while(result.next()) {
+				users.add(result.getString(1));
+			} 
+		} catch (SQLException e) {
+				System.out.println("sql exception in readScores: " + e.getMessage());
+				e.printStackTrace();
+		}
+		return users;
+	}
+	
+	public ArrayList<Integer> readScores2() {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = con.prepareStatement(readScores2);
+			ResultSet result = ps.executeQuery();
+			while(result.next()) {
+				scores.add(result.getInt(1));
+			} 
+		} catch (SQLException e) {
+				System.out.println("sql exception in readScores: " + e.getMessage());
+				e.printStackTrace();
+		}
+		return scores;
+	}
+	
+	public void addScore(String userName, int score) {
+		try {
+			PreparedStatement ps = con.prepareStatement(addScore);
+			ps.setString(1, userName);
+			ps.setInt(2, score);
+			ps.executeUpdate();
+			System.out.println("Adding username: " + userName + " with score: " + score + " to the database.");
+		} catch (SQLException e) {
+			System.out.println("sql exception in add score: " + e.getMessage());	
+			e.printStackTrace();
+		}
 	}
 	
 	public void add(String userName, char[] password) { //adds a user to the database
