@@ -39,7 +39,7 @@ public class GameManager {
 		currentPiece = null;
 		canDrop = true;
 	}
-	
+
 	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		for (int i = 0; i < matrixHeight; i++) {
@@ -138,6 +138,9 @@ public class GameManager {
 	// Check to see if the piece can move down further
 	// if the spot is occupied and it's not my piece then false
 	private boolean canMove(String direction) {
+		if (currentPiece.getLocation() == null) {
+			return false;
+		}
 		for (Point point : currentPiece.getLocation()) {
 			Point nextPoint = nextPoint(point, direction);
 			if (nextPoint == null) {
@@ -148,6 +151,7 @@ public class GameManager {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -223,12 +227,12 @@ public class GameManager {
 	}
 
 	private void updateView() {
-//		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
-//		for (int i = 0; i < matrixHeight; i++) {
-//			for (int j = 0; j < matrixWidth; j++) {
-//				tileMatrix[i][j].setColor(boardTiles[i][j]);
-//			}
-//		}
+		// TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
+		// for (int i = 0; i < matrixHeight; i++) {
+		// for (int j = 0; j < matrixWidth; j++) {
+		// tileMatrix[i][j].setColor(boardTiles[i][j]);
+		// }
+		// }
 		boardPanel.setTileMatrix(boardTiles);
 	}
 }
