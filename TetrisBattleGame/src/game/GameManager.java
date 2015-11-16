@@ -44,12 +44,10 @@ public class GameManager {
 	public void nextPiece() {
 		currentPiece = piecePlacer.nextPiece();
 
-		dropPiece(currentPiece);
+		dropPiece();
 	}
 
-	public void dropPiece(Piece piece) {
-		currentPiece = piece;
-
+	public void dropPiece() {
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
