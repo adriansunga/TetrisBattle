@@ -7,15 +7,11 @@ import java.util.Vector;
 
 public class TetrisServer {
 	private Vector<TetrisThread> ttVector;
-	private String username;
-	private TetrisClient tc;
 	
-	public TetrisServer(int port, String username) {
+	public TetrisServer(int port) {
 		ttVector = new Vector<TetrisThread>();
-		this.username = username;
 		try {
 			ServerSocket ss = new ServerSocket(port);
-			tc = new TetrisClient("localhost", port, username);
 			while(ttVector.size() < 2) {
 				Socket s = ss.accept();
 				System.out.println("Connected: " + s.getInetAddress());
@@ -26,10 +22,6 @@ public class TetrisServer {
 		} catch(IOException ioe) {
 			System.out.println("ioe in TetrisServer constructor: " + ioe.getMessage());
 		}
-	}
-	
-	public TetrisClient getTC() {
-		return tc;
 	}
 	
 	public void sendMessageToAllClients(String message, TetrisThread sender) {

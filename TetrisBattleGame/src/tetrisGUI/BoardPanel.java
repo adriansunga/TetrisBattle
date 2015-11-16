@@ -22,7 +22,7 @@ public class BoardPanel extends JPanel {
 	private TilePanel[][] tileMatrix;
 	// private GameManager gameManager;
 	private GameManager gm;
-	
+
 	public BoardPanel(GameManager gm) {
 		this.gm = gm;
 		gm.setBoardPanel(this);
@@ -45,7 +45,7 @@ public class BoardPanel extends JPanel {
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
-		
+
 		actionMap.put(vkLeft, new KeyAction(vkLeft));
 		actionMap.put(vkRight, new KeyAction(vkRight));
 		actionMap.put(vkUp, new KeyAction(vkUp));

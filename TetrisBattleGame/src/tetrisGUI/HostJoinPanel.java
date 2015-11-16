@@ -14,13 +14,12 @@ public class HostJoinPanel extends JPanel{
 	private JLabel tetrisBattleLabel;
 	private JButton hostButton;
 	private JButton joinButton;
-	private String username;
+	
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 	
 	//constructor
-	public HostJoinPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, String username){
-		this.username = username;
+	public HostJoinPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
 		this.cardLayout = cardLayout;
 		this.outerPanelForCardLayout = outerPanelForCardLayout;
 		initializeVariables();
@@ -46,7 +45,7 @@ public class HostJoinPanel extends JPanel{
 		//host button clicked
 		hostButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				HostPanel hostPanel = new HostPanel(cardLayout, outerPanelForCardLayout, username);
+				HostPanel hostPanel = new HostPanel(cardLayout, outerPanelForCardLayout);
 				outerPanelForCardLayout.add(hostPanel, "hostPanel");
 				cardLayout.show(outerPanelForCardLayout, "hostPanel");
 			}
@@ -56,7 +55,7 @@ public class HostJoinPanel extends JPanel{
 		//join button clicked
 		joinButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				JoinPanel joinPanel = new JoinPanel(cardLayout, outerPanelForCardLayout, username);
+				JoinPanel joinPanel = new JoinPanel(cardLayout, outerPanelForCardLayout);
 				outerPanelForCardLayout.add(joinPanel, "joinPanel");
 				cardLayout.show(outerPanelForCardLayout, "joinPanel");
 			}

@@ -73,7 +73,7 @@ public class WelcomePanel extends JPanel{
 	public void addActionAdapters() {
 		play.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae) {
-				HostJoinPanel hostJoinPanel = new HostJoinPanel(cardLayout, outerPanelForCardLayout, username);
+				HostJoinPanel hostJoinPanel = new HostJoinPanel(cardLayout, outerPanelForCardLayout);
 				outerPanelForCardLayout.add(hostJoinPanel, "hostJoinPanel");
 				cardLayout.show(outerPanelForCardLayout, "hostJoinPanel");
 			}
