@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
+import networking.TetrisClient;
 import tetrisGUI.BoardPanel;
-import tetrisGUI.TilePanel;
 
 public class GameManager {
 
@@ -25,7 +25,21 @@ public class GameManager {
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
 	private boolean canDrop;
+	private TetrisClient tc;
 
+	public GameManager(PiecePlacer piecePlacer, TetrisClient tc) {
+		this.tc = tc;
+		boardTiles = new Color[matrixHeight][matrixWidth];
+		for (int i = 0; i < matrixHeight; i++) {
+			for (int j = 0; j < matrixWidth; j++) {
+				boardTiles[i][j] = backgroundColor;
+			}
+		}
+		this.piecePlacer = piecePlacer;
+		currentPiece = null;
+		canDrop = true;
+	}
+	
 	public GameManager(PiecePlacer piecePlacer) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		for (int i = 0; i < matrixHeight; i++) {
@@ -146,6 +160,7 @@ public class GameManager {
 	private Point nextPoint(Point p, String direction) {
 		if (direction.equals("down")) {
 			// Is at bottom?
+			System.out.println("p.getY= " + p.getY());
 			if (p.getY() == matrixHeight - 1) {
 				return null;
 			}
