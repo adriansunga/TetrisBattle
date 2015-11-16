@@ -52,9 +52,10 @@ public class GameManager {
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+				setToBackground(backgroundColor);
 				currentPiece.dropDown();
-				boardPanel.revalidate();
-				boardPanel.repaint();
+				setToBackground(currentPiece.getColor());
+				updateView();
 
 				canDrop = canMove("down");
 
@@ -66,52 +67,42 @@ public class GameManager {
 		});
 		dropPieceTimer.start();
 	}
-	
-	public void sendGarbageLine()
-	{
-		//Networking
-		//tetrisClient.sendMessage("garbageline");
+
+	public void sendGarbageLine() {
+		// Networking
+		// tetrisClient.sendMessage("garbageline");
 	}
-	
-	public void receiveGarbageLine()
-	{
-		//Determine location of the notch
-		int notchLoc = (int) Math.random()*10;
-		
-		//Populate row with vals accounting for notch
+
+	public void receiveGarbageLine() {
+		// Determine location of the notch
+		int notchLoc = (int) Math.random() * 10;
+
+		// Populate row with vals accounting for notch
 		boolean[] garbageRow = new boolean[10];
-		for(int i = 0; i < garbageRow.length; i++)
-		{
-			if(i != notchLoc)
-			{
+		for (int i = 0; i < garbageRow.length; i++) {
+			if (i != notchLoc) {
 				garbageRow[i] = true;
-			}
-			else
-			{
+			} else {
 				garbageRow[i] = false;
 			}
 		}
-		
-		//Change tile matrix accordingly
-		
-		//Push tiles up
-		for(int r = 0; r < matrixHeight-1; r++)
-		{
-			for(int c = 0; c < matrixWidth; c++)
-			{
-				boardTiles[r][c] = boardTiles[r+1][c];
+
+		// Change tile matrix accordingly
+
+		// Push tiles up
+		for (int r = 0; r < matrixHeight - 1; r++) {
+			for (int c = 0; c < matrixWidth; c++) {
+				boardTiles[r][c] = boardTiles[r + 1][c];
 			}
 		}
-		//Add garbage row to the bottom
-		for(int i = 0; i < garbageRow.length; i++)
-		{
-			if(garbageRow[i])
-			{
-				boardTiles[matrixHeight-1][i] = Color.GRAY;
+		// Add garbage row to the bottom
+		for (int i = 0; i < garbageRow.length; i++) {
+			if (garbageRow[i]) {
+				boardTiles[matrixHeight - 1][i] = Color.GRAY;
 			}
 		}
-		
-		//Refresh BoardPanel
+
+		// Refresh BoardPanel
 		updateView();
 	}
 
@@ -198,19 +189,20 @@ public class GameManager {
 
 	public void testFunction() {
 		currentPiece = new OPiece();
-		System.out.println("current piece: "+ currentPiece);
+		currentPiece.setColor(Color.RED);
+		System.out.println("current piece: " + currentPiece);
 		ArrayList<Point> location = new ArrayList<Point>();
-		location.add(new Point(0,0));
-		location.add(new Point(0,1));
-		location.add(new Point(1,1));
-		location.add(new Point(1,0));
+		location.add(new Point(0, 0));
+		location.add(new Point(0, 1));
+		location.add(new Point(1, 1));
+		location.add(new Point(1, 0));
 
 		currentPiece.setLocation(location);
 		setToBackground(currentPiece.getColor());
-		System.out.println("current piece color: "+ currentPiece.getColor());
+		System.out.println("current piece color: " + currentPiece.getColor());
 		updateView();
-//		boardTiles[5][5] = Color.red;
-//		updateView();
+		// boardTiles[5][5] = Color.red;
+		// updateView();
 	}
 
 	private void updateView() {
