@@ -1,9 +1,9 @@
 package tetrisGUI;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -105,5 +105,21 @@ public class BoardPanel extends JPanel {
 
 	public TilePanel[][] getTileMatrix() {
 		return tileMatrix;
+	}
+	
+	public void setTileMatrix(Color[][] boardColors) {
+		TilePanel[][] fauxTileMatrix = new TilePanel[20][10];
+
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 10; j++) {
+				fauxTileMatrix[i][j] = tileMatrix[i][j];
+			}
+		}
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 10; j++) {
+				fauxTileMatrix[i][j].setColor(boardColors[i][j]);
+			}
+		}
+		tileMatrix = fauxTileMatrix;
 	}
 }

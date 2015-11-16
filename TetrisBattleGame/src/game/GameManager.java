@@ -208,11 +208,12 @@ public class GameManager {
 	}
 
 	private void updateView() {
-		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
-		for (int i = 0; i < matrixHeight; i++) {
-			for (int j = 0; j < matrixWidth; j++) {
-				tileMatrix[i][j].setColor(boardTiles[i][j]);
-			}
-		}
+//		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
+//		for (int i = 0; i < matrixHeight; i++) {
+//			for (int j = 0; j < matrixWidth; j++) {
+//				tileMatrix[i][j].setColor(boardTiles[i][j]);
+//			}
+//		}
+		boardPanel.setTileMatrix(boardTiles);
 	}
 }
