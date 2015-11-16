@@ -69,9 +69,6 @@ public class PiecePlacer
 			nextNextPiece = pieces.get(index+1);
 		}
 		
-<<<<<<< .merge_file_83FsHI
-		return pieces.get(index++);
-=======
 		currentPiece = pieces.get(index++);
 		return currentPiece;
 	}
@@ -79,6 +76,5 @@ public class PiecePlacer
 	public Piece nextNextPiece()
 	{
 		return nextNextPiece();
->>>>>>> .merge_file_qbkKii
 	}
 }
