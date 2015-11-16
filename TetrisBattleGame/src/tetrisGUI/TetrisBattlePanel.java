@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 import game.GameManager;
 import game.PiecePlacer;
+import networking.TetrisClient;
 
 public class TetrisBattlePanel extends JPanel{
 
@@ -59,14 +60,17 @@ public class TetrisBattlePanel extends JPanel{
 	
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
-	
+	private TetrisClient tc;
 	private GameManager gameManager;
 	private PiecePlacer piecePlacer;
 	
 	//constructor
-	public TetrisBattlePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
+	public TetrisBattlePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, TetrisClient tc){
 		this.cardLayout = cardLayout;
 		this.outerPanelForCardLayout = outerPanelForCardLayout;
+		this.username = tc.getUserName();
+		this.tc = tc;
+		tc.sendMessage("name:" + tc.getUserName());
 		initializeVariables();
 		createGUI();
 		addActionAdapters();
@@ -74,7 +78,7 @@ public class TetrisBattlePanel extends JPanel{
 	
 	private void initializeVariables(){
 		
-		ImageIcon image2 = new ImageIcon("images/backgrounds/vs.jpg");
+		ImageIcon image2 = new ImageIcon("images/backgrounds/GuestBackground.jpg");
 		bg = image2.getImage();
 		
 		LeftPanel = new JPanel();
@@ -85,7 +89,7 @@ public class TetrisBattlePanel extends JPanel{
 		gameManager = new GameManager(piecePlacer);
 
 		//north
-		tetrisTitle = new JLabel("Tetris",JLabel.CENTER);
+		tetrisTitle = new JLabel(username,JLabel.CENTER);
 		tetrisTitle.setFont(font);
 
 		//center 
@@ -129,7 +133,7 @@ public class TetrisBattlePanel extends JPanel{
 		
 		//north
 		//TODO delete this line
-		oppUsername = "oppName";
+		oppUsername = tc.getOpponentName();
 		oppTetrisTitle = new JLabel(oppUsername,JLabel.CENTER);
 		oppTetrisTitle.setFont(font);
 		

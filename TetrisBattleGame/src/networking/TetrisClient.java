@@ -19,8 +19,7 @@ public class TetrisClient extends Thread{
 			br = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			pw = new PrintWriter(s.getOutputStream());
 			this.start();
-			pw.println("name:" + name);
-			pw.flush();
+			sendMessage("name:" + name);
 		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisClient constructor: " + ioe.getMessage());
 		}
@@ -42,8 +41,9 @@ public class TetrisClient extends Thread{
 		}
 	}
 	
-	public PrintWriter getPW() {
-		return pw;
+	public void sendMessage(String message) {
+		pw.println(message);
+		pw.flush();
 	}
 	
 	public void parseMessage(String message) {
