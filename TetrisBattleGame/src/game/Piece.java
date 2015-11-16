@@ -29,9 +29,11 @@ public abstract class Piece
 	
 	public void dropDown()
 	{
-		for(Point p : location)
+		for(int i =0; i <location.size(); i++)
 		{
+			Point p = location.get(i);
 			p.setLocation(p.getX() + 1, p.getY());
+			location.set(i,  p);
 		}
 	}
 	
