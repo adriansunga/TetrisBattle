@@ -9,42 +9,34 @@ public class TetrisServer {
 	private Vector<TetrisThread> ttVector;
 	private String username;
 	private TetrisClient tc;
-	
-<<<<<<< .merge_file_I9EZZc
-	public TetrisServer(int port) {
-=======
+
 	public TetrisServer(int port, String username) {
->>>>>>> .merge_file_MFIdJK
 		ttVector = new Vector<TetrisThread>();
 		this.username = username;
 		try {
 			ServerSocket ss = new ServerSocket(port);
 			tc = new TetrisClient("localhost", port, username);
-			while(ttVector.size() < 2) {
+			while (ttVector.size() < 2) {
 				Socket s = ss.accept();
 				System.out.println("Connected: " + s.getInetAddress());
 				TetrisThread tt = new TetrisThread(s, this);
 				ttVector.add(tt);
 				tt.start();
 			}
-		} catch(IOException ioe) {
+		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisServer constructor: " + ioe.getMessage());
 		}
 	}
-	
+
 	public TetrisClient getTC() {
 		return tc;
 	}
-	
+
 	public void sendMessageToAllClients(String message, TetrisThread sender) {
 		System.out.println(message);
-		for(TetrisThread tt : ttVector) {
-			if(tt != sender)
+		for (TetrisThread tt : ttVector) {
+			if (tt != sender)
 				tt.sendMessage(message);
 		}
 	}
-<<<<<<< .merge_file_I9EZZc
 }
-=======
-}
->>>>>>> .merge_file_MFIdJK
