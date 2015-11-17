@@ -40,7 +40,6 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
-
 	}
 
 	public GameManager(PiecePlacer piecePlacer) {
@@ -210,8 +209,12 @@ public class GameManager {
 
 	// sets points where piece is to black so you can redraw the new positions
 	private void setToBackground(Color color) {
-		for (Loc l : currentPiece.getLocation()) {
-			boardTiles[l.row][l.col] = color;
+		for (Loc l : currentPiece.getLocation())
+		{
+			if(l.isOnBoard())
+			{
+				boardTiles[l.row][l.col] = color;
+			}
 		}
 	}
 
