@@ -12,6 +12,6 @@ public class Loc {
 	
 	public boolean isOnBoard()
 	{
-		return row >= 0 && col >= 0;
+		return row >= 0 && col >= 0 && row < 20 && col < 10;
 	}
 }

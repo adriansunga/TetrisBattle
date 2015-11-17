@@ -172,7 +172,7 @@ public class GameManager {
 			}
 			return new Loc(l.row + 1, l.col);
 		} else if (direction.equals("left")) {
-			if (l.row <= 0) {
+			if (l.col <= 0) {
 				return null;
 			}
 			return new Loc((int) l.row - 1, (int) l.col);
@@ -200,8 +200,8 @@ public class GameManager {
 			currentPiece.dropDown();
 			// if want to stop them from changing colors every move: remove
 			// following two lines
-			int index = new Random().nextInt(pieceColors.length);
-			currentPiece.setColor(pieceColors[index]);
+//			int index = new Random().nextInt(pieceColors.length);
+//			currentPiece.setColor(pieceColors[index]);
 			System.out.println("AFTER DROPDOWN....");
 			setToBackground(currentPiece.getColor());
 			updateView();
