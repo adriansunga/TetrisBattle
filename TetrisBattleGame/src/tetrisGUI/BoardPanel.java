@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -13,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import game.GameManager;
+import game.Loc;
+import game.Piece;
 
 public class BoardPanel extends JPanel {
 	/**
@@ -30,6 +33,8 @@ public class BoardPanel extends JPanel {
 		createGUI();
 
 		setKeyBindings();
+		
+		tileMatrix[8][0].setColor(Color.GREEN);
 	}
 
 	private void setKeyBindings() {
@@ -122,4 +127,6 @@ public class BoardPanel extends JPanel {
 		}
 		tileMatrix = fauxTileMatrix;
 	}
+	
+
 }

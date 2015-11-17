@@ -47,6 +47,7 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
+
 	}
 
 	public void setBoardPanel(BoardPanel bp) {
@@ -230,6 +231,8 @@ public class GameManager {
 		// tileMatrix[i][j].setColor(boardTiles[i][j]);
 		// }
 		// }
+		
 		boardPanel.setTileMatrix(boardTiles);
+
 	}
 }
