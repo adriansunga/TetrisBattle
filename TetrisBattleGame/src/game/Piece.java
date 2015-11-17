@@ -15,9 +15,6 @@ public abstract class Piece {
 	private int index; // orientation index
 
 	public Piece() {
-		// generate random color
-		//color = new Color((int) Math.random() * 256, (int) Math.random() * 256, (int) Math.random() * 256);
-		color = Color.GREEN;
 		orientations = new boolean[4][4][4];
 
 		location = new ArrayList<Loc>();
@@ -29,13 +26,13 @@ public abstract class Piece {
 
 	public void dropDown() {
 		System.out.println("dropdown location array size: " + location.size());
+		
 		for (int i = 0; i < location.size(); i++) {
 			System.out.println("location before = " + location.get(i));
 			Loc l = location.get(i);
 			l.row++;
 			location.set(i, l);
 			System.out.println("location after = " + location.get(i));
-
 		}
 	}
 
