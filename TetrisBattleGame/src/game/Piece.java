@@ -11,7 +11,7 @@ public abstract class Piece
 {	
 	private Color color;
 
-	private ArrayList<Point> location;
+	private ArrayList<Loc> location;
 	
 	protected boolean[][][] orientations;	
 	private int index;	//orientation index
@@ -23,33 +23,37 @@ public abstract class Piece
 		orientations = new boolean[4][4][4];
 	}
 	
-	public void setLocation(ArrayList<Point> location) {
+	public void setLocation(ArrayList<Loc> location) {
 		this.location = location;
 	}
 	
 	public void dropDown()
 	{
-		for(int i =0; i <location.size(); i++)
+		for(int i = 0; i < location.size(); i++)
 		{
-			Point p = location.get(i);
-			p.setLocation(p.getX() + 1, p.getY());
-			location.set(i,  p);
+			Loc l = location.get(i);
+			l.row++;
+			location.set(i,  l);
 		}
 	}
 	
 	public void shiftRight()
 	{
-		for(Point p : location)
+		for(int i = 0; i < location.size(); i++)
 		{
-			p.setLocation(p.getX(), p.getY() -1);
+			Loc l = location.get(i);
+			l.col++;
+			location.set(i,  l);
 		}
 	}
 	
 	public void shiftLeft()
 	{
-		for(Point p : location)
+		for(int i = 0; i < location.size(); i++)
 		{
-			p.setLocation(p.getX(), p.getY() + 1);
+			Loc l = location.get(i);
+			l.col--;
+			location.set(i,  l);
 		}
 	}
 	
@@ -115,7 +119,7 @@ public abstract class Piece
 	}
 	
 	
-	public ArrayList<Point> getLocation()
+	public ArrayList<Loc> getLocation()
 	{
 		return location;
 	}

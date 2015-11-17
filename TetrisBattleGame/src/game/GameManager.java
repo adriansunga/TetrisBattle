@@ -138,13 +138,13 @@ public class GameManager {
 		if (currentPiece.getLocation() == null) {
 			return false;
 		}
-		for (Point point : currentPiece.getLocation()) {
-			Point nextPoint = nextPoint(point, direction);
+		for (Loc loc : currentPiece.getLocation()) {
+			Loc nextPoint = nextPoint(loc, direction);
 			if (nextPoint == null) {
 				return false;
 			}
 			// if there's someone else's piece blocking you
-			if (!boardTiles[nextPoint.x][nextPoint.y].equals(backgroundColor) && !isMyPiece(nextPoint)) {
+			if (!boardTiles[nextPoint.row][nextPoint.col].equals(backgroundColor) && !isMyPiece(nextPoint)) {
 				return false;
 			}
 		}
@@ -153,29 +153,29 @@ public class GameManager {
 	}
 
 	// if I occupy a certain given spot
-	private boolean isMyPiece(Point thisSpot) {
+	private boolean isMyPiece(Loc thisSpot) {
 		return currentPiece.getLocation().contains(thisSpot);
 	}
 
 	// Returns next lowest point (if null, then out of bounds)
-	private Point nextPoint(Point p, String direction) {
+	private Loc nextPoint(Loc l, String direction) {
 		if (direction.equals("down")) {
 			// Is at bottom?
-			System.out.println("p.getx= " + p.getX());
-			if (p.getX() >= matrixHeight - 1) {
+			System.out.println("p.getx= " + l.row);
+			if (l.row >= matrixHeight - 1) {
 				return null;
 			}
-			return new Point((int) p.getX(), (int) p.getY() + 1);
+			return new Loc((int) l.row, (int) l.col + 1);
 		} else if (direction.equals("left")) {
-			if (p.getX() <= 0) {
+			if (l.row <= 0) {
 				return null;
 			}
-			return new Point((int) p.getX() - 1, (int) p.getY());
+			return new Loc((int) l.row - 1, (int) l.col);
 		} else { // right
-			if (p.getY() >= matrixWidth - 1) {
+			if (l.col >= matrixWidth - 1) {
 				return null;
 			}
-			return new Point((int) p.getX() + 1, (int) p.getY());
+			return new Loc((int) l.row + 1, (int) l.col);
 		}
 	}
 
@@ -200,8 +200,8 @@ public class GameManager {
 
 	// sets points where piece is to black so you can redraw the new positions
 	private void setToBackground(Color color) {
-		for (Point point : currentPiece.getLocation()) {
-			boardTiles[point.x][point.y] = color;
+		for (Loc l : currentPiece.getLocation()) {
+			boardTiles[l.row][l.col] = color;
 		}
 	}
 
@@ -209,11 +209,11 @@ public class GameManager {
 		currentPiece = new OPiece();
 		currentPiece.setColor(Color.RED);
 		System.out.println("current piece: " + currentPiece);
-		ArrayList<Point> location = new ArrayList<Point>();
-		location.add(new Point(0, 0));
-		location.add(new Point(0, 1));
-		location.add(new Point(1, 1));
-		location.add(new Point(1, 0));
+		ArrayList<Loc> location = new ArrayList<Loc>();
+		location.add(new Loc(0, 0));
+		location.add(new Loc(0, 1));
+		location.add(new Loc(1, 1));
+		location.add(new Loc(1, 0));
 
 		currentPiece.setLocation(location);
 		setToBackground(currentPiece.getColor());
