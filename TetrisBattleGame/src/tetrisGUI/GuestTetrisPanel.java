@@ -7,11 +7,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -39,6 +42,8 @@ public class GuestTetrisPanel extends JPanel{
 	private JPanel jp;
 	private JPanel nextPanel, scoresPanel, levelPanel, scorePanel;
 	private JPanel scoresTextLabelPanel, nextPieceTextLabelPanel, scoresLabelPanel;
+	private JButton backToMenu, mute;
+	private JPanel backToMenuPanel;
 	
 	private BoardPanel boardPanel;
 	
@@ -47,8 +52,27 @@ public class GuestTetrisPanel extends JPanel{
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 	
+	private PlayMusic pm;
+	
 	private GameManager gameManager;
 	private PiecePlacer piecePlacer;
+	
+	private boolean isMuted = false;
+	
+	ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
+	Image img = originalButton.getImage();
+	Image newImage = img.getScaledInstance(200, 50, java.awt.Image.SCALE_SMOOTH);
+	ImageIcon ButtonImage1 = new ImageIcon(newImage);
+	
+	ImageIcon originalButton1 = new ImageIcon("images/on.png");
+	Image img1 = originalButton1.getImage();
+	Image newImage1 = img1.getScaledInstance(75, 50, java.awt.Image.SCALE_SMOOTH);
+	ImageIcon on = new ImageIcon(newImage1);
+	
+	ImageIcon originalButton3 = new ImageIcon("images/off.png");
+	Image img3 = originalButton3.getImage();
+	Image newImage3 = img3.getScaledInstance(75, 50, java.awt.Image.SCALE_SMOOTH);
+	ImageIcon off = new ImageIcon(newImage3);
 	
 	private Image bg;
 	
@@ -59,7 +83,7 @@ public class GuestTetrisPanel extends JPanel{
 		createGUI();
 		addActionAdapters();
 		try {
-			new PlayMusic();
+			pm = new PlayMusic();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,6 +111,7 @@ public class GuestTetrisPanel extends JPanel{
 		
 		piecePlacer = new PiecePlacer();
 		gameManager = new GameManager(piecePlacer);
+		mute = new JButton();
 		
 		leftPanel = new JPanel();
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
@@ -95,7 +120,7 @@ public class GuestTetrisPanel extends JPanel{
 		//north
 		ImageIcon image1 = new ImageIcon("images/Tetris_Title.jpg");
 		Image img1 = image1.getImage();
-		Image newImage1 = img1.getScaledInstance(image1.getIconWidth()/2, image1.getIconHeight()/2, java.awt.Image.SCALE_SMOOTH);
+		Image newImage1 = img1.getScaledInstance(300, 200, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon ButtonImage3 = new ImageIcon(newImage1);
 		tetrisTitle = new JLabel(ButtonImage3);
 
@@ -122,7 +147,17 @@ public class GuestTetrisPanel extends JPanel{
 		nextImage = new NextPiecePanel(piecePlacer);
 		nextPieceTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+		backToMenuPanel = new JPanel();
+		backToMenu = new JButton("main menu");
+		backToMenu.setFont(font);
+		backToMenu.setIcon(ButtonImage1);
+		backToMenu.setHorizontalTextPosition(SwingConstants.CENTER);
+		backToMenu.setPreferredSize(new Dimension(ButtonImage1.getIconWidth(), ButtonImage1.getIconHeight()));
+		backToMenu.setMaximumSize(new Dimension(ButtonImage1.getIconWidth(), ButtonImage1.getIconHeight()));
 		
+		mute.setIcon(off);
+		mute.setPreferredSize(new Dimension(on.getIconWidth(), on.getIconHeight()));
+		mute.setMaximumSize(new Dimension(on.getIconWidth(), on.getIconHeight()));
 	}
 	
 	private void createGUI(){
@@ -167,6 +202,16 @@ public class GuestTetrisPanel extends JPanel{
 		titlePanel.add(tetrisTitle, BorderLayout.NORTH);
 		titlePanel.setOpaque(false);
 		
+		backToMenuPanel.setOpaque(false);
+		backToMenuPanel.setLayout(new BoxLayout(backToMenuPanel, BoxLayout.X_AXIS));
+		backToMenuPanel.add(backToMenu);
+		backToMenuPanel.setPreferredSize(new Dimension(300, 50));
+		backToMenuPanel.setMaximumSize(new Dimension(300, 50));
+		backToMenuPanel.setMinimumSize(new Dimension(300, 50));
+		backToMenuPanel.add(Box.createGlue());
+		backToMenuPanel.add(mute);
+		mute.setOpaque(false);
+		
 		//add(sideBarPanel, BorderLayout.WEST);
 		boardPanel.setOpaque(false);
 		//add(sideBarPanel);
@@ -181,6 +226,7 @@ public class GuestTetrisPanel extends JPanel{
 		leftPanel.add(nextPanel);
 		leftPanel.add(levelPanel);
 		leftPanel.add(scoresPanel);
+		leftPanel.add(backToMenuPanel);
 		leftPanel.add(Box.createGlue());
 		leftPanel.add(Box.createGlue());
 
@@ -196,7 +242,26 @@ public class GuestTetrisPanel extends JPanel{
 	}
 	
 	private void addActionAdapters(){
-		
+		backToMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				cardLayout.show(outerPanelForCardLayout, "loginPanel");
+				pm.stop();
+			}
+		});
+		mute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				if(isMuted) {
+					pm.unpause();
+					mute.setIcon(off);
+					isMuted = false;
+				}
+				else {
+					pm.pause();
+					mute.setIcon(on);
+					isMuted = true;
+				}
+			}
+		});
 	}
 	
 	protected void paintComponent(Graphics g) {
