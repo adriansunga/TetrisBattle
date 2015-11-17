@@ -1,10 +1,9 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -26,6 +25,10 @@ public class GameManager {
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
 	private TetrisClient tc;
+
+	// TODO: if time, add more cute colors #thrive
+	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
+			Color.MAGENTA };
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc) {
 		this.tc = tc;
@@ -57,7 +60,9 @@ public class GameManager {
 
 	public void nextPiece() {
 		currentPiece = piecePlacer.nextPiece();
-
+		int index = new Random().nextInt(pieceColors.length);
+		currentPiece.setColor(pieceColors[index]);
+		System.out.println("in nextPiece");
 		dropPiece();
 	}
 
@@ -69,6 +74,7 @@ public class GameManager {
 					move("down");
 				} else {
 					dropPieceTimer.stop();
+					pieceSpeed = 1000;
 					nextPiece();
 				}
 			}
@@ -116,14 +122,6 @@ public class GameManager {
 		updateView();
 	}
 
-	// TODO: WARNING: there may be some null pointer errors as we need to
-	// find a way to handle when the piece is off of the board when it starts
-	// (for now im neglecting that case. we could maybe avoid this by having the
-	// first few indexes of the matrix be above the board? idk)
-	private void setCurrentPieceLocation(Piece piece) {
-
-	}
-
 	// Check to see if you should send a line
 	private boolean isLineFull(int rowNumber) {
 		for (int i = 0; i < matrixWidth; i++) {
@@ -140,13 +138,15 @@ public class GameManager {
 		if (currentPiece.getLocation() == null) {
 			return false;
 		}
+
 		for (Loc loc : currentPiece.getLocation()) {
 			Loc nextPoint = nextPoint(loc, direction);
 			if (nextPoint == null) {
 				return false;
 			}
 			// if there's someone else's piece blocking you
-			if (!boardTiles[nextPoint.row][nextPoint.col].equals(backgroundColor) && !isMyPiece(nextPoint)) {
+			if ((new Loc(nextPoint.row, nextPoint.col).isOnBoard())
+					&& boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
 				return false;
 			}
 		}
@@ -156,7 +156,12 @@ public class GameManager {
 
 	// if I occupy a certain given spot
 	private boolean isMyPiece(Loc thisSpot) {
-		return currentPiece.getLocation().contains(thisSpot);
+		for (Loc loc : currentPiece.getLocation()) {
+			if (loc.row == thisSpot.row && loc.col == thisSpot.col) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Returns next lowest point (if null, then out of bounds)
@@ -167,17 +172,17 @@ public class GameManager {
 			if (l.row >= matrixHeight - 1) {
 				return null;
 			}
-			return new Loc((int) l.row, (int) l.col + 1);
+			return new Loc(l.row + 1, l.col);
 		} else if (direction.equals("left")) {
-			if (l.row <= 0) {
+			if (l.col <= 0) {
 				return null;
 			}
-			return new Loc((int) l.row - 1, (int) l.col);
+			return new Loc(l.row, l.col - 1);
 		} else { // right
 			if (l.col >= matrixWidth - 1) {
 				return null;
 			}
-			return new Loc((int) l.row + 1, (int) l.col);
+			return new Loc(l.row, l.col + 1);
 		}
 	}
 
@@ -195,6 +200,10 @@ public class GameManager {
 		} else if (direction.equals("down") && canMove("down")) {
 			setToBackground(backgroundColor);
 			currentPiece.dropDown();
+			// if want to stop them from changing colors every move: remove
+			// following two lines
+			// int index = new Random().nextInt(pieceColors.length);
+			// currentPiece.setColor(pieceColors[index]);
 			System.out.println("AFTER DROPDOWN....");
 			setToBackground(currentPiece.getColor());
 			updateView();
@@ -204,35 +213,45 @@ public class GameManager {
 	// sets points where piece is to black so you can redraw the new positions
 	private void setToBackground(Color color) {
 		for (Loc l : currentPiece.getLocation()) {
-			boardTiles[l.row][l.col] = color;
+			if (l.isOnBoard()) {
+				boardTiles[l.row][l.col] = color;
+			}
 		}
 	}
 
 	public void testFunction() {
 		currentPiece = new OPiece();
-		currentPiece.setColor(Color.RED);
+		int index = new Random().nextInt(pieceColors.length);
+		currentPiece.setColor(pieceColors[index]);
 		System.out.println("current piece: " + currentPiece);
-		ArrayList<Loc> location = new ArrayList<Loc>();
-		location.add(new Loc(0, 0));
-		location.add(new Loc(0, 1));
-		location.add(new Loc(1, 1));
-		location.add(new Loc(1, 0));
-
-		currentPiece.setLocation(location);
+		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
 		setToBackground(currentPiece.getColor());
 		System.out.println("current piece color: " + currentPiece.getColor());
 		updateView();
-		// boardTiles[5][5] = Color.red;
-		// updateView();
+	}
+
+	public void startGame() {
+		nextPiece();
+	}
+
+	public void zoomDown(int speedDelay) {
+		pieceSpeed = speedDelay;
+		dropPieceTimer.setDelay(pieceSpeed);
 	}
 
 	private void updateView() {
-		 TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
-		 for (int i = 0; i < matrixHeight; i++) {
-			 for (int j = 0; j < matrixWidth; j++) {
-				 tileMatrix[i][j].setColor(boardTiles[i][j]);
-			 }
-		 }
+		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
+		for (int i = 0; i < matrixHeight; i++) {
+			for (int j = 0; j < matrixWidth; j++) {
+				if (boardTiles[i][j] != backgroundColor) {
+					System.out.println("adding to board row, col: " + i + ", " + j);
+				}
+				tileMatrix[i][j].setColor(boardTiles[i][j]);
+			}
+		}
 		
+		boardPanel.revalidate();
+		boardPanel.repaint();
+
 	}
 }

@@ -40,7 +40,7 @@ public class TetrisServer {
 		return tc;
 	}
 	public void disconnect(TetrisThread tt) {
-		JOptionPane.showMessageDialog(null, "Client has left the game.", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Client has left the game.", "You Have Won!", JOptionPane.INFORMATION_MESSAGE);
 		cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 	}
 	

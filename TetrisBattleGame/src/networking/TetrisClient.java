@@ -47,7 +47,7 @@ public class TetrisClient extends Thread{
 		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisClient.run(): " + ioe.getMessage());
 		} finally {
-			JOptionPane.showMessageDialog(null, "Host has left the game.", "Tetris Battle Login", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Host has left the game.", "You Have Won!", JOptionPane.INFORMATION_MESSAGE);
 			cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 		}
 	}

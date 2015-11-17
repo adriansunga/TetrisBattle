@@ -8,10 +8,11 @@ import javax.sound.sampled.Clip;
 import javax.swing.SwingUtilities;
 
 public class PlayMusic {
+	private Clip clip;
 
     PlayMusic() throws Exception {
         File file = new File("music/Tetris.wav");
-        Clip clip = AudioSystem.getClip();
+        clip = AudioSystem.getClip();
         AudioInputStream ais = AudioSystem.getAudioInputStream( file );
         clip.open(ais);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -19,5 +20,17 @@ public class PlayMusic {
             public void run() {
             }
         });
+    }
+    
+    public void pause() {
+    	clip.stop();
+    }
+    
+    public void unpause() {
+    	clip.start();
+    }
+    
+    public void stop() {
+    	clip.close();
     }
 }
