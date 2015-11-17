@@ -137,6 +137,7 @@ public class GameManager {
 		if (currentPiece.getLocation() == null) {
 			return false;
 		}
+		
 		for (Loc loc : currentPiece.getLocation()) {
 			Loc nextPoint = nextPoint(loc, direction);
 			if (nextPoint == null) {
