@@ -74,7 +74,7 @@ public class GameManager {
 					move("down");
 				} else {
 					dropPieceTimer.stop();
-					pieceSpeed = 100;
+					pieceSpeed = 1000;
 					nextPiece();
 				}
 			}
@@ -234,8 +234,9 @@ public class GameManager {
 		nextPiece();
 	}
 
-	public void zoomDown() {
-		pieceSpeed = 100;
+	public void zoomDown(int speedDelay) {
+		pieceSpeed = speedDelay;
+		dropPieceTimer.setDelay(pieceSpeed);
 	}
 
 	private void updateView() {

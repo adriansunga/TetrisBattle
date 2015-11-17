@@ -25,7 +25,7 @@ public class BoardPanel extends JPanel {
 	private TilePanel[][] tileMatrix;
 	// private GameManager gameManager;
 	private GameManager gm;
-	
+
 	public BoardPanel(GameManager gm) {
 		this.gm = gm;
 		gm.setBoardPanel(this);
@@ -33,7 +33,7 @@ public class BoardPanel extends JPanel {
 		createGUI();
 
 		setKeyBindings();
-		
+
 	}
 
 	private void setKeyBindings() {
@@ -45,15 +45,28 @@ public class BoardPanel extends JPanel {
 		String vkRight = "VK_RIGHT";
 		String vkUp = "VK_UP";
 		String vkDown = "VK_DOWN";
+		String space = "space";
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), vkRight);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
-		
+
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true), "PlayerDownRelease");
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), space);
+
 		actionMap.put(vkLeft, new KeyAction(vkLeft));
 		actionMap.put(vkRight, new KeyAction(vkRight));
 		actionMap.put(vkUp, new KeyAction(vkUp));
 		actionMap.put(vkDown, new KeyAction(vkDown));
+		actionMap.put(space, new KeyAction(space));
+		actionMap.put("PlayerDownRelease", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("down release");
+				gm.zoomDown(1000);
+            }
+        });
+
 
 	}
 
@@ -69,11 +82,11 @@ public class BoardPanel extends JPanel {
 			switch (keyCode) {
 			case "VK_UP":
 				System.out.println("up key pressed");
-				//gm.testFunction();
+				// gm.testFunction();
 				break;
 			case "VK_DOWN":
 				System.out.println("down key pressed");
-				gm.zoomDown();
+				gm.zoomDown(50);
 				break;
 			case "VK_LEFT":
 				System.out.println("left key pressed");
@@ -82,6 +95,14 @@ public class BoardPanel extends JPanel {
 			case "VK_RIGHT":
 				System.out.println("right key pressed");
 				gm.move("right");
+				break;
+			case "PlayerRightRelease":
+				System.out.println("Key released");
+				gm.zoomDown(1000);
+				break;
+			case "space":
+				System.out.println("space key pressed");
+				gm.zoomDown(0); //TODO: should i make this instantaneous?
 				break;
 			}
 		}
@@ -110,7 +131,7 @@ public class BoardPanel extends JPanel {
 	public TilePanel[][] getTileMatrix() {
 		return tileMatrix;
 	}
-	
+
 	public void setTileMatrix(Color[][] boardColors) {
 		TilePanel[][] fauxTileMatrix = new TilePanel[20][10];
 
@@ -126,6 +147,5 @@ public class BoardPanel extends JPanel {
 		}
 		tileMatrix = fauxTileMatrix;
 	}
-	
 
 }
