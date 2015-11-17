@@ -10,6 +10,7 @@ import javax.swing.Timer;
 
 import networking.TetrisClient;
 import tetrisGUI.BoardPanel;
+import tetrisGUI.TilePanel;
 
 public class GameManager {
 
@@ -225,14 +226,12 @@ public class GameManager {
 	}
 
 	private void updateView() {
-		// TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
-		// for (int i = 0; i < matrixHeight; i++) {
-		// for (int j = 0; j < matrixWidth; j++) {
-		// tileMatrix[i][j].setColor(boardTiles[i][j]);
-		// }
-		// }
+		 TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
+		 for (int i = 0; i < matrixHeight; i++) {
+			 for (int j = 0; j < matrixWidth; j++) {
+				 tileMatrix[i][j].setColor(boardTiles[i][j]);
+			 }
+		 }
 		
-		boardPanel.setTileMatrix(boardTiles);
-
 	}
 }

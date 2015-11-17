@@ -6,6 +6,6 @@ public class Loc {
 
 	public Loc(int r, int c) {
 		row = r;
-		row = c;
+		col = c;
 	}
 }
