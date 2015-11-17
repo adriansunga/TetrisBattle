@@ -9,14 +9,15 @@ import java.util.Scanner;
 public abstract class Piece {
 	private Color color;
 
-	private ArrayList<Loc> location;
+	protected ArrayList<Loc> location;
 
 	protected boolean[][][] orientations;
 	private int index; // orientation index
 
 	public Piece() {
 		// generate random color
-		color = new Color((int) Math.random() * 256, (int) Math.random() * 256, (int) Math.random() * 256);
+		//color = new Color((int) Math.random() * 256, (int) Math.random() * 256, (int) Math.random() * 256);
+		color = Color.GREEN;
 		orientations = new boolean[4][4][4];
 
 		location = new ArrayList<Loc>();

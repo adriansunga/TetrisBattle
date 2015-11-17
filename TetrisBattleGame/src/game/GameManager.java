@@ -57,7 +57,7 @@ public class GameManager {
 
 	public void nextPiece() {
 		currentPiece = piecePlacer.nextPiece();
-
+		System.out.println("in nextPiece");
 		dropPiece();
 	}
 
@@ -70,7 +70,6 @@ public class GameManager {
 				} else {
 					dropPieceTimer.stop();
 					nextPiece();
-					return;
 				}
 			}
 		});
@@ -115,14 +114,6 @@ public class GameManager {
 
 		// Refresh BoardPanel
 		updateView();
-	}
-
-	// TODO: WARNING: there may be some null pointer errors as we need to
-	// find a way to handle when the piece is off of the board when it starts
-	// (for now im neglecting that case. we could maybe avoid this by having the
-	// first few indexes of the matrix be above the board? idk)
-	private void setCurrentPieceLocation(Piece piece) {
-
 	}
 
 	// Check to see if you should send a line
@@ -218,13 +209,6 @@ public class GameManager {
 		currentPiece = new OPiece();
 		currentPiece.setColor(Color.RED);
 		System.out.println("current piece: " + currentPiece);
-		ArrayList<Loc> location = new ArrayList<Loc>();
-		location.add(new Loc(0, 0));
-		location.add(new Loc(0, 1));
-		location.add(new Loc(1, 1));
-		location.add(new Loc(1, 0));
-
-		currentPiece.setLocation(location);
 		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
 		setToBackground(currentPiece.getColor());
 		System.out.println("current piece color: " + currentPiece.getColor());

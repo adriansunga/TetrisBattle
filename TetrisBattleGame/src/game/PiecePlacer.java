@@ -61,7 +61,7 @@ public class PiecePlacer
 
 			currentPiece = nextNextPiece;
 			nextNextPiece = pieces.get(0);
-			
+			System.out.println("color of my new current piece: " + currentPiece.getColor());
 			return currentPiece;
 		}
 
