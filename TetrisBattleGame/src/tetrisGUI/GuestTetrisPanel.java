@@ -87,6 +87,8 @@ public class GuestTetrisPanel extends JPanel{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		gameManager.startGame();
 	}
 	
 	private void initializeVariables(){

@@ -34,7 +34,6 @@ public class BoardPanel extends JPanel {
 
 		setKeyBindings();
 		
-		tileMatrix[8][0].setColor(Color.GREEN);
 	}
 
 	private void setKeyBindings() {

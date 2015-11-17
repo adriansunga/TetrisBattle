@@ -138,7 +138,7 @@ public class GameManager {
 				return false;
 			}
 			// if there's someone else's piece blocking you
-			if (boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
+			if ((new Loc(nextPoint.row,nextPoint.col).isOnBoard()) && boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
 				return false;
 			}
 		}
@@ -210,7 +210,7 @@ public class GameManager {
 	}
 
 	public void testFunction() {
-		currentPiece = new SPiece();
+		currentPiece = new ZPiece();
 		currentPiece.setColor(Color.RED);
 		System.out.println("current piece: " + currentPiece);
 		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
@@ -219,6 +219,11 @@ public class GameManager {
 		updateView();
 		// boardTiles[5][5] = Color.red;
 		// updateView();
+	}
+	
+	public void startGame()
+	{
+		nextPiece();
 	}
 
 	private void updateView() {
