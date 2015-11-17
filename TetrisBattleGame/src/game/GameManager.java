@@ -175,12 +175,12 @@ public class GameManager {
 			if (l.col <= 0) {
 				return null;
 			}
-			return new Loc((int) l.row - 1, (int) l.col);
+			return new Loc((int) l.row, (int) l.col-1);
 		} else { // right
 			if (l.col >= matrixWidth - 1) {
 				return null;
 			}
-			return new Loc((int) l.row + 1, (int) l.col);
+			return new Loc((int) l.row, (int) l.col+1);
 		}
 	}
 
@@ -245,6 +245,9 @@ public class GameManager {
 				tileMatrix[i][j].setColor(boardTiles[i][j]);
 			}
 		}
+		
+		boardPanel.revalidate();
+		boardPanel.repaint();
 
 	}
 }
