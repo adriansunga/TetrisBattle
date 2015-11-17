@@ -8,9 +8,14 @@ public class OPiece extends Piece
 		
 		setUpOrientations("opiece");
 		
-		location.add(new Loc(0, 4));
-		location.add(new Loc(0, 5));
-		location.add(new Loc(1, 4));
-		location.add(new Loc(1, 5));
+		initializeLocation();
+	}
+	
+	public void initializeLocation()
+	{
+		location.add(new Loc(-2, 4));
+		location.add(new Loc(-2, 5));
+		location.add(new Loc(-1, 4));
+		location.add(new Loc(-1, 5));
 	}
 }

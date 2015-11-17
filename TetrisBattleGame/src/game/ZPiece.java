@@ -7,5 +7,15 @@ public class ZPiece extends Piece
 		super();
 		
 		setUpOrientations("zpiece");
+		
+		initializeLocation();
+	}
+	
+	public void initializeLocation()
+	{
+		location.add(new Loc(-2,4));
+		location.add(new Loc(-2,5));
+		location.add(new Loc(-1,5));
+		location.add(new Loc(-1, 6));
 	}
 }

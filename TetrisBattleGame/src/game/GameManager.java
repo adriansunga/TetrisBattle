@@ -143,7 +143,7 @@ public class GameManager {
 				return false;
 			}
 			// if there's someone else's piece blocking you
-			if (boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
+			if ((new Loc(nextPoint.row,nextPoint.col).isOnBoard()) && boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
 				return false;
 			}
 		}
@@ -227,6 +227,11 @@ public class GameManager {
 		setToBackground(currentPiece.getColor());
 		System.out.println("current piece color: " + currentPiece.getColor());
 		updateView();
+	}
+	
+	public void startGame()
+	{
+		nextPiece();
 	}
 
 	private void updateView() {

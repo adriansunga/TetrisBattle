@@ -7,5 +7,15 @@ public class JPiece extends Piece
 		super();
 		
 		setUpOrientations("jpiece");
+		
+		initializeLocation();
+	}
+	
+	public void initializeLocation()
+	{
+		location.add(new Loc(-3,5));
+		location.add(new Loc(-2,5));
+		location.add(new Loc(-1,5));
+		location.add(new Loc(-1,4));
 	}
 }

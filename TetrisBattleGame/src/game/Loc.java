@@ -9,4 +9,9 @@ public class Loc {
 		row = r;
 		col = c;
 	}
+	
+	public boolean isOnBoard()
+	{
+		return row >= 0 && col >= 0;
+	}
 }
