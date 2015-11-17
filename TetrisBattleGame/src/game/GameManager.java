@@ -26,7 +26,6 @@ public class GameManager {
 	private Timer dropPieceTimer;
 	private TetrisClient tc;
 
-
 	// TODO: if time, add more cute colors #thrive
 	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
 			Color.MAGENTA };
@@ -249,6 +248,9 @@ public class GameManager {
 				tileMatrix[i][j].setColor(boardTiles[i][j]);
 			}
 		}
+		
+		boardPanel.revalidate();
+		boardPanel.repaint();
 
 	}
 }
