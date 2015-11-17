@@ -53,7 +53,7 @@ public class PiecePlacer
 	
 	public Piece nextPiece()
 	{
-		if(index == numPieces)
+		if(index == numPieces-1)
 		{
 			index = 0;
 			Collections.shuffle(pieces, new Random(seed));
@@ -64,12 +64,10 @@ public class PiecePlacer
 			
 			return currentPiece;
 		}
-		else
-		{
-			nextNextPiece = pieces.get(index+1);
-		}
-		
+
+		nextNextPiece = pieces.get(index+1);
 		currentPiece = pieces.get(index++);
+		
 		return currentPiece;
 	}
 	

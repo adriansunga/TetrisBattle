@@ -24,7 +24,6 @@ public class GameManager {
 	private PiecePlacer piecePlacer;
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
-	private boolean canDrop;
 	private TetrisClient tc;
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc) {
@@ -37,7 +36,6 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
-		canDrop = true;
 	}
 
 	public GameManager(PiecePlacer piecePlacer) {
@@ -49,7 +47,6 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
-		canDrop = true;
 	}
 
 	public void setBoardPanel(BoardPanel bp) {
@@ -165,17 +162,17 @@ public class GameManager {
 		if (direction.equals("down")) {
 			// Is at bottom?
 			System.out.println("p.getx= " + p.getX());
-			if (p.getX() == matrixHeight - 1) {
+			if (p.getX() >= matrixHeight - 1) {
 				return null;
 			}
 			return new Point((int) p.getX(), (int) p.getY() + 1);
 		} else if (direction.equals("left")) {
-			if (p.getX() == 0) {
+			if (p.getX() <= 0) {
 				return null;
 			}
 			return new Point((int) p.getX() - 1, (int) p.getY());
 		} else { // right
-			if (p.getY() == matrixWidth - 1) {
+			if (p.getY() >= matrixWidth - 1) {
 				return null;
 			}
 			return new Point((int) p.getX() + 1, (int) p.getY());
