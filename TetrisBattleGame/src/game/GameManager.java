@@ -26,6 +26,7 @@ public class GameManager {
 	private Timer dropPieceTimer;
 	private TetrisClient tc;
 
+
 	// TODO: if time, add more cute colors #thrive
 	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
 			Color.MAGENTA };
@@ -74,6 +75,7 @@ public class GameManager {
 					move("down");
 				} else {
 					dropPieceTimer.stop();
+					pieceSpeed = 100;
 					nextPiece();
 				}
 			}
@@ -137,14 +139,15 @@ public class GameManager {
 		if (currentPiece.getLocation() == null) {
 			return false;
 		}
-		
+
 		for (Loc loc : currentPiece.getLocation()) {
 			Loc nextPoint = nextPoint(loc, direction);
 			if (nextPoint == null) {
 				return false;
 			}
 			// if there's someone else's piece blocking you
-			if ((new Loc(nextPoint.row,nextPoint.col).isOnBoard()) && boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
+			if ((new Loc(nextPoint.row, nextPoint.col).isOnBoard())
+					&& boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
 				return false;
 			}
 		}
@@ -175,12 +178,12 @@ public class GameManager {
 			if (l.col <= 0) {
 				return null;
 			}
-			return new Loc((int) l.row - 1, (int) l.col);
+			return new Loc(l.row, l.col - 1);
 		} else { // right
 			if (l.col >= matrixWidth - 1) {
 				return null;
 			}
-			return new Loc((int) l.row + 1, (int) l.col);
+			return new Loc(l.row, l.col + 1);
 		}
 	}
 
@@ -200,8 +203,8 @@ public class GameManager {
 			currentPiece.dropDown();
 			// if want to stop them from changing colors every move: remove
 			// following two lines
-//			int index = new Random().nextInt(pieceColors.length);
-//			currentPiece.setColor(pieceColors[index]);
+			// int index = new Random().nextInt(pieceColors.length);
+			// currentPiece.setColor(pieceColors[index]);
 			System.out.println("AFTER DROPDOWN....");
 			setToBackground(currentPiece.getColor());
 			updateView();
@@ -210,10 +213,8 @@ public class GameManager {
 
 	// sets points where piece is to black so you can redraw the new positions
 	private void setToBackground(Color color) {
-		for (Loc l : currentPiece.getLocation())
-		{
-			if(l.isOnBoard())
-			{
+		for (Loc l : currentPiece.getLocation()) {
+			if (l.isOnBoard()) {
 				boardTiles[l.row][l.col] = color;
 			}
 		}
@@ -229,10 +230,13 @@ public class GameManager {
 		System.out.println("current piece color: " + currentPiece.getColor());
 		updateView();
 	}
-	
-	public void startGame()
-	{
+
+	public void startGame() {
 		nextPiece();
+	}
+
+	public void zoomDown() {
+		pieceSpeed = 100;
 	}
 
 	private void updateView() {

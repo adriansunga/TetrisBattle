@@ -73,7 +73,7 @@ public class BoardPanel extends JPanel {
 				break;
 			case "VK_DOWN":
 				System.out.println("down key pressed");
-				//gm.dropPiece();
+				gm.zoomDown();
 				break;
 			case "VK_LEFT":
 				System.out.println("left key pressed");
