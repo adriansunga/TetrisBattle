@@ -195,6 +195,7 @@ public class GameManager {
 		} else if (direction.equals("down") && canMove("down")) {
 			setToBackground(backgroundColor);
 			currentPiece.dropDown();
+			System.out.println("AFTER DROPDOWN....");
 			setToBackground(currentPiece.getColor());
 			updateView();
 		}

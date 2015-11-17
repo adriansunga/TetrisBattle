@@ -21,6 +21,8 @@ public abstract class Piece
 		//generate random color
 		color = new Color((int)Math.random()*256, (int)Math.random()*256, (int)Math.random()*256);
 		orientations = new boolean[4][4][4];
+		
+		location = new ArrayList<Loc>();
 	}
 	
 	public void setLocation(ArrayList<Loc> location) {
@@ -29,6 +31,7 @@ public abstract class Piece
 	
 	public void dropDown()
 	{
+		System.out.println("IN DROPDOWN.....");
 		for(int i = 0; i < location.size(); i++)
 		{
 			Loc l = location.get(i);
