@@ -1,19 +1,23 @@
 package tetrisGUI;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import game.GameManager;
 import game.PiecePlacer;
@@ -36,9 +40,14 @@ public class TetrisBattlePanel extends JPanel{
 	private int score = 0;
 	private JPanel nextPeicePanel;
 	private JLabel nextPieceTextLabel;
-	private JButton nextPieceImageButton;
+	private NextPiecePanel nextImage;
+	private JPanel jp;
 	private JPanel centerPanel;
 	private BoardPanel boardPanel;
+	private JPanel linesSentPanel;
+	private JLabel linesSentLabel;
+	private JLabel linesSentTextLabel;
+	private int linesSent = 0;
 	
 	//right side
 	private JPanel RightPanel;
@@ -51,9 +60,15 @@ public class TetrisBattlePanel extends JPanel{
 	private int oppScore = 0;
 	private JPanel oppNextPeicePanel;
 	private JLabel oppNextPieceTextLabel;
-	private JButton oppNextPieceImageButton;
+	private NextPiecePanel oppNextImage;
+	private JPanel oppjp;
 	private JPanel oppCenterPanel;
 	private BoardPanel oppBoardPanel;
+	private JPanel oppLinesSentPanel;
+	private JLabel oppLinesSentLabel;
+	private JLabel oppLinesSentTextLabel;
+	private int oppLinesSent = 0;
+	
 	
 	private Image bg;
 	
@@ -78,6 +93,12 @@ public class TetrisBattlePanel extends JPanel{
 	
 	private void initializeVariables(){
 		
+		jp = new JPanel();
+		jp.setPreferredSize(new Dimension(20, 20));
+		
+		oppjp = new JPanel();
+		oppjp.setPreferredSize(new Dimension(20, 20));
+		
 		ImageIcon image2 = new ImageIcon("images/backgrounds/GuestBackground.jpg");
 		bg = image2.getImage();
 		
@@ -90,7 +111,7 @@ public class TetrisBattlePanel extends JPanel{
 		tc.setGameManager(gameManager);
 
 		//north
-		tetrisTitle = new JLabel(username,JLabel.CENTER);
+		tetrisTitle = new JLabel("User: " + username,JLabel.CENTER);
 		tetrisTitle.setFont(font);
 
 		//center 
@@ -105,27 +126,30 @@ public class TetrisBattlePanel extends JPanel{
 		scorePanel = new JPanel();
 		
 		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
-		scoreLabel = new JLabel("Lines Sent:");
+		scoreLabel = new JLabel("Score:   ");
 		scoreLabel.setFont(font);
 		//TODO make it get score from game manager
 		scoreTextLabel = new JLabel(Integer.toString(score));
+		scoreTextLabel.setFont(font);
+		scoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
+		
+		linesSentPanel = new JPanel();
+		linesSentPanel.setLayout(new BoxLayout(linesSentPanel, BoxLayout.Y_AXIS));
+		linesSentLabel = new JLabel("Lines Sent:   ");
+		linesSentLabel.setFont(font);
+		linesSentTextLabel = new JLabel(Integer.toString(linesSent));
+		linesSentTextLabel.setFont(font);
+		linesSentLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		
 		nextPeicePanel = new JPanel();
-		
 		nextPeicePanel.setLayout(new BoxLayout(nextPeicePanel, BoxLayout.Y_AXIS));
-		nextPieceTextLabel = new JLabel("Next Piece:");
+		nextPieceTextLabel = new JLabel("Next Piece");
 		nextPieceTextLabel.setFont(font);
-		nextPieceImageButton = new JButton();
-		
-		//TODO make it get next peice from manager
-		ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
-		Image img = originalButton.getImage();
-		Image newImage = img.getScaledInstance(originalButton.getIconWidth()/(10), originalButton.getIconHeight()/10, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon ButtonImage1 = new ImageIcon(newImage);
-		nextPieceImageButton.setBorderPainted( false );
-		nextPieceImageButton.setFocusPainted( false );
-		nextPieceImageButton.setIcon(ButtonImage1);
-		
+		nextImage = new NextPiecePanel(piecePlacer);
+		nextPieceTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
 		RightPanel = new JPanel();
@@ -133,9 +157,8 @@ public class TetrisBattlePanel extends JPanel{
 		RightPanel.setLayout(new BorderLayout());
 		
 		//north
-		//TODO delete this line
 		oppUsername = tc.getOpponentName();
-		oppTetrisTitle = new JLabel(oppUsername,JLabel.CENTER);
+		oppTetrisTitle = new JLabel("Opponent: " + oppUsername,JLabel.CENTER);
 		oppTetrisTitle.setFont(font);
 		
 		//center 
@@ -155,27 +178,31 @@ public class TetrisBattlePanel extends JPanel{
 		
 		oppScorePanel = new JPanel();
 		oppScorePanel.setLayout(new BoxLayout(oppScorePanel, BoxLayout.Y_AXIS));
-		oppScoreLabel = new JLabel("Lines Sent:");
+		oppScoreLabel = new JLabel("Score:   ");
 		oppScoreLabel.setFont(font);
 		//TODO make it get score from game manager
 		oppScoreTextLabel = new JLabel(Integer.toString(oppScore));
+		oppScoreTextLabel.setFont(font);
+		oppScoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
+		oppLinesSentPanel = new JPanel();
+		oppLinesSentPanel.setLayout(new BoxLayout(oppLinesSentPanel, BoxLayout.Y_AXIS));
+		oppLinesSentLabel = new JLabel("Lines Sent:   ");
+		oppLinesSentLabel.setFont(font);
+		oppLinesSentTextLabel = new JLabel(Integer.toString(oppLinesSent));
+		oppLinesSentTextLabel.setFont(font);
+		
+		
+		
 		
 		oppNextPeicePanel = new JPanel();
-
 		oppNextPeicePanel.setLayout(new BoxLayout(oppNextPeicePanel, BoxLayout.Y_AXIS));
-		oppNextPieceTextLabel = new JLabel("Next Piece:");
+		oppNextPieceTextLabel = new JLabel("Next Piece");
 		oppNextPieceTextLabel.setFont(font);
-		oppNextPieceImageButton = new JButton();
-		
-		//TODO make it get next peice from manager
-		ImageIcon originalButton1 = new ImageIcon("images/pieces/Tetris_I.svg.png");
-		Image img1 = originalButton1.getImage();
-		Image newImage1 = img1.getScaledInstance(originalButton1.getIconWidth()/(10), originalButton1.getIconHeight()/10, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon ButtonImage11 = new ImageIcon(newImage1);
-		oppNextPieceImageButton.setBorderPainted( false );
-		oppNextPieceImageButton.setFocusPainted( false );
-		oppNextPieceImageButton.setIcon(ButtonImage11);
-		
+		oppNextImage = new NextPiecePanel(piecePlacer);
+		oppNextPieceTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
 	}
 	
 	private void createGUI(){
@@ -187,39 +214,77 @@ public class TetrisBattlePanel extends JPanel{
 		
 		//north
 		LeftPanel.add(tetrisTitle, BorderLayout.NORTH);
-		//LeftPanel.add(tetrisTitle);
 		
-		
+		JPanel boxLayoutForLeftPanel = new JPanel();
+		boxLayoutForLeftPanel.setLayout(new BoxLayout(boxLayoutForLeftPanel, BoxLayout.X_AXIS));
+		boxLayoutForLeftPanel.setOpaque(false);
+	//	boxLayoutForLeftPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
 		//west
-		sideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
-		sideBarPanel.add(Box.createGlue());
+		//sideBarPanel.add(Box.createGlue());
 		sideBarPanel.setOpaque(false);
+		sideBarPanel.setPreferredSize(new Dimension(200, 600));
+		scorePanel.setOpaque(false);
+		JPanel jpp = new JPanel();
+		jpp.setLayout(new BoxLayout(jpp, BoxLayout.X_AXIS));
+		jpp.add(scoreLabel);
+		jpp.add(scoreTextLabel);
+		jpp.setOpaque(false);
+		scorePanel.add(jpp);
+		scorePanel.setPreferredSize(new Dimension(200, 60));
+		scorePanel.setMaximumSize(new Dimension(200, 60));
+		scorePanel.setMinimumSize(new Dimension(200, 60));
+		scorePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		scorePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.PINK));
+		sideBarPanel.add(scorePanel);
+		
+		
+		//
 		nextPeicePanel.setOpaque(false);
 		nextPeicePanel.add(nextPieceTextLabel);
-		nextPeicePanel.add(nextPieceImageButton);
-		nextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
+		jp.add(nextImage);
+		jp.setOpaque(false);
+		nextPeicePanel.add(jp);
+		nextPeicePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		nextPeicePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
+		nextPeicePanel.setPreferredSize(new Dimension(200, 150));
+		nextPeicePanel.setMaximumSize(new Dimension(200, 150));
+		nextPeicePanel.setMinimumSize(new Dimension(200, 150));
 		sideBarPanel.add(nextPeicePanel);
-		sideBarPanel.add(Box.createGlue());
 		
-		scorePanel.setOpaque(false);
-		scorePanel.add(scoreLabel);
-		scorePanel.add(scoreTextLabel);
-		scorePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
-		sideBarPanel.add(scorePanel);
-		sideBarPanel.add(Box.createGlue());
+		//
 		
+		linesSentPanel.setOpaque(false);
+		JPanel jppp = new JPanel();
+		jppp.setOpaque(false);
+		jppp.setLayout(new BoxLayout(jppp, BoxLayout.X_AXIS));
+		jppp.add(linesSentLabel);
+		jppp.add(linesSentTextLabel);
+		linesSentPanel.add(jppp);
+		linesSentPanel.add(linesSentLabel);
+		linesSentPanel.add(linesSentTextLabel);
+		linesSentPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		linesSentPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLUE));
+		linesSentPanel.setPreferredSize(new Dimension(200, 45));
+		linesSentPanel.setMaximumSize(new Dimension(200, 45));
+		linesSentPanel.setMinimumSize(new Dimension(200, 45));
+		sideBarPanel.add(linesSentPanel);
 		
-		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(Box.createGlue());
-		sideBarPanel.add(Box.createGlue());
+		//sideBarPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
+//		sideBarPanel.add(Box.createGlue());
+//		sideBarPanel.add(Box.createGlue());
+//		sideBarPanel.add(Box.createGlue());
 		
-		LeftPanel.add(sideBarPanel, BorderLayout.WEST);
-		//LeftPanel.add(sideBarPanel);
-				
+		//LeftPanel.add(sideBarPanel, BorderLayout.WEST);
+		boxLayoutForLeftPanel.add(sideBarPanel);
+		
 		//center
+		//centerPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
 		centerPanel.add(boardPanel);
 		centerPanel.setOpaque(false);
-		LeftPanel.add(centerPanel, BorderLayout.CENTER);
+		//LeftPanel.add(centerPanel, BorderLayout.CENTER);
+		boxLayoutForLeftPanel.add(centerPanel);
+		
+		LeftPanel.add(boxLayoutForLeftPanel, BorderLayout.CENTER);
 		
 		add(LeftPanel);
 		
@@ -227,35 +292,77 @@ public class TetrisBattlePanel extends JPanel{
 		RightPanel.setOpaque(false);
 		RightPanel.add(oppTetrisTitle, BorderLayout.NORTH);
 		oppSideBarPanel.setOpaque(false);
-		oppSideBarPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
-		oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.setPreferredSize(new Dimension(175, 600));
+		//oppSideBarPanel.add(Box.createGlue());
+		
+		
+		JPanel boxLayoutForRightPanel = new JPanel();
+		boxLayoutForRightPanel.setLayout(new BoxLayout(boxLayoutForRightPanel, BoxLayout.X_AXIS));
+		boxLayoutForRightPanel.setOpaque(false);
+		
+		
+		oppScorePanel.setOpaque(false);
+		
+		JPanel jpp1 = new JPanel();
+		jpp1.setLayout(new BoxLayout(jpp1, BoxLayout.X_AXIS));
+		jpp1.setOpaque(false);
+		jpp1.add(oppScoreLabel);
+		jpp1.add(oppScoreTextLabel);
+		oppScorePanel.add(jpp1);
+		
+		oppScorePanel.add(jpp1);
+		oppScorePanel.setPreferredSize(new Dimension(175, 45));
+		oppScorePanel.setMaximumSize(new Dimension(175, 45));
+		oppScorePanel.setMinimumSize(new Dimension(175, 45));
+		oppScorePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.PINK));
+		oppSideBarPanel.add(oppScorePanel);
+		//oppSideBarPanel.add(Box.createGlue());
 		
 		oppNextPeicePanel.setOpaque(false);
 		oppNextPeicePanel.add(oppNextPieceTextLabel);
-		oppNextPeicePanel.add(oppNextPieceImageButton);
-		oppNextPeicePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GREEN));
+		oppjp.add(oppNextImage);
+		oppjp.setOpaque(false);
+		oppNextPeicePanel.add(oppjp);
+		oppNextPeicePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
+		oppNextPeicePanel.setPreferredSize(new Dimension(175, 150));
+		oppNextPeicePanel.setMaximumSize(new Dimension(175, 150));
+		oppNextPeicePanel.setMinimumSize(new Dimension(175, 150));
 		oppSideBarPanel.add(oppNextPeicePanel);
-		oppSideBarPanel.add(Box.createGlue());
+		//oppSideBarPanel.add(Box.createGlue());
 		
-		oppScorePanel.setOpaque(false);
-		oppScorePanel.add(oppScoreLabel);
-		oppScorePanel.add(oppScoreTextLabel);
-		oppScorePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
-		oppSideBarPanel.add(oppScorePanel);
+		oppLinesSentPanel.setOpaque(false);
+		JPanel jppp1 = new JPanel();
+		jppp1.setOpaque(false);
+		jppp1.setLayout(new BoxLayout(jppp1, BoxLayout.X_AXIS));
+		jppp1.add(oppLinesSentLabel);
+		jppp1.add(oppLinesSentTextLabel);
+		oppLinesSentPanel.add(jppp1);
+		oppLinesSentPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLUE));
+		oppLinesSentPanel.setPreferredSize(new Dimension(175, 45));
+		oppLinesSentPanel.setMaximumSize(new Dimension(175, 45));
+		oppLinesSentPanel.setMinimumSize(new Dimension(175, 45));
+		oppSideBarPanel.add(oppLinesSentPanel);
+//		oppSideBarPanel.add(Box.createGlue());
+//		
+//		
+//		oppSideBarPanel.add(Box.createGlue());
+//		oppSideBarPanel.add(Box.createGlue());
+//		oppSideBarPanel.add(Box.createGlue());
 		
 		
-		oppSideBarPanel.add(Box.createGlue());
-		oppSideBarPanel.add(Box.createGlue());
-		oppSideBarPanel.add(Box.createGlue());
-		
-		RightPanel.add(oppSideBarPanel, BorderLayout.EAST);
-		//RightPanel.add(oppSideBarPanel);
+		//RightPanel.add(oppSideBarPanel, BorderLayout.EAST);
 				
 		//center
 		oppCenterPanel.setOpaque(false);
 		oppCenterPanel.add(oppBoardPanel);
-		RightPanel.add(oppCenterPanel, BorderLayout.CENTER);
-		//RightPanel.add(oppCenterPanel);
+		//RightPanel.add(oppCenterPanel, BorderLayout.CENTER);
+		
+		
+		boxLayoutForRightPanel.add(oppCenterPanel);
+		boxLayoutForRightPanel.add(oppSideBarPanel);
+		
+		RightPanel.add(boxLayoutForRightPanel);
+		
 		
 		add(RightPanel);
 		try {
@@ -271,6 +378,9 @@ public class TetrisBattlePanel extends JPanel{
 	
 	protected void paintComponent(Graphics g) {
 		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
+		Graphics2D g2 = (Graphics2D) g;
+	    g2.setStroke(new BasicStroke(3));
+		g2.drawLine(485, 0, 485, 960);
 	}
 	
 
