@@ -70,6 +70,7 @@ public class GameManager {
 				} else {
 					dropPieceTimer.stop();
 					nextPiece();
+					return;
 				}
 			}
 		});
@@ -146,7 +147,7 @@ public class GameManager {
 				return false;
 			}
 			// if there's someone else's piece blocking you
-			if (!boardTiles[nextPoint.row][nextPoint.col].equals(backgroundColor) && !isMyPiece(nextPoint)) {
+			if (boardTiles[nextPoint.row][nextPoint.col] != backgroundColor && !isMyPiece(nextPoint)) {
 				return false;
 			}
 		}
@@ -156,7 +157,12 @@ public class GameManager {
 
 	// if I occupy a certain given spot
 	private boolean isMyPiece(Loc thisSpot) {
-		return currentPiece.getLocation().contains(thisSpot);
+		for (Loc loc : currentPiece.getLocation()) {
+			if (loc.row == thisSpot.row && loc.col == thisSpot.col) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Returns next lowest point (if null, then out of bounds)
@@ -167,7 +173,7 @@ public class GameManager {
 			if (l.row >= matrixHeight - 1) {
 				return null;
 			}
-			return new Loc((int) l.row, (int) l.col + 1);
+			return new Loc(l.row + 1, l.col);
 		} else if (direction.equals("left")) {
 			if (l.row <= 0) {
 				return null;
@@ -219,6 +225,7 @@ public class GameManager {
 		location.add(new Loc(1, 0));
 
 		currentPiece.setLocation(location);
+		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
 		setToBackground(currentPiece.getColor());
 		System.out.println("current piece color: " + currentPiece.getColor());
 		updateView();
@@ -227,12 +234,15 @@ public class GameManager {
 	}
 
 	private void updateView() {
-		 TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
-		 for (int i = 0; i < matrixHeight; i++) {
-			 for (int j = 0; j < matrixWidth; j++) {
-				 tileMatrix[i][j].setColor(boardTiles[i][j]);
-			 }
-		 }
-		
+		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
+		for (int i = 0; i < matrixHeight; i++) {
+			for (int j = 0; j < matrixWidth; j++) {
+				if (boardTiles[i][j] != backgroundColor) {
+					System.out.println("adding to board row, col: " + i + ", " + j);
+				}
+				tileMatrix[i][j].setColor(boardTiles[i][j]);
+			}
+		}
+
 	}
 }
