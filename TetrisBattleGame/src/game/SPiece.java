@@ -17,5 +17,6 @@ public class SPiece extends Piece
 		location.add(new Loc(-2,5));
 		location.add(new Loc(-1,5));
 		location.add(new Loc(-1, 4));
+
 	}
 }

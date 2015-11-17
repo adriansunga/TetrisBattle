@@ -1,10 +1,9 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -26,6 +25,10 @@ public class GameManager {
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
 	private TetrisClient tc;
+
+	// TODO: if time, add more cute colors #thrive
+	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
+			Color.MAGENTA };
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc) {
 		this.tc = tc;
@@ -57,6 +60,8 @@ public class GameManager {
 
 	public void nextPiece() {
 		currentPiece = piecePlacer.nextPiece();
+		int index = new Random().nextInt(pieceColors.length);
+		currentPiece.setColor(pieceColors[index]);
 		System.out.println("in nextPiece");
 		dropPiece();
 	}
@@ -192,6 +197,10 @@ public class GameManager {
 		} else if (direction.equals("down") && canMove("down")) {
 			setToBackground(backgroundColor);
 			currentPiece.dropDown();
+			// if want to stop them from changing colors every move: remove
+			// following two lines
+			int index = new Random().nextInt(pieceColors.length);
+			currentPiece.setColor(pieceColors[index]);
 			System.out.println("AFTER DROPDOWN....");
 			setToBackground(currentPiece.getColor());
 			updateView();
@@ -210,15 +219,14 @@ public class GameManager {
 	}
 
 	public void testFunction() {
-		currentPiece = new ZPiece();
-		currentPiece.setColor(Color.RED);
+		currentPiece = new OPiece();
+		int index = new Random().nextInt(pieceColors.length);
+		currentPiece.setColor(pieceColors[index]);
 		System.out.println("current piece: " + currentPiece);
 		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
 		setToBackground(currentPiece.getColor());
 		System.out.println("current piece color: " + currentPiece.getColor());
 		updateView();
-		// boardTiles[5][5] = Color.red;
-		// updateView();
 	}
 	
 	public void startGame()

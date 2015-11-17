@@ -17,5 +17,6 @@ public class TPiece extends Piece
 		location.add(new Loc(-1,4));
 		location.add(new Loc(-1,5));
 		location.add(new Loc(-1,6));
+
 	}
 }
