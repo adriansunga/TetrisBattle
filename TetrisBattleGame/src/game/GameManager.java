@@ -200,13 +200,17 @@ public class GameManager {
 
 	// sets points where piece is to black so you can redraw the new positions
 	private void setToBackground(Color color) {
-		for (Loc l : currentPiece.getLocation()) {
-			boardTiles[l.row][l.col] = color;
+		for (Loc l : currentPiece.getLocation())
+		{
+			if(l.isOnBoard())
+			{
+				boardTiles[l.row][l.col] = color;
+			}
 		}
 	}
 
 	public void testFunction() {
-		currentPiece = new OPiece();
+		currentPiece = new SPiece();
 		currentPiece.setColor(Color.RED);
 		System.out.println("current piece: " + currentPiece);
 		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());

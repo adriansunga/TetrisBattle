@@ -22,6 +22,8 @@ public abstract class Piece {
 
 		location = new ArrayList<Loc>();
 	}
+	
+	public abstract void initializeLocation();
 
 	public void setLocation(ArrayList<Loc> location) {
 		this.location = location;
