@@ -43,6 +43,24 @@ public class Advertisements extends Thread{
 			jl.setText(text.elementAt(index));
 		}
 		
+		public String getWebsite(){
+				if(index == 0){
+					return "http://scf.usc.edu/~csci201/index.html";
+				}
+				else if(index == 1){
+					return "https://www.geico.com/";
+				}
+				else if(index == 2){
+					return "http://lmgtfy.com/?q=I+need+a+lawyer!";
+				}
+				else if(index == 3){
+					return "https://twitter.com/search?q=%23miller2016";
+				}
+				else{
+					return "http://www.google.com";
+				}
+		}
+		
 		public void run(){
 			while(true){
 				long currTime = System.currentTimeMillis();
