@@ -3,6 +3,7 @@ package tetrisGUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -17,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import game.GameManager;
@@ -59,6 +61,11 @@ public class GuestTetrisPanel extends JPanel{
 	
 	private boolean isMuted = false;
 	
+	private JPanel advertisementPanel;
+	private Advertisements ad;
+	private JButton adPicture;
+	private JLabel adText;
+	
 	ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
 	Image img = originalButton.getImage();
 	Image newImage = img.getScaledInstance(200, 50, java.awt.Image.SCALE_SMOOTH);
@@ -92,6 +99,22 @@ public class GuestTetrisPanel extends JPanel{
 	}
 	
 	private void initializeVariables(){
+		
+		//TODO
+		//initialized advertisements
+		adPicture = new JButton();
+		adPicture.setOpaque(false);
+		adText = new JLabel();
+		adPicture.setHorizontalAlignment(SwingConstants.CENTER);
+		adText.setHorizontalAlignment(SwingConstants.CENTER);
+		ad = new Advertisements(adPicture, adText);
+		ad.start();
+		advertisementPanel = new JPanel();
+		advertisementPanel.setPreferredSize(new Dimension(300, 200));
+		advertisementPanel.setMinimumSize(new Dimension(300, 200));
+		advertisementPanel.setMaximumSize(new Dimension(300, 200));
+		
+		
 		nextPanel = new JPanel();
 		levelPanel = new JPanel();
 		scoresPanel = new JPanel();
@@ -224,7 +247,19 @@ public class GuestTetrisPanel extends JPanel{
 		titlePanel.setOpaque(false);
 		scoresPanel.setOpaque(false);
 		nextPanel.setOpaque(false);
+		
+		advertisementPanel.setOpaque(false);
+		advertisementPanel.setLayout(new BoxLayout(advertisementPanel, BoxLayout.Y_AXIS));
+		advertisementPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.PINK));
+		advertisementPanel.add(adPicture);
+		advertisementPanel.add(adText);
+		
+		
+		//TODO
 		leftPanel.add(titlePanel);
+		//comment below this line
+		leftPanel.add(advertisementPanel);
+		//comment above this line
 		leftPanel.add(nextPanel);
 		leftPanel.add(levelPanel);
 		leftPanel.add(scoresPanel);

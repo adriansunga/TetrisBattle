@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class Advertisements extends Thread{
 		private long startTime;
@@ -13,55 +13,66 @@ public class Advertisements extends Thread{
 		private int index = 0;
 		private Vector<String> pictures;
 		private Vector<String> text;
-		private JTextField jtf;
+		private JLabel jl;
 		
-		public Advertisements(JButton jb, JTextField jtf){
+		public Advertisements(JButton jb, JLabel jl){
 			this.jb = jb;
-			this.jtf = jtf;
+			this.jl = jl;
 			startTime = System.currentTimeMillis();
 			pictures = new Vector<String>(); 
 			text = new Vector<String>(); 
 			
 			pictures.addElement("201.jpg");
-			text.addElement("Do you have 40 hours a week? Take my class, I dare you.");
+			text.addElement("On the couch 40hrs a week? Take my class!");
 			
-			pictures.addElement("car.jpg");
+			pictures.addElement("1car.jpg");
 			text.addElement("15 minutes could save you 15% or more!");
 			
-			pictures.addElement("law.jpg");
-			text.addElement("Do you have a DUI? You cant afford not to call me!");
+			pictures.addElement("1law.jpg");
+			text.addElement("DUI? You cant afford not to call me!");
 			
-			pictures.addElement("vote.png");
+			pictures.addElement("1vote.png");
 			text.addElement("#Miller2016");
 			
 			ImageIcon originalButton = new ImageIcon("images/" + pictures.elementAt(index));
 			Image img = originalButton.getImage();
-			Image newImage = img.getScaledInstance(originalButton.getIconWidth()/4, originalButton.getIconHeight()/4, java.awt.Image.SCALE_SMOOTH);
+			Image newImage = img.getScaledInstance(originalButton.getIconWidth(), originalButton.getIconHeight(), java.awt.Image.SCALE_SMOOTH);
 			ImageIcon ButtonImage1 = new ImageIcon(newImage);
+			
 			jb.setIcon(ButtonImage1);
-			jtf.setText(text.elementAt(index));
+			jl.setText(text.elementAt(index));
 		}
 		
 		public void run(){
 			while(true){
 				long currTime = System.currentTimeMillis();
 				//make sure first picture is there atleast 15 seconds.
-				if((currTime-startTime) /1000 < 15){
+				if((currTime-startTime) /1000 < 7){
 					continue;
 				}
-				if(((currTime-startTime) /1000) % 15 == 0){
+				if(((currTime-startTime) /1000) % 7 == 0){
 					index++;
 					if(index >= pictures.size()){
 						index = 0;
 					}
+					
 					ImageIcon originalButton = new ImageIcon("images/" + pictures.elementAt(index));
 					Image img = originalButton.getImage();
-					Image newImage = img.getScaledInstance(originalButton.getIconWidth()/4, originalButton.getIconHeight()/4, java.awt.Image.SCALE_SMOOTH);
+					Image newImage = img.getScaledInstance(originalButton.getIconWidth(), originalButton.getIconHeight(), java.awt.Image.SCALE_SMOOTH);
 					ImageIcon ButtonImage1 = new ImageIcon(newImage);
+					
+					
 					jb.setIcon(ButtonImage1);
-					jtf.setText(text.elementAt(index));
+					jl.setText(text.elementAt(index));
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
 				}
 				Thread.yield();
 			}
-		}
+		}	
 }

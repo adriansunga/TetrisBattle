@@ -126,7 +126,7 @@ public class TetrisBattlePanel extends JPanel{
 		scorePanel = new JPanel();
 		
 		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
-		scoreLabel = new JLabel("Score:   ");
+		scoreLabel = new JLabel("Score: ");
 		scoreLabel.setFont(font);
 		//TODO make it get score from game manager
 		scoreTextLabel = new JLabel(Integer.toString(score));
@@ -137,7 +137,7 @@ public class TetrisBattlePanel extends JPanel{
 		
 		linesSentPanel = new JPanel();
 		linesSentPanel.setLayout(new BoxLayout(linesSentPanel, BoxLayout.Y_AXIS));
-		linesSentLabel = new JLabel("Lines Sent:   ");
+		linesSentLabel = new JLabel("Lines Sent:");
 		linesSentLabel.setFont(font);
 		linesSentTextLabel = new JLabel(Integer.toString(linesSent));
 		linesSentTextLabel.setFont(font);
@@ -178,7 +178,7 @@ public class TetrisBattlePanel extends JPanel{
 		
 		oppScorePanel = new JPanel();
 		oppScorePanel.setLayout(new BoxLayout(oppScorePanel, BoxLayout.Y_AXIS));
-		oppScoreLabel = new JLabel("Score:   ");
+		oppScoreLabel = new JLabel("Score: ");
 		oppScoreLabel.setFont(font);
 		//TODO make it get score from game manager
 		oppScoreTextLabel = new JLabel(Integer.toString(oppScore));
@@ -188,7 +188,7 @@ public class TetrisBattlePanel extends JPanel{
 		
 		oppLinesSentPanel = new JPanel();
 		oppLinesSentPanel.setLayout(new BoxLayout(oppLinesSentPanel, BoxLayout.Y_AXIS));
-		oppLinesSentLabel = new JLabel("Lines Sent:   ");
+		oppLinesSentLabel = new JLabel("Lines Sent:");
 		oppLinesSentLabel.setFont(font);
 		oppLinesSentTextLabel = new JLabel(Integer.toString(oppLinesSent));
 		oppLinesSentTextLabel.setFont(font);
@@ -220,7 +220,7 @@ public class TetrisBattlePanel extends JPanel{
 		boxLayoutForLeftPanel.setOpaque(false);
 	//	boxLayoutForLeftPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
 		//west
-		//sideBarPanel.add(Box.createGlue());
+		sideBarPanel.add(Box.createGlue());
 		sideBarPanel.setOpaque(false);
 		sideBarPanel.setPreferredSize(new Dimension(200, 600));
 		scorePanel.setOpaque(false);
@@ -229,14 +229,20 @@ public class TetrisBattlePanel extends JPanel{
 		jpp.add(scoreLabel);
 		jpp.add(scoreTextLabel);
 		jpp.setOpaque(false);
+		jpp.setAlignmentY(CENTER_ALIGNMENT);
+		JLabel jt = new JLabel(" ");
+		jt.setFont(font);
+		scorePanel.add(jt);
 		scorePanel.add(jpp);
-		scorePanel.setPreferredSize(new Dimension(200, 60));
-		scorePanel.setMaximumSize(new Dimension(200, 60));
-		scorePanel.setMinimumSize(new Dimension(200, 60));
+		scorePanel.setPreferredSize(new Dimension(200, 75));
+		scorePanel.setMaximumSize(new Dimension(200, 75));
+		scorePanel.setMinimumSize(new Dimension(200,75 ));
 		scorePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
+	
 		scorePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.PINK));
 		sideBarPanel.add(scorePanel);
-		
+		sideBarPanel.add(Box.createGlue());
 		
 		//
 		nextPeicePanel.setOpaque(false);
@@ -252,27 +258,28 @@ public class TetrisBattlePanel extends JPanel{
 		sideBarPanel.add(nextPeicePanel);
 		
 		//
-		
+		sideBarPanel.add(Box.createGlue());
 		linesSentPanel.setOpaque(false);
 		JPanel jppp = new JPanel();
 		jppp.setOpaque(false);
 		jppp.setLayout(new BoxLayout(jppp, BoxLayout.X_AXIS));
 		jppp.add(linesSentLabel);
 		jppp.add(linesSentTextLabel);
+		JLabel jt4 = new JLabel(" ");
+		jt4.setFont(font);
+		linesSentPanel.add(jt4);
 		linesSentPanel.add(jppp);
-		linesSentPanel.add(linesSentLabel);
-		linesSentPanel.add(linesSentTextLabel);
 		linesSentPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		linesSentPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLUE));
-		linesSentPanel.setPreferredSize(new Dimension(200, 45));
-		linesSentPanel.setMaximumSize(new Dimension(200, 45));
-		linesSentPanel.setMinimumSize(new Dimension(200, 45));
+		linesSentPanel.setPreferredSize(new Dimension(200, 75));
+		linesSentPanel.setMaximumSize(new Dimension(200, 75));
+		linesSentPanel.setMinimumSize(new Dimension(200, 75));
 		sideBarPanel.add(linesSentPanel);
 		
 		//sideBarPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
-//		sideBarPanel.add(Box.createGlue());
-//		sideBarPanel.add(Box.createGlue());
-//		sideBarPanel.add(Box.createGlue());
+		sideBarPanel.add(Box.createGlue());
+		sideBarPanel.add(Box.createGlue());
+		sideBarPanel.add(Box.createGlue());
 		
 		//LeftPanel.add(sideBarPanel, BorderLayout.WEST);
 		boxLayoutForLeftPanel.add(sideBarPanel);
@@ -288,17 +295,17 @@ public class TetrisBattlePanel extends JPanel{
 		
 		add(LeftPanel);
 		
+		JPanel boxLayoutForRightPanel = new JPanel();
+		boxLayoutForRightPanel.setLayout(new BoxLayout(boxLayoutForRightPanel, BoxLayout.X_AXIS));
+		boxLayoutForRightPanel.setOpaque(false);
+		
 		RightPanel.setLayout(new BorderLayout());
 		RightPanel.setOpaque(false);
 		RightPanel.add(oppTetrisTitle, BorderLayout.NORTH);
 		oppSideBarPanel.setOpaque(false);
-		oppSideBarPanel.setPreferredSize(new Dimension(175, 600));
-		//oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.setPreferredSize(new Dimension(200, 600));
+		oppSideBarPanel.add(Box.createGlue());
 		
-		
-		JPanel boxLayoutForRightPanel = new JPanel();
-		boxLayoutForRightPanel.setLayout(new BoxLayout(boxLayoutForRightPanel, BoxLayout.X_AXIS));
-		boxLayoutForRightPanel.setOpaque(false);
 		
 		
 		oppScorePanel.setOpaque(false);
@@ -308,15 +315,18 @@ public class TetrisBattlePanel extends JPanel{
 		jpp1.setOpaque(false);
 		jpp1.add(oppScoreLabel);
 		jpp1.add(oppScoreTextLabel);
-		oppScorePanel.add(jpp1);
+		JLabel jt2 = new JLabel(" ");
+		jt2.setFont(font);
+		oppScorePanel.add(jt2);
 		
 		oppScorePanel.add(jpp1);
-		oppScorePanel.setPreferredSize(new Dimension(175, 45));
-		oppScorePanel.setMaximumSize(new Dimension(175, 45));
-		oppScorePanel.setMinimumSize(new Dimension(175, 45));
+		oppScorePanel.setPreferredSize(new Dimension(200, 75));
+		oppScorePanel.setMaximumSize(new Dimension(200, 75));
+		oppScorePanel.setMinimumSize(new Dimension(200, 75));
 		oppScorePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.PINK));
+		oppScorePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		oppSideBarPanel.add(oppScorePanel);
-		//oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.add(Box.createGlue());
 		
 		oppNextPeicePanel.setOpaque(false);
 		oppNextPeicePanel.add(oppNextPieceTextLabel);
@@ -324,11 +334,12 @@ public class TetrisBattlePanel extends JPanel{
 		oppjp.setOpaque(false);
 		oppNextPeicePanel.add(oppjp);
 		oppNextPeicePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
-		oppNextPeicePanel.setPreferredSize(new Dimension(175, 150));
-		oppNextPeicePanel.setMaximumSize(new Dimension(175, 150));
-		oppNextPeicePanel.setMinimumSize(new Dimension(175, 150));
+		oppNextPeicePanel.setPreferredSize(new Dimension(200, 150));
+		oppNextPeicePanel.setMaximumSize(new Dimension(200, 150));
+		oppNextPeicePanel.setMinimumSize(new Dimension(200, 150));
+		oppNextPeicePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		oppSideBarPanel.add(oppNextPeicePanel);
-		//oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.add(Box.createGlue());
 		
 		oppLinesSentPanel.setOpaque(false);
 		JPanel jppp1 = new JPanel();
@@ -336,18 +347,26 @@ public class TetrisBattlePanel extends JPanel{
 		jppp1.setLayout(new BoxLayout(jppp1, BoxLayout.X_AXIS));
 		jppp1.add(oppLinesSentLabel);
 		jppp1.add(oppLinesSentTextLabel);
+		
+		JLabel jt3 = new JLabel(" ");
+		jt3.setFont(font);
+		oppLinesSentPanel.add(jt3);
+		
+		
+		
 		oppLinesSentPanel.add(jppp1);
 		oppLinesSentPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLUE));
-		oppLinesSentPanel.setPreferredSize(new Dimension(175, 45));
-		oppLinesSentPanel.setMaximumSize(new Dimension(175, 45));
-		oppLinesSentPanel.setMinimumSize(new Dimension(175, 45));
+		oppLinesSentPanel.setPreferredSize(new Dimension(200, 75));
+		oppLinesSentPanel.setMaximumSize(new Dimension(200, 75));
+		oppLinesSentPanel.setMinimumSize(new Dimension(200, 75));
+		oppLinesSentPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		oppSideBarPanel.add(oppLinesSentPanel);
 //		oppSideBarPanel.add(Box.createGlue());
 //		
 //		
-//		oppSideBarPanel.add(Box.createGlue());
-//		oppSideBarPanel.add(Box.createGlue());
-//		oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.add(Box.createGlue());
 		
 		
 		//RightPanel.add(oppSideBarPanel, BorderLayout.EAST);
@@ -380,7 +399,7 @@ public class TetrisBattlePanel extends JPanel{
 		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
 		Graphics2D g2 = (Graphics2D) g;
 	    g2.setStroke(new BasicStroke(3));
-		g2.drawLine(485, 0, 485, 960);
+		g2.drawLine(480, 0, 480, 960);
 	}
 	
 
