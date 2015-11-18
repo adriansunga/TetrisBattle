@@ -111,6 +111,7 @@ public class GuestTetrisPanel extends JPanel{
 		//initialized advertisements
 		adPicture = new JButton();
 		adPicture.setOpaque(false);
+		adPicture.setEnabled(false);
 		adText = new JLabel();
 		adPicture.setHorizontalAlignment(SwingConstants.CENTER);
 		adText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -289,6 +290,7 @@ public class GuestTetrisPanel extends JPanel{
 	}
 	
 	private void addActionAdapters(){
+	
 		
 		
 		backToMenu.addActionListener(new ActionListener() {
