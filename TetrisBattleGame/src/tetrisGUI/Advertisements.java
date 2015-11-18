@@ -23,13 +23,13 @@ public class Advertisements extends Thread{
 			text = new Vector<String>(); 
 			
 			pictures.addElement("201.jpg");
-			text.addElement("On the couch 40hrs a week? Take my class!");
+			text.addElement("Are you bored 40hrs/week? Take my class!");
 			
 			pictures.addElement("1car.jpg");
 			text.addElement("15 minutes could save you 15% or more!");
 			
 			pictures.addElement("1law.jpg");
-			text.addElement("DUI? You cant afford not to call me!");
+			text.addElement("Need a Lawyer? You cant afford not to call!");
 			
 			pictures.addElement("1vote.png");
 			text.addElement("#Miller2016");
@@ -57,6 +57,7 @@ public class Advertisements extends Thread{
 					return "https://twitter.com/search?q=%23miller2016";
 				}
 				else{
+					//error?
 					return "http://www.google.com";
 				}
 		}

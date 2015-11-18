@@ -22,6 +22,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import game.GameManager;
 import game.PiecePlacer;
@@ -32,7 +34,10 @@ public class GuestTetrisPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = -585498416770344734L;
 	
+	private TitledBorder titledBorder;
+	
 	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
+	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 12);
 	
 	private JLabel tetrisTitle;
 	private JPanel titlePanel;
@@ -252,10 +257,13 @@ public class GuestTetrisPanel extends JPanel{
 		
 		advertisementPanel.setOpaque(false);
 		advertisementPanel.setLayout(new BoxLayout(advertisementPanel, BoxLayout.Y_AXIS));
-		advertisementPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.PINK));
+		titledBorder = new TitledBorder(null, "Advertisements", javax.swing.border.
+			      TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.
+			      TitledBorder.DEFAULT_POSITION, null, java.awt.Color.BLACK);
+		titledBorder.setBorder(new LineBorder(Color.BLACK));
+		advertisementPanel.setBorder(titledBorder);
 		advertisementPanel.add(adPicture);
 		advertisementPanel.add(adText);
-		
 		
 		//TODO
 		leftPanel.add(titlePanel);
