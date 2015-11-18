@@ -17,6 +17,7 @@ public class GameManager {
 	private final int matrixHeight = 20;
 	private final int matrixWidth = 10;
 	private Color backgroundColor = Color.BLACK;
+	private int pieceSpeed = 1000; // in ms
 
 	private BoardPanel boardPanel;
 
@@ -24,10 +25,6 @@ public class GameManager {
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
 	private TetrisClient tc;
-	
-	// integer data/placeholders
-	private int pieceSpeed = 1000; // in ms
-	private int numLinesCleared = 0;
 
 	// TODO: if time, add more cute colors #thrive
 	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
@@ -65,7 +62,6 @@ public class GameManager {
 		currentPiece = piecePlacer.nextPiece();
 		int index = new Random().nextInt(pieceColors.length);
 		currentPiece.setColor(pieceColors[index]);
-		System.out.println("in nextPiece");
 		dropPiece();
 	}
 
@@ -75,12 +71,9 @@ public class GameManager {
 			public void actionPerformed(ActionEvent ae) {
 				if (canMove("down")) {
 					move("down");
-					pieceSpeed = 1000;
-					dropPieceTimer.setDelay(1000);
 				} else {
-					clearLines();
 					dropPieceTimer.stop();
-					pieceSpeed = 0;
+					pieceSpeed = 1000;
 					nextPiece();
 				}
 			}
@@ -225,21 +218,6 @@ public class GameManager {
 		}
 	}
 
-	private void clearLines() {
-		for (int r = 0; r < matrixHeight; r++ ) {
-			if (isLineFull(r)) {
-				numLinesCleared++;
-				for (int c = 0; c < matrixWidth; c++) {
-					boardTiles[r][c] = backgroundColor;
-				}
-			}
-		}
-	}
-	
-	private void shiftDownBoard() {
-		
-	}
-	
 	public void testFunction() {
 		currentPiece = new OPiece();
 		int index = new Random().nextInt(pieceColors.length);
@@ -260,17 +238,6 @@ public class GameManager {
 		dropPieceTimer.setDelay(pieceSpeed);
 	}
 
-	// Call this every time but line's clear and it will decide whether or not to
-	// speed up/ by how much
-	public void updateSpeed() {
-		// should work b/c of integer arithmetic
-		int speedUpFactor = numLinesCleared/8;
-		if (speedUpFactor != 0) {
-			// speed by 10% every lines cleared, needs to be checked
-			pieceSpeed *= ( 1 + speedUpFactor * .1);
-		}
-	}
-
 	private void updateView() {
 		TilePanel[][] tileMatrix = boardPanel.getTileMatrix();
 		for (int i = 0; i < matrixHeight; i++) {
@@ -281,8 +248,9 @@ public class GameManager {
 				tileMatrix[i][j].setColor(boardTiles[i][j]);
 			}
 		}
-
+		
 		boardPanel.revalidate();
 		boardPanel.repaint();
+
 	}
 }
