@@ -1,9 +1,12 @@
 package tetrisGUI;
 
 import java.awt.CardLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +25,8 @@ public class JoinPanel extends JPanel{
 	private String username;
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
+	
+	private Image bg;
 	
 	//constructor
 	public JoinPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, String username){
@@ -48,6 +53,9 @@ public class JoinPanel extends JPanel{
 		add(portLabel);
 		add(portTF);
 		add(continueButton);
+		
+		ImageIcon image2 = new ImageIcon("images/s.png");
+		bg = image2.getImage();
 	}
 	
 	private void addActionAdapters(){	
@@ -59,5 +67,9 @@ public class JoinPanel extends JPanel{
 				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");
 			}
 		});
+	}
+	
+	protected void paintComponent(Graphics g) {
+		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
 }
