@@ -3,16 +3,12 @@ package tetrisGUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -269,7 +265,7 @@ public class GuestTetrisPanel extends JPanel{
 		//TODO
 		leftPanel.add(titlePanel);
 		//comment below this line
-		leftPanel.add(advertisementPanel);
+		//leftPanel.add(advertisementPanel);
 		//comment above this line
 		leftPanel.add(nextPanel);
 		leftPanel.add(levelPanel);
@@ -291,24 +287,6 @@ public class GuestTetrisPanel extends JPanel{
 	
 	private void addActionAdapters(){
 	
-		
-		adPicture.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				if(Desktop.isDesktopSupported())
-				{
-				  try {
-					  
-					Desktop.getDesktop().browse(new URI( ad.getWebsite() ));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				}
-			}
-		});
 		
 		
 		backToMenu.addActionListener(new ActionListener() {

@@ -31,7 +31,6 @@ public class BoardPanel extends JPanel {
 		gm.setBoardPanel(this);
 		initializeVariables();
 		createGUI();
-
 		setKeyBindings();
 
 	}
