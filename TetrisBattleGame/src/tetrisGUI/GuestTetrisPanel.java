@@ -295,6 +295,10 @@ public class GuestTetrisPanel extends JPanel{
 				pm.stop();
 			}
 		});
+		
+		boardPanel.setBackToMenuButton(backToMenu);
+		
+		
 		mute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if(isMuted) {

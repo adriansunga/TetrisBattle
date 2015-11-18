@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import networking.TetrisClient;
@@ -63,6 +64,21 @@ public class GameManager {
 	}
 
 	public void nextPiece() {
+		
+		//check if game is over
+		if(currentPiece != null)
+		{
+			for(Loc l : currentPiece.getLocation())
+			{
+				if(!l.isOnBoard())
+				{
+					endGame();
+					return;
+				}
+			}
+		}
+		
+		
 		currentPiece = piecePlacer.nextPiece();
 		int index = new Random().nextInt(pieceColors.length);
 		currentPiece.setColor(pieceColors[index]);
@@ -303,6 +319,13 @@ public class GameManager {
 		boardPanel.revalidate();
 		boardPanel.repaint();
 
+	}
+	
+	
+	private void endGame()
+	{
+		JOptionPane.showMessageDialog(null, "END GAME");
+		boardPanel.clickBackToMenuButton();
 	}
 }
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
@@ -25,6 +26,8 @@ public class BoardPanel extends JPanel {
 	private TilePanel[][] tileMatrix;
 	// private GameManager gameManager;
 	private GameManager gm;
+	
+	private JButton backToMenuButton;
 
 	public BoardPanel(GameManager gm) {
 		this.gm = gm;
@@ -145,6 +148,16 @@ public class BoardPanel extends JPanel {
 			}
 		}
 		tileMatrix = fauxTileMatrix;
+	}
+	
+	public void setBackToMenuButton(JButton jb)
+	{
+		backToMenuButton = jb;
+	}
+	
+	public void clickBackToMenuButton()
+	{
+		backToMenuButton.doClick();
 	}
 
 }
