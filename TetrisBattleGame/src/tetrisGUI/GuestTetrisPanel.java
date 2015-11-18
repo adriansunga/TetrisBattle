@@ -290,24 +290,6 @@ public class GuestTetrisPanel extends JPanel{
 	
 	private void addActionAdapters(){
 		
-		adPicture.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				if(Desktop.isDesktopSupported())
-				{
-				  try {
-					  
-					Desktop.getDesktop().browse(new URI( ad.getWebsite() ));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				}
-			}
-		});
-		
 		
 		backToMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
