@@ -48,7 +48,7 @@ public class PiecePlacer {
 	}
 
 	public Piece nextNextPiece() {
-		return nextNextPiece();
+		return nextNextPiece;
 	}
 	
 	private Color getColor() {

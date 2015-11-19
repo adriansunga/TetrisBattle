@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import networking.TetrisClient;
 import tetrisGUI.BoardPanel;
+import tetrisGUI.NextPiecePanel;
 import tetrisGUI.TilePanel;
 
 public class GameManager {
@@ -30,13 +30,14 @@ public class GameManager {
 	boolean firstTime = true;
 	private int defaultSpeed = 1000;
 	private boolean isTwoPlayer = false;
-
+	
+	private NextPiecePanel nextPiecePanel;
 	private int numLinesCleared = 0;
 
 	// TODO: if time, add more cute colors #thrive
 
 
-	public GameManager(PiecePlacer piecePlacer, TetrisClient tc) {
+	public GameManager(PiecePlacer piecePlacer, TetrisClient tc, NextPiecePanel nextPiecePanel) {
 		this.tetrisClient = tc;
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		for (int i = 0; i < matrixHeight; i++) {
@@ -46,9 +47,11 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
+		this.nextPiecePanel = nextPiecePanel;
+
 	}
 
-	public GameManager(PiecePlacer piecePlacer) {
+	public GameManager(PiecePlacer piecePlacer, NextPiecePanel nextPiecePanel) {
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		for (int i = 0; i < matrixHeight; i++) {
 			for (int j = 0; j < matrixWidth; j++) {
@@ -57,6 +60,7 @@ public class GameManager {
 		}
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
+		this.nextPiecePanel = nextPiecePanel;
 
 	}
 
@@ -81,7 +85,9 @@ public class GameManager {
 		}
 
 		currentPiece = piecePlacer.nextPiece();
+		
 		dropPiece();
+		nextPiecePanel.setNextPiece();
 	}
 
 	public void dropPiece() {
@@ -250,6 +256,8 @@ public class GameManager {
 
 	public void testFunction() {
 		currentPiece = new OPiece();
+//		int index = new Random().nextInt(pieceColors.length);
+//		currentPiece.setColor(pieceColors[index]);
 		System.out.println("current piece: " + currentPiece);
 		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
 		setToBackground(currentPiece.getColor());
