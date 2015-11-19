@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,6 +15,9 @@ public class PiecePlacer {
 
 	private Piece nextNextPiece;
 	private Piece currentPiece;
+	
+	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
+			Color.MAGENTA };
 
 	public PiecePlacer() {
 		index = 0;
@@ -25,6 +29,9 @@ public class PiecePlacer {
 		Random rand = new Random();
 		int randomNum = rand.nextInt((7 - 0) + 1);
 		nextNextPiece = getPiece(randomNum);
+		
+		nextNextPiece.setColor(getColor());
+		
 	}
 
 	public Piece nextPiece() {
@@ -35,12 +42,18 @@ public class PiecePlacer {
 
 		int randomNum = rand.nextInt((7 - 0) + 1);
 		nextNextPiece = getPiece(randomNum);
+		nextNextPiece.setColor(getColor());
 
 		return currentPiece;
 	}
 
 	public Piece nextNextPiece() {
-		return nextNextPiece();
+		return nextNextPiece;
+	}
+	
+	private Color getColor() {
+		int index = new Random().nextInt(pieceColors.length);
+		return pieceColors[index];
 	}
 
 	public Piece getPiece(int index) {

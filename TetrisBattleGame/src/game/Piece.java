@@ -101,6 +101,11 @@ public abstract class Piece {
 		location = temp;
 	}
 
+	public Loc[] getOrientation()
+	{
+		return orientations[index];
+	}
+	
 	
 	public ArrayList<Loc> getLocation() {
 		return location;

@@ -15,7 +15,7 @@ public class NextPiecePanel extends JPanel{
 	private PiecePlacer piecePlacer;
 
 	public NextPiecePanel(PiecePlacer piecePlacer){
-		
+		this.piecePlacer = piecePlacer;
 		initializeVariables();
 		createGUI();
 		
@@ -55,5 +55,20 @@ public class NextPiecePanel extends JPanel{
 //				}
 //			}
 //		}
+		
+		Piece nextPiece = piecePlacer.nextNextPiece();
+		boolean[][] peiceOrientations= nextPiece.getOrientation();
+		for(int i = 0; i < 4; i++){
+			for (int j = 0; j < 4; j++){
+				if(peiceOrientations[i][j] == false){
+					tileMatrix[i][j].setColor(Color.BLACK);
+				}
+				else{
+					tileMatrix[i][j].setColor(nextPiece.getColor());
+				}
+			}
+		}
+		revalidate();
+		repaint();
 	}
 }
