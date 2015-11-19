@@ -30,12 +30,11 @@ public class GameManager {
 	boolean firstTime = true;
 	private int defaultSpeed = 1000;
 	private boolean isTwoPlayer = false;
-	
+
 	private int numLinesCleared = 0;
 
 	// TODO: if time, add more cute colors #thrive
-	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
-			Color.MAGENTA };
+
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc) {
 		this.tetrisClient = tc;
@@ -64,7 +63,7 @@ public class GameManager {
 	public void setTwoPlayer(boolean isTwoPlayer) {
 		this.isTwoPlayer = isTwoPlayer;
 	}
-	
+
 	public void setBoardPanel(BoardPanel bp) {
 		boardPanel = bp;
 	}
@@ -82,8 +81,6 @@ public class GameManager {
 		}
 
 		currentPiece = piecePlacer.nextPiece();
-		int index = new Random().nextInt(pieceColors.length);
-		currentPiece.setColor(pieceColors[index]);
 		dropPiece();
 	}
 
@@ -113,10 +110,10 @@ public class GameManager {
 		dropPieceTimer.start();
 	}
 
-	//TODO: only send -1 lines
+	// TODO: only send -1 lines
 	public void sendGarbageLine(int numToSend) {
 		// Networking
-		 tetrisClient.sendMessage("garbageline:" + numToSend);
+		tetrisClient.sendMessage("garbageline:" + numToSend);
 	}
 
 	public void receiveGarbageLine() {
@@ -253,8 +250,6 @@ public class GameManager {
 
 	public void testFunction() {
 		currentPiece = new OPiece();
-		int index = new Random().nextInt(pieceColors.length);
-		currentPiece.setColor(pieceColors[index]);
 		System.out.println("current piece: " + currentPiece);
 		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
 		setToBackground(currentPiece.getColor());
@@ -330,6 +325,8 @@ public class GameManager {
 
 	private void endGame() {
 		JOptionPane.showMessageDialog(null, "END GAME");
-		boardPanel.clickBackToMenuButton();
+		if (!isTwoPlayer) {
+			boardPanel.clickBackToMenuButton();
+		}
 	}
 }

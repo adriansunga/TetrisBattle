@@ -64,7 +64,7 @@ public class GuestTetrisPanel extends JPanel {
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 
-	private PlayMusic pm;
+	private PlayMusic playMusic;
 
 	private GameManager gameManager;
 	private PiecePlacer piecePlacer;
@@ -100,7 +100,7 @@ public class GuestTetrisPanel extends JPanel {
 		createGUI();
 		addActionAdapters();
 		try {
-			pm = new PlayMusic();
+			playMusic = new PlayMusic();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -367,7 +367,7 @@ public class GuestTetrisPanel extends JPanel {
 		backToMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				cardLayout.show(outerPanelForCardLayout, "loginPanel");
-				pm.stop();
+				playMusic.stop();
 			}
 		});
 
@@ -380,11 +380,11 @@ public class GuestTetrisPanel extends JPanel {
 		mute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (isMuted) {
-					pm.unpause();
+					playMusic.unpause();
 					mute.setIcon(off);
 					isMuted = false;
 				} else {
-					pm.pause();
+					playMusic.pause();
 					mute.setIcon(on);
 					isMuted = true;
 				}

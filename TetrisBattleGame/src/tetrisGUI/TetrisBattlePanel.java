@@ -461,6 +461,12 @@ public class TetrisBattlePanel extends JPanel {
 	private void addActionAdapters() {
 
 	}
+	
+	public void endGame() {
+		cardLayout.show(outerPanelForCardLayout, "loginPanel");
+		//pm.stop();
+		//notify others?
+	}
 
 	protected void paintComponent(Graphics g) {
 		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
