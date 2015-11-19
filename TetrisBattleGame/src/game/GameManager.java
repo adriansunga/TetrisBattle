@@ -29,7 +29,8 @@ public class GameManager {
 	private TetrisClient tc;
 	boolean firstTime = true;
 	private int defaultSpeed = 1000;
-
+	private boolean isTwoPlayer = false;
+	
 	private int numLinesCleared = 0;
 
 	// TODO: if time, add more cute colors #thrive
@@ -60,6 +61,10 @@ public class GameManager {
 
 	}
 
+	public void setTwoPlayer(boolean isTwoPlayer) {
+		this.isTwoPlayer = isTwoPlayer;
+	}
+	
 	public void setBoardPanel(BoardPanel bp) {
 		boardPanel = bp;
 	}
@@ -93,7 +98,10 @@ public class GameManager {
 					}
 					move("down");
 				} else {
-					clearLines();
+					int numCleared = clearLines();
+					if (isTwoPlayer) {
+						sendGarbageLine(numCleared);
+					}
 					updateSpeed();
 					dropPieceTimer.stop();
 					pieceSpeed = 0;
@@ -105,9 +113,10 @@ public class GameManager {
 		dropPieceTimer.start();
 	}
 
-	public void sendGarbageLine() {
+	//TODO: only send -1 lines
+	public void sendGarbageLine(int numToSend) {
 		// Networking
-		// tetrisClient.sendMessage("garbageline");
+		 tetrisClient.sendMessage("garbageline:" + numToSend);
 	}
 
 	public void receiveGarbageLine() {
@@ -262,7 +271,7 @@ public class GameManager {
 		dropPieceTimer.setDelay(pieceSpeed);
 	}
 
-	private void clearLines() {
+	private int clearLines() {
 		ArrayList<Integer> linesToShift = new ArrayList<Integer>();
 		for (int r = 0; r < matrixHeight; r++) {
 			if (isLineFull(r)) {
@@ -278,6 +287,7 @@ public class GameManager {
 			shiftDownBoard(removedRow);
 		}
 		updateView();
+		return linesToShift.size();
 	}
 
 	// recursion #lyf $wag
