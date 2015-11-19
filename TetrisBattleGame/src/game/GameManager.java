@@ -78,7 +78,6 @@ public class GameManager {
 			}
 		}
 		
-		
 		currentPiece = piecePlacer.nextPiece();
 		int index = new Random().nextInt(pieceColors.length);
 		currentPiece.setColor(pieceColors[index]);
@@ -106,6 +105,17 @@ public class GameManager {
 			}
 		});
 		dropPieceTimer.start();
+	}
+	
+	public void rotatePiece()
+	{
+		setToBackground(backgroundColor);
+		
+		currentPiece.rotate();
+		
+		setToBackground(currentPiece.getColor());
+		
+		updateView();
 	}
 
 	public void sendGarbageLine() {
@@ -303,6 +313,11 @@ public class GameManager {
 			// speed by 10% every lines cleared, needs to be checked
 			pieceSpeed *= (1 + speedUpFactor * .1);
 		}
+	}
+	
+	public Color getTileColor(int row, int col)
+	{
+		return boardTiles[row][col];
 	}
 
 	private void updateView() {

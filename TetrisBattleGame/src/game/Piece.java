@@ -11,29 +11,48 @@ public abstract class Piece {
 
 	protected ArrayList<Loc> location;
 
-	protected boolean[][][] orientations;
+	//protected boolean[][][] orientations;
+	
+	protected Loc[][] orientations;
 	private int index; // orientation index
+	
+	private int verticalCount;
+	private int lateralCount;
+	
+	//private GameManager gameManager;
 
 	public Piece() {
-		orientations = new boolean[4][4][4];
-
+		//gameManager = gm;
+		
+		//orientations = new boolean[4][4][4];
+		orientations = new Loc[4][4];
+		
 		location = new ArrayList<Loc>();
+		
+		verticalCount = 0;
+		lateralCount = 0;
 	}
+	
+	protected abstract void initializeLocation();
+	
+	protected abstract void setUpOrientations();
 
 	public void setLocation(ArrayList<Loc> location) {
 		this.location = location;
 	}
 
 	public void dropDown() {
-		System.out.println("dropdown location array size: " + location.size());
+		//System.out.println("dropdown location array size: " + location.size());
 		
 		for (int i = 0; i < location.size(); i++) {
-			System.out.println("location before = " + location.get(i));
+			//System.out.println("location before = " + location.get(i));
 			Loc l = location.get(i);
 			l.row++;
 			location.set(i, l);
-			System.out.println("location after = " + location.get(i));
+			//System.out.println("location after = " + location.get(i));
 		}
+		
+		verticalCount++;
 	}
 
 	public void shiftRight() {
@@ -42,6 +61,8 @@ public abstract class Piece {
 			l.col++;
 			location.set(i, l);
 		}
+		
+		lateralCount++;
 	}
 
 	public void shiftLeft() {
@@ -50,61 +71,39 @@ public abstract class Piece {
 			l.col--;
 			location.set(i, l);
 		}
+		
+		lateralCount--;
 	}
 
-	public Piece rotate() {
+	public void rotate() {
 		index++;
 		index %= orientations.length;
 
-		return this;
-	}
-
-	protected void setUpOrientations(String pieceType) {
-		Scanner scan = null;
-		try {
-			scan = new Scanner(new File("src/game/pieces_blueprint.txt"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (scan == null) {
-			return;
-		}
-
-		while (scan.hasNextLine()) {
-			String line = scan.nextLine();
-
-			if (line.equals(pieceType)) {
-				for (int i = 0; i < 4; i++) {
-					for (int r = 0; r < 4; r++) {
-						String[] row = scan.nextLine().split(" ");
-
-						for (int c = 0; c < row.length; c++) {
-							if (row[c].equals("0")) {
-								orientations[i][r][c] = false;
-
-							} else {
-								orientations[i][r][c] = true;
-							}
-						}
-					}
-					scan.nextLine();
-				}
-
-				scan.close();
+		ArrayList<Loc> temp = new ArrayList<Loc>();
+		for(int i = 0; i < 4; i++)
+		{
+			Loc l = orientations[index][i];
+			int row = l.row + verticalCount;
+			int col = l.col + lateralCount;
+			
+			
+			//TODO: || gameManager.getTileColor(row,col) != Color.BLACK add to if statement
+			// to check whether or not it collides with existing colored tile
+			if(row < 0 || row >= 20 || col < 0 || col >= 10)
+			{
+				System.out.println("Rotation collision");
 				return;
 			}
+			
+			temp.add(new Loc(row, col));
 		}
+		
+		location = temp;
 	}
 
+	
 	public ArrayList<Loc> getLocation() {
-		System.out.println("return location array w/ length: " + location.size());
 		return location;
-	}
-
-	public boolean[][] getOrientation() {
-		return orientations[index];
 	}
 
 	public Color getColor() {
