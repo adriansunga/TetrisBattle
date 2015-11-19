@@ -10,8 +10,6 @@ public abstract class Piece {
 	private Color color;
 
 	protected ArrayList<Loc> location;
-
-	//protected boolean[][][] orientations;
 	
 	protected Loc[][] orientations;
 	private int index; // orientation index
@@ -24,13 +22,12 @@ public abstract class Piece {
 	public Piece(GameManager gm) {
 		gameManager = gm;
 		
-		//orientations = new boolean[4][4][4];
 		orientations = new Loc[4][4];
 		
 		location = new ArrayList<Loc>();
 		
 		verticalCount = 0;
-		lateralCount = 0;
+		lateralCount = 0;		
 	}
 	
 	protected abstract void initializeLocation();
@@ -87,18 +84,13 @@ public abstract class Piece {
 			int row = l.row + verticalCount;
 			int col = l.col + lateralCount;
 			
-			if(row < 0 || row >= 20 || col < 0 || col >= 10)
+			if(row >= 20 || col < 0 || col >= 10)
 			{
 				System.out.println("Rotation wall collision");
 				return;
 			}
-			
-			if(gameManager == null)
-			{
-				System.out.println("Piece's gameManager is null");
-			}
-			
-			if(gameManager.getTileColor(row,col) != Color.BLACK)
+						
+			if(gameManager.getTileColor(row,col) != Color.BLACK && gameManager.getTileColor(row,col) != null)
 			{
 				System.out.println("Rotation piece collision");
 				return;

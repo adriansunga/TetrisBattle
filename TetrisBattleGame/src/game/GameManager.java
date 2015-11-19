@@ -125,9 +125,7 @@ public class GameManager {
 	{
 		setToBackground(backgroundColor);
 		
-		System.out.println("BEFORE rotation in GameManager.rotatePiece");
 		currentPiece.rotate();
-		System.out.println("AFTER rotation in GameManager.rotatePiece");
 		
 		setToBackground(currentPiece.getColor());
 		
@@ -334,6 +332,11 @@ public class GameManager {
 	
 	public Color getTileColor(int row, int col)
 	{
+		if(row < 0)
+		{
+			return null;
+		}
+		
 		return boardTiles[row][col];
 	}
 
