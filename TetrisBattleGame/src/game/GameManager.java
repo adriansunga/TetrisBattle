@@ -26,7 +26,7 @@ public class GameManager {
 	private PiecePlacer piecePlacer;
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
-	private TetrisClient tc;
+	private TetrisClient tetrisClient;
 	boolean firstTime = true;
 	private int defaultSpeed = 1000;
 	private boolean isTwoPlayer = false;
@@ -38,7 +38,7 @@ public class GameManager {
 			Color.MAGENTA };
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc) {
-		this.tc = tc;
+		this.tetrisClient = tc;
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		for (int i = 0; i < matrixHeight; i++) {
 			for (int j = 0; j < matrixWidth; j++) {
