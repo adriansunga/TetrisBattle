@@ -76,6 +76,8 @@ public abstract class Piece {
 	}
 
 	public void rotate() {
+		System.out.println("INSIDE Piece.rotate().....");
+		
 		index++;
 		index %= orientations.length;
 

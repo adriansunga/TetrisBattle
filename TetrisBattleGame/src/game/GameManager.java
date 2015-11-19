@@ -120,7 +120,9 @@ public class GameManager {
 	{
 		setToBackground(backgroundColor);
 		
+		System.out.println("BEFORE rotation in GameManager.rotatePiece");
 		currentPiece.rotate();
+		System.out.println("AFTER rotation in GameManager.rotatePiece");
 		
 		setToBackground(currentPiece.getColor());
 		
@@ -214,7 +216,7 @@ public class GameManager {
 	private Loc nextPoint(Loc l, String direction) {
 		if (direction.equals("down")) {
 			// Is at bottom?
-			System.out.println("p.getx= " + l.row);
+			//System.out.println("p.getx= " + l.row);
 			if (l.row >= matrixHeight - 1) {
 				return null;
 			}
@@ -250,7 +252,6 @@ public class GameManager {
 			// following two lines
 			// int index = new Random().nextInt(pieceColors.length);
 			// currentPiece.setColor(pieceColors[index]);
-			System.out.println("AFTER DROPDOWN....");
 			setToBackground(currentPiece.getColor());
 			updateView();
 		}
@@ -336,7 +337,7 @@ public class GameManager {
 		for (int i = 0; i < matrixHeight; i++) {
 			for (int j = 0; j < matrixWidth; j++) {
 				if (boardTiles[i][j] != backgroundColor) {
-					System.out.println("adding to board row, col: " + i + ", " + j);
+					//System.out.println("adding to board row, col: " + i + ", " + j);
 				}
 				tileMatrix[i][j].setColor(boardTiles[i][j]);
 			}

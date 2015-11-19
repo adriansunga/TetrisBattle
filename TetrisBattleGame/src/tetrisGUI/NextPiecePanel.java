@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import game.Loc;
 import game.Piece;
 import game.PiecePlacer;
 
@@ -43,31 +44,26 @@ public class NextPiecePanel extends JPanel{
 	}
 	
 	public void setNextPiece(){
-//		Piece nextPiece = piecePlacer.nextPiece();
-//		boolean[][] peiceOrientations= nextPiece.getOrientation();
-//		for(int i = 0; i < 4; i++){
-//			for (int j = 0; j < 4; j++){
-//				if(peiceOrientations[i][j] == false){
-//					tileMatrix[i][j].setColor(Color.BLACK);
-//				}
-//				else{
-//					tileMatrix[i][j].setColor(nextPiece.getColor());
-//				}
-//			}
-//		}
-		
+
 		Piece nextPiece = piecePlacer.nextNextPiece();
-		boolean[][] peiceOrientations= nextPiece.getOrientation();
 		for(int i = 0; i < 4; i++){
 			for (int j = 0; j < 4; j++){
-				if(peiceOrientations[i][j] == false){
-					tileMatrix[i][j].setColor(Color.BLACK);
-				}
-				else{
-					tileMatrix[i][j].setColor(nextPiece.getColor());
-				}
+				tileMatrix[i][j].setColor(Color.BLACK);
 			}
 		}
+		
+		Loc[] pieceOrientations = nextPiece.getOrientation();
+		for(int i = 0; i < 4; i++)
+		{
+			Loc l = pieceOrientations[i];
+			
+			int row = l.row+4;
+			int col = l.col-4;
+			
+			tileMatrix[row][col].setColor(nextPiece.getColor());
+		}
+		
+		
 		revalidate();
 		repaint();
 	}
