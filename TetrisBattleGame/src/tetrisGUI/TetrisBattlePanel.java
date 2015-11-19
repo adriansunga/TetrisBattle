@@ -145,7 +145,7 @@ public class TetrisBattlePanel extends JPanel {
 			switch (keyCode) {
 			case "VK_UP":
 				System.out.println("up key pressed");
-				// gameManager.testFunction();
+				gameManager.rotatePiece();
 				break;
 			case "VK_DOWN":
 				System.out.println("down key pressed");
@@ -189,6 +189,8 @@ public class TetrisBattlePanel extends JPanel {
 		nextImage = new NextPiecePanel(piecePlacer);
 		gameManager = new GameManager(piecePlacer, tc, nextImage);
 		gameManager.setTwoPlayer(true);
+		piecePlacer.setGameManager(gameManager);
+		piecePlacer.initializeNextPiece();
 		tc.setGameManager(gameManager);
 
 		// north

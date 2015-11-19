@@ -2,9 +2,9 @@ package game;
 
 public class ZPiece extends Piece
 {
-	public ZPiece()
+	public ZPiece(GameManager gm)
 	{
-		super();
+		super(gm);
 				
 		initializeLocation();
 		

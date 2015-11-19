@@ -16,22 +16,27 @@ public class PiecePlacer {
 	private Piece nextNextPiece;
 	private Piece currentPiece;
 	
+	private GameManager gameManager;
+		
 	private final Color[] pieceColors = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN,
 			Color.MAGENTA };
 
 	public PiecePlacer() {
+		
 		index = 0;
 		seed = 0;
 
 		currentPiece = null;
 		nextNextPiece = null;
-
+	}
+	
+	public void initializeNextPiece()
+	{
 		Random rand = new Random();
 		int randomNum = rand.nextInt((7 - 0) + 1);
 		nextNextPiece = getPiece(randomNum);
 		
 		nextNextPiece.setColor(getColor());
-		
 	}
 
 	public Piece nextPiece() {
@@ -51,6 +56,11 @@ public class PiecePlacer {
 		return nextNextPiece;
 	}
 	
+	public void setGameManager(GameManager gm)
+	{
+		gameManager = gm;
+	}
+	
 	private Color getColor() {
 		int index = new Random().nextInt(pieceColors.length);
 		return pieceColors[index];
@@ -59,19 +69,20 @@ public class PiecePlacer {
 	public Piece getPiece(int index) {
 		switch (index) {
 		case 0:
-			return new IPiece();
+			return new IPiece(gameManager);
 		case 1:
-			return new JPiece();
+			return new JPiece(gameManager);
 		case 2:
-			return new LPiece();
+			return new LPiece(gameManager);
 		case 3:
-			return new OPiece();
+			return new OPiece(gameManager);
 		case 4:
-			return new SPiece();
+			return new SPiece(gameManager);
 		case 5:
-			return new TPiece();
+			return new TPiece(gameManager);
 		default:
-			return new ZPiece();
+			return new ZPiece(gameManager);
 		}
 	}
+	
 }

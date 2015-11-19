@@ -2,9 +2,9 @@ package game;
 
 public class OPiece extends Piece
 {
-	public OPiece()
+	public OPiece(GameManager gm)
 	{
-		super();
+		super(gm);
 				
 		initializeLocation();
 		

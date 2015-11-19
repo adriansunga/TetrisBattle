@@ -2,9 +2,9 @@ package game;
 
 public class TPiece extends Piece
 {
-	public TPiece()
+	public TPiece(GameManager gm)
 	{
-		super();
+		super(gm);
 		
 		//setUpOrientations("tpiece");
 		

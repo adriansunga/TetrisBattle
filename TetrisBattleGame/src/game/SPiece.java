@@ -2,9 +2,9 @@ package game;
 
 public class SPiece extends Piece
 {
-	public SPiece()
+	public SPiece(GameManager gm)
 	{
-		super();
+		super(gm);
 				
 		initializeLocation();
 		

@@ -19,10 +19,10 @@ public abstract class Piece {
 	private int verticalCount;
 	private int lateralCount;
 	
-	//private GameManager gameManager;
+	private GameManager gameManager;
 
-	public Piece() {
-		//gameManager = gm;
+	public Piece(GameManager gm) {
+		gameManager = gm;
 		
 		//orientations = new boolean[4][4][4];
 		orientations = new Loc[4][4];
@@ -76,7 +76,6 @@ public abstract class Piece {
 	}
 
 	public void rotate() {
-		System.out.println("INSIDE Piece.rotate().....");
 		
 		index++;
 		index %= orientations.length;
@@ -88,12 +87,20 @@ public abstract class Piece {
 			int row = l.row + verticalCount;
 			int col = l.col + lateralCount;
 			
-			
-			//TODO: || gameManager.getTileColor(row,col) != Color.BLACK add to if statement
-			// to check whether or not it collides with existing colored tile
 			if(row < 0 || row >= 20 || col < 0 || col >= 10)
 			{
-				System.out.println("Rotation collision");
+				System.out.println("Rotation wall collision");
+				return;
+			}
+			
+			if(gameManager == null)
+			{
+				System.out.println("Piece's gameManager is null");
+			}
+			
+			if(gameManager.getTileColor(row,col) != Color.BLACK)
+			{
+				System.out.println("Rotation piece collision");
 				return;
 			}
 			

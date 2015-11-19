@@ -63,6 +63,11 @@ public class GameManager {
 		this.nextPiecePanel = nextPiecePanel;
 
 	}
+	
+	public void setPiecePlacer(PiecePlacer pp)
+	{
+		piecePlacer = pp;
+	}
 
 	public void setTwoPlayer(boolean isTwoPlayer) {
 		this.isTwoPlayer = isTwoPlayer;
@@ -267,7 +272,7 @@ public class GameManager {
 	}
 
 	public void testFunction() {
-		currentPiece = new OPiece();
+		currentPiece = new OPiece(this);
 //		int index = new Random().nextInt(pieceColors.length);
 //		currentPiece.setColor(pieceColors[index]);
 		System.out.println("current piece: " + currentPiece);

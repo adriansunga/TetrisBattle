@@ -2,9 +2,9 @@ package game;
 
 public class JPiece extends Piece
 {
-	public JPiece()
+	public JPiece(GameManager gm)
 	{
-		super();
+		super(gm);
 				
 		initializeLocation();
 		

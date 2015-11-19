@@ -155,7 +155,7 @@ public class GuestTetrisPanel extends JPanel {
 			switch (keyCode) {
 			case "VK_UP":
 				System.out.println("up key pressed");
-				// gameManager.testFunction();
+				gameManager.rotatePiece();
 				break;
 			case "VK_DOWN":
 				System.out.println("down key pressed");
@@ -221,6 +221,8 @@ public class GuestTetrisPanel extends JPanel {
 		nextImage = new NextPiecePanel(piecePlacer);
 		gameManager = new GameManager(piecePlacer, nextImage);
 		gameManager.setTwoPlayer(false);
+		piecePlacer.setGameManager(gameManager);
+		piecePlacer.initializeNextPiece();
 		mute = new JButton();
 
 		leftPanel = new JPanel();
