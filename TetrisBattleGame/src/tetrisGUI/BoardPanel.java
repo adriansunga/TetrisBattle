@@ -79,7 +79,6 @@ public class BoardPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvt) {
-			//System.out.println("key action performed..");
 			
 			System.out.println("Hello world");
 			
@@ -113,7 +112,7 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
-
+	
 	private void initializeVariables() {
 		tileMatrix = new TilePanel[20][10];
 		for (int i = 0; i < 20; i++) {
