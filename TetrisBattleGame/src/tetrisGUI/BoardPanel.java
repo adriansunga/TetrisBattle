@@ -62,7 +62,9 @@ public class BoardPanel extends JPanel {
 		actionMap.put(vkDown, new KeyAction(vkDown));
 		actionMap.put(space, new KeyAction(space));
 		actionMap.put("PlayerDownRelease", new AbstractAction() {
-            @Override
+			private static final long serialVersionUID = -5046602596885502017L;
+
+			@Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("down release");
 				gm.zoomDown(1000);
@@ -73,6 +75,9 @@ public class BoardPanel extends JPanel {
 	}
 
 	private class KeyAction extends AbstractAction {
+
+		private static final long serialVersionUID = 4187444713155034715L;
+
 		public KeyAction(String actionCommand) {
 			putValue(ACTION_COMMAND_KEY, actionCommand);
 		}
