@@ -49,9 +49,13 @@ public class NextPiecePanel extends JPanel{
 			for (int j = 0; j < 4; j++){
 				if(peiceOrientations[i][j] == false){
 					tileMatrix[i][j].setColor(Color.BLACK);
+					tileMatrix[i][j].revalidate();
+					tileMatrix[i][j].repaint();
 				}
 				else{
 					tileMatrix[i][j].setColor(nextPiece.getColor());
+					tileMatrix[i][j].revalidate();
+					tileMatrix[i][j].repaint();
 				}
 			}
 		}
