@@ -87,7 +87,7 @@ public abstract class Piece {
 			int row = l.row + verticalCount;
 			int col = l.col + lateralCount;
 			
-			if(row < 0 || row >= 20 || col < 0 || col >= 10)
+			if(row >= 20 || col < 0 || col >= 10)
 			{
 				System.out.println("Rotation wall collision");
 				return;
