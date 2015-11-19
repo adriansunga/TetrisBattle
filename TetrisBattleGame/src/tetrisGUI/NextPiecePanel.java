@@ -55,5 +55,7 @@ public class NextPiecePanel extends JPanel{
 				}
 			}
 		}
+		revalidate();
+		repaint();
 	}
 }
