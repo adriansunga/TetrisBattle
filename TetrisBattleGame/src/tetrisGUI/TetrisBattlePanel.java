@@ -186,7 +186,8 @@ public class TetrisBattlePanel extends JPanel {
 		LeftPanel.setLayout(new BorderLayout());
 
 		piecePlacer = new PiecePlacer();
-		gameManager = new GameManager(piecePlacer, tc);
+		nextImage = new NextPiecePanel(piecePlacer);
+		gameManager = new GameManager(piecePlacer, tc, nextImage);
 		gameManager.setTwoPlayer(true);
 		tc.setGameManager(gameManager);
 
@@ -225,7 +226,6 @@ public class TetrisBattlePanel extends JPanel {
 		nextPeicePanel.setLayout(new BoxLayout(nextPeicePanel, BoxLayout.Y_AXIS));
 		nextPieceTextLabel = new JLabel("Next Piece");
 		nextPieceTextLabel.setFont(font);
-		nextImage = new NextPiecePanel(piecePlacer);
 		nextPieceTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		RightPanel = new JPanel();
@@ -243,7 +243,8 @@ public class TetrisBattlePanel extends JPanel {
 		// TODO
 		// delete this, this needs to be passed in by networking
 		PiecePlacer DELETEpiecePlacer = new PiecePlacer();
-		GameManager DELETEgameManager = new GameManager(DELETEpiecePlacer);
+		NextPiecePanel DELETEnextPiecePanel = new NextPiecePanel(DELETEpiecePlacer);
+		GameManager DELETEgameManager = new GameManager(DELETEpiecePlacer, DELETEnextPiecePanel);
 		oppBoardPanel = new BoardPanel(DELETEgameManager);
 		// TODO
 

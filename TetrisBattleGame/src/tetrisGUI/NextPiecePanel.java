@@ -15,7 +15,7 @@ public class NextPiecePanel extends JPanel{
 	private PiecePlacer piecePlacer;
 
 	public NextPiecePanel(PiecePlacer piecePlacer){
-		
+		this.piecePlacer = piecePlacer;
 		initializeVariables();
 		createGUI();
 		

@@ -218,7 +218,8 @@ public class GuestTetrisPanel extends JPanel {
 		bg = image2.getImage();
 
 		piecePlacer = new PiecePlacer();
-		gameManager = new GameManager(piecePlacer);
+		nextImage = new NextPiecePanel(piecePlacer);
+		gameManager = new GameManager(piecePlacer, nextImage);
 		gameManager.setTwoPlayer(false);
 		mute = new JButton();
 
@@ -253,7 +254,6 @@ public class GuestTetrisPanel extends JPanel {
 		nextPiecePanel = new JPanel();
 		nextPieceTextLabel = new JLabel("Next Piece");
 		nextPieceTextLabel.setFont(font);
-		nextImage = new NextPiecePanel(piecePlacer);
 		nextPieceTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		backToMenuPanel = new JPanel();
