@@ -219,6 +219,7 @@ public class GuestTetrisPanel extends JPanel {
 
 		piecePlacer = new PiecePlacer();
 		gameManager = new GameManager(piecePlacer);
+		gameManager.setTwoPlayer(false);
 		mute = new JButton();
 
 		leftPanel = new JPanel();

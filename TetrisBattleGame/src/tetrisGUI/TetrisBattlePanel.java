@@ -187,6 +187,7 @@ public class TetrisBattlePanel extends JPanel {
 
 		piecePlacer = new PiecePlacer();
 		gameManager = new GameManager(piecePlacer, tc);
+		gameManager.setTwoPlayer(true);
 		tc.setGameManager(gameManager);
 
 		// north
