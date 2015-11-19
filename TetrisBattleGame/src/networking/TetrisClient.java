@@ -62,8 +62,18 @@ public class TetrisClient extends Thread{
 	}
 	
 	public void parseMessage(String message) {
-		if(message.substring(0, 4).equals("name"))
+		String[] parsedMessage = message.split(":");
+		String command = parsedMessage[0];
+		if(message.substring(0, 4).equals("name")) {
 			parseName(message);
+		}
+		
+		//networking for garbage line
+		if(command.equals(("garbageline"))){
+			for(int i = 0; i < Integer.parseInt(parsedMessage[1]) ; i++){
+				gm.receiveGarbageLine();
+			}
+		}
 	}
 	
 	public String getUserName() {
