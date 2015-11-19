@@ -43,7 +43,7 @@ public class NextPiecePanel extends JPanel{
 	}
 	
 	public void setNextPiece(){
-		Piece nextPiece = piecePlacer.nextPiece();
+		Piece nextPiece = piecePlacer.nextNextPiece();
 		boolean[][] peiceOrientations= nextPiece.getOrientation();
 		for(int i = 0; i < 4; i++){
 			for (int j = 0; j < 4; j++){
@@ -55,5 +55,7 @@ public class NextPiecePanel extends JPanel{
 				}
 			}
 		}
+		revalidate();
+		repaint();
 	}
 }
