@@ -24,7 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -68,9 +68,9 @@ public class GuestTetrisPanel extends JPanel {
 
 	private GameManager gameManager;
 	private PiecePlacer piecePlacer;
-
+	private int delay = 500;
 	private boolean isMuted = false;
-
+	private ActionListener scoreLevelUpdater;
 	private JPanel advertisementPanel;
 	private Advertisements ad;
 	private JButton adPicture;
@@ -107,6 +107,7 @@ public class GuestTetrisPanel extends JPanel {
 
 		gameManager.startGame();
 		setKeyBindings();
+		new Timer(delay, scoreLevelUpdater).start();
 
 	}
 
@@ -147,7 +148,7 @@ public class GuestTetrisPanel extends JPanel {
 		public KeyAction(String actionCommand) {
 			putValue(ACTION_COMMAND_KEY, actionCommand);
 		}
-
+		
 		@Override
 		public void actionPerformed(ActionEvent actionEvt) {
 			System.out.println("key action performed..");
@@ -248,7 +249,7 @@ public class GuestTetrisPanel extends JPanel {
 		scoreLabel = new JLabel("Lines Cleared");
 		scoreLabel.setFont(font);
 		// TODO make it get score from game manager
-		scoreTextLabel = new JLabel(Integer.toString(score));
+		scoreTextLabel = new JLabel("0");
 		scoreTextLabel.setFont(font);
 		scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		scoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -365,6 +366,12 @@ public class GuestTetrisPanel extends JPanel {
 	}
 
 	private void addActionAdapters() {
+		scoreLevelUpdater = new ActionListener() {
+	          public void actionPerformed(ActionEvent evt) {
+	              scoreTextLabel.setText("" + gameManager.getLinesCleared());
+	              levelNumberLabel.setText("" + gameManager.getLevel());
+	          }
+	      };
 
 		backToMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
