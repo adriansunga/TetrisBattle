@@ -98,13 +98,18 @@ public class MySQLDriver {
 			ps.setString(1, userName);
 			ResultSet result = ps.executeQuery();
 			while(result.next()) {
-				System.out.println(result.getString(1) + " already exists in the database. Must update, instead of add score.");
-				PreparedStatement ps2 = con.prepareStatement(updateScore);
-				ps2.setInt(1, score);
-				ps2.setString(2, userName);
-				ps2.executeUpdate();
-				System.out.println("updated score for " + userName);
-				return;
+				if(result.getInt(2) < score) {
+				//TODO: ONLY UPDATE IF THE NEW SCORE IS HIGHER THAN THE OLD ONE
+					System.out.println(result.getString(1) + " already exists in the database with a lower score. Must update, instead of add score.");
+					PreparedStatement ps2 = con.prepareStatement(updateScore);
+					ps2.setInt(1, score);
+					ps2.setString(2, userName);
+					ps2.executeUpdate();
+					System.out.println("updated score for " + userName);
+					return;
+				}
+				else
+					return;
 			} 
 			PreparedStatement ps3 = con.prepareStatement(addScore);
 			ps3.setString(1, userName);
