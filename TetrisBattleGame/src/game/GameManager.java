@@ -388,11 +388,7 @@ public class GameManager {
 
 	}
 
-<<<<<<< .merge_file_wKvOuK
-	private void endGame() {
-=======
 	public void endGame() {
->>>>>>> .merge_file_91vnzt
 		if (!isTwoPlayer) {
 			JOptionPane.showMessageDialog(null, "Game is over.");
 			boardPanel.clickBackToMenuButton();
