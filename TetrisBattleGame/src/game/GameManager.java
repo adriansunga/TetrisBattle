@@ -341,8 +341,8 @@ public class GameManager {
 		int speedUpFactor = numLinesCleared / 6;
 		if (speedUpFactor != 0) {
 			// speed by 10% every lines cleared, needs to be checked
-			defaultSpeed *= (1 + speedUpFactor * .1);
-			level++;
+			defaultSpeed /= (1 + speedUpFactor * .1);
+			level = speedUpFactor;
 		}
 	}
 	
