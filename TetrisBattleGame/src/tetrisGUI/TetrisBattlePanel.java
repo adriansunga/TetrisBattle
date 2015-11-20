@@ -112,20 +112,20 @@ public class TetrisBattlePanel extends JPanel {
 		String vkRight = "VK_RIGHT";
 		String vkUp = "VK_UP";
 		String vkDown = "VK_DOWN";
-		String space = "space";
+		String drop = "drop";
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), vkRight);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true), "PlayerDownRelease");
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), space);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), drop);
 
 		actionMap.put(vkLeft, new KeyAction(vkLeft));
 		actionMap.put(vkRight, new KeyAction(vkRight));
 		actionMap.put(vkUp, new KeyAction(vkUp));
 		actionMap.put(vkDown, new KeyAction(vkDown));
-		actionMap.put(space, new KeyAction(space));
+		actionMap.put(drop, new KeyAction(drop));
 		actionMap.put("PlayerDownRelease", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -166,7 +166,7 @@ public class TetrisBattlePanel extends JPanel {
 				System.out.println("Key released");
 				gameManager.zoomDown(1000);
 				break;
-			case "space":
+			case "drop":
 				System.out.println("space key pressed");
 				gameManager.zoomDown(0); // TODO: should i make this instantaneous?
 				break;
