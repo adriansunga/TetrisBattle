@@ -44,11 +44,11 @@ public class TetrisServer {
 		cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 	}
 	
-	public void sendMessageToAllClients(String message, TetrisThread sender) {
-		System.out.println(message);
+	public void sendMessageToAllClients(Object obj, TetrisThread sender) {
+		System.out.println(obj);
 		for(TetrisThread tt : ttVector) {
 			if(tt != sender)
-				tt.sendMessage(message);
+				tt.sendMessage(obj);
 		}
 	}
 }

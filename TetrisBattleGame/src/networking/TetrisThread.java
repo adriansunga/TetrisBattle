@@ -1,44 +1,53 @@
 package networking;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class TetrisThread extends Thread {
 	private Socket s;
-	private BufferedReader br;
-	private PrintWriter pw;
+	private ObjectOutputStream oos;
+	private ObjectInputStream ois;
 	private TetrisServer ts;
 	
 	public TetrisThread(Socket s, TetrisServer ts) {
 		this.ts = ts;
 		this.s = s;
-		try {
-			br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			pw = new PrintWriter(s.getOutputStream());
-		} catch (IOException ioe) {
-			System.out.println("ioe in TetrisThread constructor: " + ioe.getMessage());
-		}
 	}
 	
-	public void sendMessage(String message) {
-		if(pw != null) {
-			pw.println(message);
-			pw.flush();
+	public void sendMessage(Object obj) {
+		if(oos != null) {
+			try {
+				oos.writeObject(obj);
+				oos.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	@Override
 	public void run() {
 		try {
+			oos = new ObjectOutputStream(s.getOutputStream());
+			ois = new ObjectInputStream(s.getInputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
 			while (true) {
-				String message = br.readLine();
-				if(message == null) {
+				Object obj = null;
+				try {
+					obj = ois.readObject();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				if(obj == null) {
 					break;
 				}
-				ts.sendMessageToAllClients(message, this);
+				ts.sendMessageToAllClients(obj, this);
 			}
 		} catch(IOException ioe) {
 			System.out.println("ioe in TetrisThread.run(): " + ioe.getMessage());

@@ -3,7 +3,8 @@ package networking;
 import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -13,22 +14,21 @@ import javax.swing.JPanel;
 import game.GameManager;
 
 public class TetrisClient extends Thread{
-	private BufferedReader br;
-	private PrintWriter pw;
+	private ObjectOutputStream oos;
+	private ObjectInputStream ois;
 	private String opponentName;
 	private String name;
 	private JPanel outerPanelForCardLayout;
 	private CardLayout cardLayout;
 	private GameManager gm;
+	private Socket s;
 	
 	public TetrisClient(String hostname, int port, String name, JPanel outerPanelForCardLayout, CardLayout cardLayout) {
 		this.name = name;
 		this.cardLayout = cardLayout;
 		this.outerPanelForCardLayout = outerPanelForCardLayout;
 		try {
-			Socket s = new Socket(hostname, port);
-			br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			pw = new PrintWriter(s.getOutputStream());
+			s = new Socket(hostname, port);
 			this.start();
 		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisClient constructor: " + ioe.getMessage());
@@ -38,11 +38,35 @@ public class TetrisClient extends Thread{
 	@Override
 	public void run() {
 		try {
+			oos = new ObjectOutputStream(s.getOutputStream());
+			ois = new ObjectInputStream(s.getInputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
 			while (true) {
-				String message = br.readLine();
-				if(message == null)
+				Object obj = null;
+				try {
+					obj = ois.readObject();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				if(obj == null)
 					break;
-				parseMessage(message);
+				
+				if(obj instanceof String){
+					String message = (String) obj;
+					parseMessage(message);
+				}
+				
+				//TODO
+//				else if(obj instanceof ){
+//
+//				}
+				
+				else{
+					System.out.println("Did not catch object type");
+				}
 			}
 		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisClient.run(): " + ioe.getMessage());
@@ -56,9 +80,14 @@ public class TetrisClient extends Thread{
 		this.gm = gm;
 	}
 	
-	public void sendMessage(String message) {
-		pw.println(message);
-		pw.flush();
+	public void sendMessage(Object obj) {
+		try {
+			oos.writeObject(obj);
+			oos.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void parseMessage(String message) {
