@@ -326,10 +326,10 @@ public class GameManager {
 	public void updateSpeed() {
 		// should work b/c of integer arithmetic
 		int speedUpFactor = numLinesCleared / 6;
-		level++;
 		if (speedUpFactor != 0) {
 			// speed by 10% every lines cleared, needs to be checked
 			defaultSpeed *= (1 + speedUpFactor * .1);
+			level++;
 		}
 	}
 	
