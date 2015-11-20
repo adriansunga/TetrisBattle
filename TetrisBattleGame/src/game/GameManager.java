@@ -450,6 +450,7 @@ public class GameManager {
 		msql.connect();
 		msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
 		msql.stop();
+		pm.stop();
 		tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
 	}
 
@@ -466,6 +467,7 @@ public class GameManager {
 			msql.connect();
 			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
 			msql.stop();
+			pm.stop();
 			tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
 		}
 	}
