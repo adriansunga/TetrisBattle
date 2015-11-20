@@ -85,6 +85,7 @@ public class TetrisBattlePanel extends JPanel {
 	private TetrisClient tc;
 	private GameManager gameManager;
 	private PiecePlacer piecePlacer;
+	private PlayMusic pm;
 
 	// constructor
 	public TetrisBattlePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, TetrisClient tc) {
@@ -459,7 +460,8 @@ public class TetrisBattlePanel extends JPanel {
 
 		add(RightPanel);
 		try {
-			new PlayMusic();
+			pm = new PlayMusic();
+			gameManager.setPlayMusic(pm);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

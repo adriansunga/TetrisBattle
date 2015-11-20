@@ -13,6 +13,7 @@ import database.MySQLDriver;
 import networking.TetrisClient;
 import tetrisGUI.BoardPanel;
 import tetrisGUI.NextPiecePanel;
+import tetrisGUI.PlayMusic;
 import tetrisGUI.TilePanel;
 
 public class GameManager {
@@ -36,6 +37,7 @@ public class GameManager {
 	private NextPiecePanel nextPiecePanel;
 	private int numLinesCleared = 0;
 	private Random rand = new Random();
+	private PlayMusic pm;
 	
 	private boolean hasLanded = false;
 	// TODO: if time, add more cute colors #thrive
@@ -56,6 +58,14 @@ public class GameManager {
 		currentPiece = null;
 		this.nextPiecePanel = nextPiecePanel;
 
+	}
+	
+	public void setPlayMusic(PlayMusic pm) {
+		this.pm = pm;
+	}
+	
+	public PlayMusic getPlayMusic() {
+		return pm;
 	}
 
 	public GameManager(PiecePlacer piecePlacer, NextPiecePanel nextPiecePanel) {

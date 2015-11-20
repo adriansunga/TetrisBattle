@@ -9,6 +9,7 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import database.MySQLDriver;
 import game.GameManager;
 
 public class TetrisClient extends Thread{
@@ -65,11 +66,6 @@ public class TetrisClient extends Thread{
 					parseMessage(message);
 				}
 				
-				//TODO
-//				else if(obj instanceof ){
-//
-//				}
-				
 				else{
 					System.out.println("Did not catch object type");
 				}
@@ -77,9 +73,18 @@ public class TetrisClient extends Thread{
 		} catch (IOException ioe) {
 			System.out.println("ioe in TetrisClient.run(): " + ioe.getMessage());
 		} finally {
-			JOptionPane.showMessageDialog(null, "Host has left the game.", "You Have Won!", JOptionPane.INFORMATION_MESSAGE);
+			gm.getPlayMusic().stop();
+			MySQLDriver msql = new MySQLDriver();
+			msql.connect();
+			msql.addScore(getUserName(), gm.getLinesCleared() - gm.getGarbageLinesReceived());
+			msql.stop();
+			JOptionPane.showMessageDialog(null, "Host has left the game.", "You Have Won! Your score has been entered into the score database.", JOptionPane.INFORMATION_MESSAGE);
 			cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 		}
+	}
+	
+	public GameManager getGM() {
+		return gm;
 	}
 	
 	public void setGameManager(GameManager gm) {

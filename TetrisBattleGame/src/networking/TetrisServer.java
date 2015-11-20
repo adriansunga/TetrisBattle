@@ -9,6 +9,8 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import database.MySQLDriver;
+
 public class TetrisServer {
 	private Vector<TetrisThread> ttVector;
 	private String username;
@@ -40,7 +42,12 @@ public class TetrisServer {
 		return tc;
 	}
 	public void disconnect(TetrisThread tt) {
-		JOptionPane.showMessageDialog(null, "Client has left the game.", "You Have Won!", JOptionPane.INFORMATION_MESSAGE);
+		getTC().getGM().getPlayMusic().stop();
+		MySQLDriver msql = new MySQLDriver();
+		msql.connect();
+		msql.addScore(getTC().getUserName(), getTC().getGM().getLinesCleared() - getTC().getGM().getGarbageLinesReceived());
+		msql.stop();
+		JOptionPane.showMessageDialog(null, "Client has left the game.", "You Have Won! Your score has been entered in the score database.", JOptionPane.INFORMATION_MESSAGE);
 		cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 	}
 	
