@@ -35,6 +35,14 @@ public class TetrisClient extends Thread{
 		}
 	}
 	
+	public JPanel getOuterPanelForCardLayout() {
+		return outerPanelForCardLayout;
+	}
+	
+	public CardLayout getCardLayout() {
+		return cardLayout;
+	}
+	
 	@Override
 	public void run() {
 		try {
