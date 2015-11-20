@@ -23,7 +23,7 @@ public class GameManager {
 	private final int matrixWidth = 10;
 	private Color backgroundColor = Color.BLACK;
 	private int pieceSpeed = 1000; // in ms
-
+	private int speedUpFactor = 0;
 	private BoardPanel boardPanel;
 	private PiecePlacer piecePlacer;
 	private Piece currentPiece;
@@ -345,11 +345,15 @@ public class GameManager {
 	// to speed up/ by how much
 	public void updateSpeed() {
 		// should work b/c of integer arithmetic
-		int speedUpFactor = 0;
+		if(isTwoPlayer)
+			return;
+		System.out.println("speed up factor: " + speedUpFactor);
+		System.out.println("numlinescleared/6: " + numLinesCleared/6);
 		if (speedUpFactor != numLinesCleared/6) {
 			// speed by 10% every lines cleared, needs to be checked
 			speedUpFactor = numLinesCleared/6;
-			defaultSpeed = defaultSpeed * (speedUpFactor + 1);
+			if(!(defaultSpeed - 30*speedUpFactor <= 0))
+				defaultSpeed = defaultSpeed - 30*speedUpFactor;
 			level = speedUpFactor;
 		}
 		System.out.println("default speed: " + defaultSpeed);
