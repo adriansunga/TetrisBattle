@@ -104,6 +104,8 @@ public class TetrisClient extends Thread{
 		if(message.substring(0, 4).equals("name")) {
 			parseName(message);
 		}
+		else if(command.equals("endgame"))
+			gm.endGame();
 		
 		//networking for garbage line
 		if(command.equals(("garbageline"))){

@@ -352,6 +352,7 @@ public class GameManager {
 			defaultSpeed /= (1 + speedUpFactor * .1);
 			level = speedUpFactor;
 		}
+		System.out.println("default speed: " + defaultSpeed);
 	}
 
 	public int getLevel() {
@@ -387,7 +388,11 @@ public class GameManager {
 
 	}
 
+<<<<<<< .merge_file_wKvOuK
 	private void endGame() {
+=======
+	public void endGame() {
+>>>>>>> .merge_file_91vnzt
 		if (!isTwoPlayer) {
 			JOptionPane.showMessageDialog(null, "Game is over.");
 			boardPanel.clickBackToMenuButton();
@@ -398,6 +403,7 @@ public class GameManager {
 			msql.connect();
 			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
 			msql.stop();
+			tetrisClient.sendMessage("endgame");
 			tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
 		}
 	}
