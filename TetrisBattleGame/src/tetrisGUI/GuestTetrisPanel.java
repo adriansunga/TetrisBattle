@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -47,7 +48,6 @@ public class GuestTetrisPanel extends JPanel {
 	private JPanel leftPanel;
 	private JLabel scoreLabel;
 	private JLabel scoreTextLabel, levelNumberLabel, levelLabel;
-	private int score = 0;
 	private JPanel nextPiecePanel;
 	private JLabel nextPieceTextLabel;
 	private NextPiecePanel nextImage;
@@ -120,20 +120,20 @@ public class GuestTetrisPanel extends JPanel {
 		String vkRight = "VK_RIGHT";
 		String vkUp = "VK_UP";
 		String vkDown = "VK_DOWN";
-		String space = "space";
+		String drop = "drop";
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), vkRight);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true), "PlayerDownRelease");
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), space);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), drop);
 
 		actionMap.put(vkLeft, new KeyAction(vkLeft));
 		actionMap.put(vkRight, new KeyAction(vkRight));
 		actionMap.put(vkUp, new KeyAction(vkUp));
 		actionMap.put(vkDown, new KeyAction(vkDown));
-		actionMap.put(space, new KeyAction(space));
+		actionMap.put(drop, new KeyAction(drop));
 		actionMap.put("PlayerDownRelease", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -174,8 +174,8 @@ public class GuestTetrisPanel extends JPanel {
 				System.out.println("Key released");
 				gameManager.zoomDown(1000);
 				break;
-			case "space":
-				System.out.println("space key pressed");
+			case "drop":
+				System.out.println("shift key pressed");
 				gameManager.zoomDown(0); // TODO: should i make this instantaneous?
 				break;
 			}
