@@ -407,13 +407,13 @@ public class GameManager {
 			JOptionPane.showMessageDialog(null, "Game is over.");
 			boardPanel.clickBackToMenuButton();
 		} else {
+			tetrisClient.sendMessage("endgame");
 			JOptionPane.showMessageDialog(null,
 					"Game is over. You have lost! Your score has been entered into the score database.");
 			MySQLDriver msql = new MySQLDriver();
 			msql.connect();
 			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
 			msql.stop();
-			tetrisClient.sendMessage("endgame");
 			tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
 		}
 	}
