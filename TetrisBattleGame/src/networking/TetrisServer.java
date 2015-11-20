@@ -47,7 +47,7 @@ public class TetrisServer {
 		msql.connect();
 		msql.addScore(getTC().getUserName(), getTC().getGM().getLinesCleared() - getTC().getGM().getGarbageLinesReceived());
 		msql.stop();
-		JOptionPane.showMessageDialog(null, "Client has left the game.", "You Have Won! Your score has been entered in the score database.", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Your score has been entered in the score database if higher than your previous score.", "Client has left the game!", JOptionPane.INFORMATION_MESSAGE);
 		cardLayout.show(outerPanelForCardLayout, "welcomePanel");
 	}
 	

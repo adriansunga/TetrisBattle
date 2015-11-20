@@ -444,8 +444,8 @@ public class GameManager {
 	
 	public void endGame(String winner) {
 		gameOver = true;
-		JOptionPane.showMessageDialog(null,
-				"Game is over. You have won! Your score has been entered into the score database.");
+		JOptionPane.showMessageDialog(null, "Game is over. Your score has been entered into the score database if higher than your previous score.", 
+				"You have won!", JOptionPane.INFORMATION_MESSAGE);
 		MySQLDriver msql = new MySQLDriver();
 		msql.connect();
 		msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
@@ -461,8 +461,8 @@ public class GameManager {
 			boardPanel.clickBackToMenuButton();
 		} else {
 			tetrisClient.sendMessage("endgame");
-			JOptionPane.showMessageDialog(null,
-					"Game is over. You have lost! Your score has been entered into the score database.");
+			JOptionPane.showMessageDialog(null, "Game is over. Your score has been entered into the score database if higher than your previous score.", 
+					"You have lost!", JOptionPane.INFORMATION_MESSAGE);
 			MySQLDriver msql = new MySQLDriver();
 			msql.connect();
 			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
