@@ -1,11 +1,9 @@
 package networking;
 
 import java.awt.CardLayout;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
@@ -105,7 +103,7 @@ public class TetrisClient extends Thread{
 			parseName(message);
 		}
 		else if(command.equals("endgame"))
-			gm.endGame();
+			gm.endGame(getUserName());
 		
 		//networking for garbage line
 		if(command.equals(("garbageline"))){

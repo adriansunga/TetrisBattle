@@ -81,12 +81,12 @@ public class GuestTetrisPanel extends JPanel {
 	Image newImage = img.getScaledInstance(200, 50, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon ButtonImage1 = new ImageIcon(newImage);
 
-	ImageIcon originalButton1 = new ImageIcon("images/on.png");
+	ImageIcon originalButton1 = new ImageIcon("images/mute/on.png");
 	Image img1 = originalButton1.getImage();
 	Image newImage1 = img1.getScaledInstance(75, 50, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon on = new ImageIcon(newImage1);
 
-	ImageIcon originalButton3 = new ImageIcon("images/off.png");
+	ImageIcon originalButton3 = new ImageIcon("images/mute/off.png");
 	Image img3 = originalButton3.getImage();
 	Image newImage3 = img3.getScaledInstance(75, 50, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon off = new ImageIcon(newImage3);

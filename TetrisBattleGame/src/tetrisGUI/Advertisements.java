@@ -22,16 +22,16 @@ public class Advertisements extends Thread{
 			pictures = new Vector<String>(); 
 			text = new Vector<String>(); 
 			
-			pictures.addElement("201.jpg");
+			pictures.addElement("ads/201.jpg");
 			text.addElement("Are you bored 40hrs/week? Take my class!");
 			
-			pictures.addElement("1car.jpg");
+			pictures.addElement("ads/1car.jpg");
 			text.addElement("15 minutes could save you 15% or more!");
 			
-			pictures.addElement("1law.jpg");
+			pictures.addElement("ads/1law.jpg");
 			text.addElement("Need a Lawyer? You cant afford not to call!");
 			
-			pictures.addElement("1vote.png");
+			pictures.addElement("ads/1vote.png");
 			text.addElement("#Miller2016");
 			
 			ImageIcon originalButton = new ImageIcon("images/" + pictures.elementAt(index));

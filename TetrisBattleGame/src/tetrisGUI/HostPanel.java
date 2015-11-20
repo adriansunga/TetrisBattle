@@ -48,7 +48,7 @@ public class HostPanel extends JPanel{
 		add(portTF);
 		add(continueButton);
 		
-		ImageIcon image2 = new ImageIcon("images/s.png");
+		ImageIcon image2 = new ImageIcon("images/backgrounds/s.png");
 		bg = image2.getImage();
 	}
 	

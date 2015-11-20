@@ -25,7 +25,6 @@ public class GameManager {
 	private int pieceSpeed = 1000; // in ms
 
 	private BoardPanel boardPanel;
-
 	private PiecePlacer piecePlacer;
 	private Piece currentPiece;
 	private Timer dropPieceTimer;
@@ -346,10 +345,11 @@ public class GameManager {
 	// to speed up/ by how much
 	public void updateSpeed() {
 		// should work b/c of integer arithmetic
-		int speedUpFactor = numLinesCleared / 6;
-		if (speedUpFactor != 0) {
+		int speedUpFactor = 0;
+		if (speedUpFactor != numLinesCleared/6) {
 			// speed by 10% every lines cleared, needs to be checked
-			defaultSpeed /= (1 + speedUpFactor * .1);
+			speedUpFactor = numLinesCleared/6;
+			defaultSpeed = defaultSpeed * (speedUpFactor + 1);
 			level = speedUpFactor;
 		}
 		System.out.println("default speed: " + defaultSpeed);
@@ -387,6 +387,16 @@ public class GameManager {
 		boardPanel.repaint();
 
 	}
+	
+	public void endGame(String winner) {
+		JOptionPane.showMessageDialog(null,
+				"Game is over. You have won! Your score has been entered into the score database.");
+		MySQLDriver msql = new MySQLDriver();
+		msql.connect();
+		msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
+		msql.stop();
+		tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
+	}
 
 	public void endGame() {
 		if (!isTwoPlayer) {
@@ -394,7 +404,7 @@ public class GameManager {
 			boardPanel.clickBackToMenuButton();
 		} else {
 			JOptionPane.showMessageDialog(null,
-					"Game is over. Your score has been entered into the high score database.");
+					"Game is over. You have lost! Your score has been entered into the score database.");
 			MySQLDriver msql = new MySQLDriver();
 			msql.connect();
 			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
