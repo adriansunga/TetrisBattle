@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -30,9 +31,10 @@ public class GameManager {
 	boolean firstTime = true;
 	private int defaultSpeed = 1000;
 	private boolean isTwoPlayer = false;
-	
+	private int level = 0;
 	private NextPiecePanel nextPiecePanel;
 	private int numLinesCleared = 0;
+	private Random rand = new Random();
 
 	// TODO: if time, add more cute colors #thrive
 
@@ -140,7 +142,7 @@ public class GameManager {
 
 	public void receiveGarbageLine() {
 		// Determine location of the notch
-		int notchLoc = (int) Math.random() * 10;
+		int notchLoc = rand.nextInt(10);
 
 		// Populate row with vals accounting for notch
 		boolean[] garbageRow = new boolean[10];
@@ -323,11 +325,20 @@ public class GameManager {
 	// to speed up/ by how much
 	public void updateSpeed() {
 		// should work b/c of integer arithmetic
-		int speedUpFactor = numLinesCleared / 1;
+		int speedUpFactor = numLinesCleared / 6;
+		level++;
 		if (speedUpFactor != 0) {
 			// speed by 10% every lines cleared, needs to be checked
 			defaultSpeed *= (1 + speedUpFactor * .1);
 		}
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+	
+	public int getLinesCleared() {
+		return numLinesCleared;
 	}
 	
 	public Color getTileColor(int row, int col)
