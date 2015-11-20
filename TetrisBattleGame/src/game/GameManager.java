@@ -9,6 +9,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
+import database.MySQLDriver;
 import networking.TetrisClient;
 import tetrisGUI.BoardPanel;
 import tetrisGUI.NextPiecePanel;
@@ -380,9 +381,16 @@ public class GameManager {
 	}
 
 	private void endGame() {
-		JOptionPane.showMessageDialog(null, "END GAME");
 		if (!isTwoPlayer) {
+			JOptionPane.showMessageDialog(null, "Game is over.");
 			boardPanel.clickBackToMenuButton();
+		} else {
+			JOptionPane.showMessageDialog(null, "Game is over. Your score has been entered into the high score database.");
+			MySQLDriver msql = new MySQLDriver();
+			msql.connect();
+			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
+			msql.stop();
+			tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
 		}
 	}
 }
