@@ -10,12 +10,12 @@ import javax.swing.JLabel;
 public class Advertisements extends Thread{
 		private long startTime;
 		private JButton jb;
-		private int index = 0;
 		private Vector<String> pictures;
 		private Vector<String> text;
 		private JLabel jl;
-		
-		public Advertisements(JButton jb, JLabel jl){
+		private int index;
+		Advertisements(JButton jb, JLabel jl, int index){
+			this.index = index;
 			this.jb = jb;
 			this.jl = jl;
 			startTime = System.currentTimeMillis();
@@ -36,7 +36,7 @@ public class Advertisements extends Thread{
 			
 			ImageIcon originalButton = new ImageIcon("images/" + pictures.elementAt(index));
 			Image img = originalButton.getImage();
-			Image newImage = img.getScaledInstance(originalButton.getIconWidth(), originalButton.getIconHeight(), java.awt.Image.SCALE_SMOOTH);
+			Image newImage = img.getScaledInstance(originalButton.getIconWidth(), originalButton.getIconHeight()-30, java.awt.Image.SCALE_SMOOTH);
 			ImageIcon ButtonImage1 = new ImageIcon(newImage);
 			
 			jb.setIcon(ButtonImage1);
@@ -59,7 +59,7 @@ public class Advertisements extends Thread{
 					
 					ImageIcon originalButton = new ImageIcon("images/" + pictures.elementAt(index));
 					Image img = originalButton.getImage();
-					Image newImage = img.getScaledInstance(originalButton.getIconWidth(), originalButton.getIconHeight(), java.awt.Image.SCALE_SMOOTH);
+					Image newImage = img.getScaledInstance(originalButton.getIconWidth(), originalButton.getIconHeight() -30, java.awt.Image.SCALE_SMOOTH);
 					ImageIcon ButtonImage1 = new ImageIcon(newImage);
 					
 					

@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -41,7 +40,7 @@ public class GuestTetrisPanel extends JPanel {
 	private TitledBorder titledBorder;
 
 	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
-	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 12);
+	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 20);
 
 	private JLabel tetrisTitle;
 	private JPanel titlePanel;
@@ -52,7 +51,7 @@ public class GuestTetrisPanel extends JPanel {
 	private JLabel nextPieceTextLabel;
 	private NextPiecePanel nextImage;
 	private JPanel jp;
-	private JPanel nextPanel, scoresPanel, levelPanel, scorePanel;
+	private JPanel nextPanel, scoresPanel, levelPanel, scorePanel, adLeftPanel;
 	private JPanel scoresTextLabelPanel, nextPieceTextLabelPanel, scoresLabelPanel;
 	private JButton backToMenu, mute;
 	private JPanel backToMenuPanel;
@@ -65,16 +64,16 @@ public class GuestTetrisPanel extends JPanel {
 	private JPanel outerPanelForCardLayout;
 
 	private PlayMusic playMusic;
-
+	private JPanel totalAdsPanel;
 	private GameManager gameManager;
 	private PiecePlacer piecePlacer;
 	private int delay = 500;
 	private boolean isMuted = false;
 	private ActionListener scoreLevelUpdater;
-	private JPanel advertisementPanel;
-	private Advertisements ad;
-	private JButton adPicture;
-	private JLabel adText;
+	private JPanel advertisementPanel1, advertisementPanel2, advertisementPanel3;
+	private Advertisements ad1, ad2, ad3;
+	private JButton adPicture1, adPicture2, adPicture3;
+	private JLabel adText1, adText2, adText3;
 
 	ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
 	Image img = originalButton.getImage();
@@ -186,25 +185,56 @@ public class GuestTetrisPanel extends JPanel {
 
 		// TODO
 		// initialized advertisements
-		adPicture = new JButton();
-		adPicture.setOpaque(false);
-		adPicture.setEnabled(false);
-		adText = new JLabel();
-		adPicture.setHorizontalAlignment(SwingConstants.CENTER);
-		adText.setHorizontalAlignment(SwingConstants.CENTER);
-		ad = new Advertisements(adPicture, adText);
-		ad.start();
-		advertisementPanel = new JPanel();
-		advertisementPanel.setPreferredSize(new Dimension(300, 200));
-		advertisementPanel.setMinimumSize(new Dimension(300, 200));
-		advertisementPanel.setMaximumSize(new Dimension(300, 200));
+		adLeftPanel = new JPanel();
+		adLeftPanel.setLayout(new BoxLayout(adLeftPanel, BoxLayout.X_AXIS));
+		totalAdsPanel = new JPanel();
+		totalAdsPanel.setLayout(new BoxLayout(totalAdsPanel, BoxLayout.Y_AXIS));
+		
+		adPicture1 = new JButton();
+		adPicture1.setOpaque(false);
+		adPicture1.setEnabled(true);
+		adText1 = new JLabel();
+		adText1.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		adPicture1.setHorizontalAlignment(SwingConstants.CENTER);
+		adText1.setHorizontalAlignment(SwingConstants.CENTER);
+		ad1 = new Advertisements(adPicture1, adText1, 0);
+		ad1.start();
+		advertisementPanel1 = new JPanel();
+		advertisementPanel1.setPreferredSize(new Dimension(300, 190));
+		advertisementPanel1.setMinimumSize(new Dimension(300, 190));
+		advertisementPanel1.setMaximumSize(new Dimension(300, 190));
+		adPicture2 = new JButton();
+		adPicture2.setOpaque(false);
+		adPicture2.setEnabled(true);
+		adText2 = new JLabel();
+		adText2.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		adPicture2.setHorizontalAlignment(SwingConstants.CENTER);
+		adText2.setHorizontalAlignment(SwingConstants.CENTER);
+		ad2 = new Advertisements(adPicture2, adText2, 1);
+		ad2.start();
+		advertisementPanel2 = new JPanel();
+		advertisementPanel2.setPreferredSize(new Dimension(300, 190));
+		advertisementPanel2.setMinimumSize(new Dimension(300, 190));
+		advertisementPanel2.setMaximumSize(new Dimension(300, 190));
+		adPicture3 = new JButton();
+		adPicture3.setOpaque(false);
+		adPicture3.setEnabled(true);
+		adText3 = new JLabel();
+		adText3.setFont(new Font("Helvetica", Font.PLAIN ,15));
+		adPicture3.setHorizontalAlignment(SwingConstants.CENTER);
+		adText3.setHorizontalAlignment(SwingConstants.CENTER);
+		ad3 = new Advertisements(adPicture3, adText3, 2);
+		ad3.start();
+		advertisementPanel3 = new JPanel();
+		advertisementPanel3.setPreferredSize(new Dimension(300, 190));
+		advertisementPanel3.setMinimumSize(new Dimension(300, 190));
+		advertisementPanel3.setMaximumSize(new Dimension(300, 190));
 
 		nextPanel = new JPanel();
 		levelPanel = new JPanel();
 		scoresPanel = new JPanel();
 		levelLabel = new JLabel("level = ");
 		levelLabel.setFont(font);
-		// TODO: get level from game manager
 		levelNumberLabel = new JLabel("0");
 		levelNumberLabel.setFont(font);
 		levelPanel = new JPanel();
@@ -248,7 +278,6 @@ public class GuestTetrisPanel extends JPanel {
 		scoresLabelPanel = new JPanel();
 		scoreLabel = new JLabel("Lines Cleared");
 		scoreLabel.setFont(font);
-		// TODO make it get score from game manager
 		scoreTextLabel = new JLabel("0");
 		scoreTextLabel.setFont(font);
 		scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -334,31 +363,53 @@ public class GuestTetrisPanel extends JPanel {
 		titlePanel.setOpaque(false);
 		scoresPanel.setOpaque(false);
 		nextPanel.setOpaque(false);
+		adLeftPanel.setOpaque(false);
 
-		advertisementPanel.setOpaque(false);
-		advertisementPanel.setLayout(new BoxLayout(advertisementPanel, BoxLayout.Y_AXIS));
+		advertisementPanel1.setOpaque(false);
+		//advertisementPanel1.setLayout(new BoxLayout(advertisementPanel1, BoxLayout.Y_AXIS));
 		titledBorder = new TitledBorder(null, "Advertisements", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
 				javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.BLACK);
-		titledBorder.setBorder(new LineBorder(Color.BLACK));
-		advertisementPanel.setBorder(titledBorder);
-		advertisementPanel.add(adPicture);
-		advertisementPanel.add(adText);
+		titledBorder.setBorder(new LineBorder(Color.orange, 5));
+		titledBorder.setTitleFont(font1);
+		advertisementPanel1.setBorder(titledBorder);
+		advertisementPanel1.add(adPicture1, BorderLayout.CENTER);
+		advertisementPanel1.add(adText1, BorderLayout.SOUTH);
+		advertisementPanel2.setOpaque(false);
+		//advertisementPanel2.setLayout(new BoxLayout(advertisementPanel2, BoxLayout.Y_AXIS));
+		titledBorder = new TitledBorder(null, "Advertisements", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
+				javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.BLACK);
+		titledBorder.setBorder(new LineBorder(Color.MAGENTA, 5));
+		titledBorder.setTitleFont(font1);
+		advertisementPanel2.setBorder(titledBorder);
+		advertisementPanel2.add(adPicture2,BorderLayout.CENTER);
+		advertisementPanel2.add(adText2, BorderLayout.SOUTH);
+		advertisementPanel3.setOpaque(false);
+		//advertisementPanel3.setLayout(new BoxLayout(advertisementPanel3, BoxLayout.Y_AXIS));
+		titledBorder = new TitledBorder(null, "Advertisements", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
+				javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.BLACK);
+		titledBorder.setBorder(new LineBorder(Color.WHITE, 5));
+		titledBorder.setTitleFont(font1);
+		advertisementPanel3.setBorder(titledBorder);
+		advertisementPanel3.add(adPicture3, BorderLayout.CENTER);
+		advertisementPanel3.add(adText3, BorderLayout.SOUTH);
 
-		// TODO
 		leftPanel.add(titlePanel);
-		// comment below this line
-		// leftPanel.add(advertisementPanel);
-		// comment above this line
+		totalAdsPanel.setOpaque(false);
+		totalAdsPanel.add(advertisementPanel1);
+		totalAdsPanel.add(advertisementPanel2);
+		totalAdsPanel.add(advertisementPanel3);
 		leftPanel.add(nextPanel);
 		leftPanel.add(levelPanel);
 		leftPanel.add(scoresPanel);
 		leftPanel.add(backToMenuPanel);
 		leftPanel.add(Box.createGlue());
 		leftPanel.add(Box.createGlue());
+		adLeftPanel.add(totalAdsPanel);
+		adLeftPanel.add(leftPanel);
 
 		// center
 		add(Box.createGlue());
-		add(leftPanel);
+		add(adLeftPanel);
 		add(Box.createGlue());
 		add(boardPanel);
 		add(Box.createGlue());
