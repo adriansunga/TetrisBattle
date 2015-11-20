@@ -40,9 +40,11 @@ public class GameManager {
 	private boolean hasLanded = false;
 	// TODO: if time, add more cute colors #thrive
 	
+	private boolean gameOver;
 	private BoardPanel oppBoardPanel;
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc, NextPiecePanel nextPiecePanel) {
+		gameOver = false;
 		this.tetrisClient = tc;
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		for (int i = 0; i < matrixHeight; i++) {
@@ -57,6 +59,7 @@ public class GameManager {
 	}
 
 	public GameManager(PiecePlacer piecePlacer, NextPiecePanel nextPiecePanel) {
+		gameOver = false;
 		boardTiles = new Color[matrixHeight][matrixWidth];
 		for (int i = 0; i < matrixHeight; i++) {
 			for (int j = 0; j < matrixWidth; j++) {
@@ -391,7 +394,7 @@ public class GameManager {
 		boardPanel.revalidate();
 		boardPanel.repaint();
 		
-		if(isTwoPlayer){
+		if(isTwoPlayer && !gameOver){
 			String temp = "boardpanel:";
 			for (int i = 0; i < matrixHeight; i++) {
 				for (int j = 0; j < matrixWidth; j++) {
@@ -430,6 +433,7 @@ public class GameManager {
 	}
 	
 	public void endGame(String winner) {
+		gameOver = true;
 		JOptionPane.showMessageDialog(null,
 				"Game is over. You have won! Your score has been entered into the score database.");
 		MySQLDriver msql = new MySQLDriver();
@@ -440,6 +444,7 @@ public class GameManager {
 	}
 
 	public void endGame() {
+		gameOver = true;
 		if (!isTwoPlayer) {
 			JOptionPane.showMessageDialog(null, "Game is over.");
 			boardPanel.clickBackToMenuButton();
@@ -456,7 +461,7 @@ public class GameManager {
 	}
 
 	public void updateOppBoardPanel(String string) {
-		if(oppBoardPanel != null)
+		if(oppBoardPanel != null && !gameOver)
 		oppBoardPanel.setArray(string);
 	}
 	
