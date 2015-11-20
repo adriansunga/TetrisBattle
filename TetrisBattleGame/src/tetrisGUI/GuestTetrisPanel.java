@@ -460,6 +460,7 @@ public class GuestTetrisPanel extends JPanel {
 			}
 		});
 		
+		
 		adPicture3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if(Desktop.isDesktopSupported())
