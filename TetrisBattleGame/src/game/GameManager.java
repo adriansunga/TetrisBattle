@@ -350,7 +350,7 @@ public class GameManager {
 		if (speedUpFactor != 0) {
 			// speed by 10% every lines cleared, needs to be checked
 			defaultSpeed /= (1 + speedUpFactor * .1);
-			level++;
+			level = speedUpFactor;
 		}
 	}
 
