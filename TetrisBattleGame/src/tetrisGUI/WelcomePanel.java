@@ -25,7 +25,7 @@ public class WelcomePanel extends JPanel{
 	private JButton play;
 	private JLabel welcome;
 	private String username;
-	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 80);
+	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 50);
 	Font font2 = new Font("Tetris Mania Type", Font.BOLD, 30);
 	ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
 	Image img = originalButton.getImage();
