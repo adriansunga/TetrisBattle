@@ -17,6 +17,7 @@ public class MySQLDriver {
 	private final static String readScores = "SELECT USER FROM SCORES";
 	private final static String readScores2 = "SELECT SCORE FROM SCORES";
 	private final static String addScore = "INSERT INTO SCORES(USER, SCORE) VALUES (?,?)";
+	private final static String updateScore = "UPDATE SCORES SET SCORE = ? WHERE USER = ?";
 	
 	public MySQLDriver() {
 		 try {
@@ -93,10 +94,22 @@ public class MySQLDriver {
 	
 	public void addScore(String userName, int score) {
 		try {
-			PreparedStatement ps = con.prepareStatement(addScore);
+			PreparedStatement ps = con.prepareStatement(selectUserName);
 			ps.setString(1, userName);
-			ps.setInt(2, score);
-			ps.executeUpdate();
+			ResultSet result = ps.executeQuery();
+			while(result.next()) {
+				System.out.println(result.getString(1) + " already exists in the database. Must update, instead of add score.");
+				PreparedStatement ps2 = con.prepareStatement(updateScore);
+				ps2.setInt(1, score);
+				ps2.setString(2, userName);
+				ps2.executeUpdate();
+				System.out.println("updated score for " + userName);
+				return;
+			} 
+			PreparedStatement ps3 = con.prepareStatement(addScore);
+			ps3.setString(1, userName);
+			ps3.setInt(2, score);
+			ps3.executeUpdate();
 			System.out.println("Adding username: " + userName + " with score: " + score + " to the database.");
 		} catch (SQLException e) {
 			System.out.println("sql exception in add score: " + e.getMessage());	
