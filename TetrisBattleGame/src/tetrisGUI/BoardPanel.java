@@ -86,4 +86,60 @@ public class BoardPanel extends JPanel {
 		backToMenuButton.doClick();
 	}
 
+	public void setArray(String tp){		
+			int counter = 0;
+			for (int i = 0; i < 20; i++) {
+				for (int j = 0; j < 10; j++) {
+					if (tp.charAt(counter) == 'q' ) {
+						tileMatrix[i][j].setColor(Color.BLACK);
+						revalidate();
+						repaint();
+					}
+					else if(tp.charAt(counter) == 'r' ){
+						tileMatrix[i][j].setColor(Color.RED);
+						revalidate();
+						repaint();
+					}
+					else if(tp.charAt(counter) == 'o' ){
+						tileMatrix[i][j].setColor(Color.ORANGE);
+						revalidate();
+						repaint();
+					}
+					else if(tp.charAt(counter) == 'y' ){
+						tileMatrix[i][j].setColor(Color.YELLOW);
+						revalidate();
+						repaint();
+					}
+					else if(tp.charAt(counter) == 'g' ){
+						tileMatrix[i][j].setColor(Color.GREEN);
+						revalidate();
+						repaint();
+					}
+					else if(tp.charAt(counter) == 'b' ){
+						tileMatrix[i][j].setColor(Color.BLUE);
+						revalidate();
+						repaint();
+					}
+					else if(tp.charAt(counter) == 'c' ){
+						tileMatrix[i][j].setColor(Color.CYAN);
+						revalidate();
+						repaint();
+					}
+					else if(tp.charAt(counter) == 'm' ){
+						tileMatrix[i][j].setColor(Color.MAGENTA);
+						revalidate();
+						repaint();
+					}
+					else{
+						tileMatrix[i][j].setColor(Color.GRAY);
+						revalidate();
+						repaint();
+					}
+					counter++;
+				}
+			
+		}
+		
+	}
+
 }

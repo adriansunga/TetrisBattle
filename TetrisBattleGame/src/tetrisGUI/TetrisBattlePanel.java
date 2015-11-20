@@ -251,6 +251,7 @@ public class TetrisBattlePanel extends JPanel {
 		NextPiecePanel DELETEnextPiecePanel = new NextPiecePanel(DELETEpiecePlacer);
 		GameManager DELETEgameManager = new GameManager(DELETEpiecePlacer, DELETEnextPiecePanel);
 		oppBoardPanel = new BoardPanel(DELETEgameManager);
+		gameManager.setOppBoardPanel(oppBoardPanel);
 		// TODO
 
 		// west

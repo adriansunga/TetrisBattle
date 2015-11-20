@@ -36,9 +36,11 @@ public class GameManager {
 	private NextPiecePanel nextPiecePanel;
 	private int numLinesCleared = 0;
 	private Random rand = new Random();
-
+	
 	private boolean hasLanded = false;
 	// TODO: if time, add more cute colors #thrive
+	
+	private BoardPanel oppBoardPanel;
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc, NextPiecePanel nextPiecePanel) {
 		this.tetrisClient = tc;
@@ -386,9 +388,44 @@ public class GameManager {
 				tileMatrix[i][j].setColor(boardTiles[i][j]);
 			}
 		}
-
 		boardPanel.revalidate();
 		boardPanel.repaint();
+		
+		if(isTwoPlayer){
+			String temp = "boardpanel:";
+			for (int i = 0; i < matrixHeight; i++) {
+				for (int j = 0; j < matrixWidth; j++) {
+					if (boardTiles[i][j] == Color.BLACK) {
+						temp += "q";
+					}
+					else if(boardTiles[i][j] == Color.RED){
+						temp += "r";
+					}
+					else if(boardTiles[i][j] == Color.ORANGE){
+						temp += "o";
+					}
+					else if(boardTiles[i][j] == Color.YELLOW){
+						temp += "y";
+					}
+					else if(boardTiles[i][j] ==  Color.GREEN){
+						temp += "g";
+					}
+					else if(boardTiles[i][j] ==  Color.BLUE){
+						temp += "b";
+					}
+					else if(boardTiles[i][j] == Color.CYAN){
+						temp += "c";
+					}
+					else if(boardTiles[i][j] == Color.MAGENTA){
+						temp += "m";
+					}
+					else{
+						temp += "g";
+					}
+				}
+			}
+			tetrisClient.sendMessage(temp);
+		}
 
 	}
 	
@@ -417,4 +454,18 @@ public class GameManager {
 			tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
 		}
 	}
+
+	public void updateOppBoardPanel(String string) {
+		if(oppBoardPanel != null)
+		oppBoardPanel.setArray(string);
+	}
+	
+	
+	
+	public void setOppBoardPanel(BoardPanel obp){
+		System.out.println("Set Opp board panel");
+		this.oppBoardPanel = obp;
+	}
+	
+	
 }

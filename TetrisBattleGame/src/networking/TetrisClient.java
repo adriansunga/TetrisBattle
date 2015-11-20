@@ -105,6 +105,10 @@ public class TetrisClient extends Thread{
 		else if(command.equals("endgame"))
 			gm.endGame(getUserName());
 		
+		if(command.equals(("boardpanel"))){
+			gm.updateOppBoardPanel(parsedMessage[1]);
+		}
+		
 		//networking for garbage line
 		if(command.equals(("garbageline"))){
 			for(int i = 0; i < Integer.parseInt(parsedMessage[1]) ; i++){
