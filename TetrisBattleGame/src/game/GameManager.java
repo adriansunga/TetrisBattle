@@ -38,8 +38,8 @@ public class GameManager {
 	private int numLinesCleared = 0;
 	private Random rand = new Random();
 
+	private boolean hasLanded = false;
 	// TODO: if time, add more cute colors #thrive
-
 
 	public GameManager(PiecePlacer piecePlacer, TetrisClient tc, NextPiecePanel nextPiecePanel) {
 		this.tetrisClient = tc;
@@ -67,9 +67,8 @@ public class GameManager {
 		this.nextPiecePanel = nextPiecePanel;
 
 	}
-	
-	public void setPiecePlacer(PiecePlacer pp)
-	{
+
+	public void setPiecePlacer(PiecePlacer pp) {
 		piecePlacer = pp;
 	}
 
@@ -94,7 +93,7 @@ public class GameManager {
 		}
 
 		currentPiece = piecePlacer.nextPiece();
-		
+
 		dropPiece();
 		nextPiecePanel.setNextPiece();
 	}
@@ -108,15 +107,17 @@ public class GameManager {
 						dropPieceTimer.setDelay(defaultSpeed);
 						firstTime = false;
 					}
+					hasLanded = false;
 					move("down");
 				} else {
+					hasLanded = true;
 					int numCleared = clearLines();
 					if (isTwoPlayer) {
 						sendGarbageLine(numCleared);
 					}
 					updateSpeed();
 					dropPieceTimer.stop();
-					pieceSpeed = 0;
+					pieceSpeed = 15;
 					firstTime = true;
 					nextPiece();
 				}
@@ -124,15 +125,14 @@ public class GameManager {
 		});
 		dropPieceTimer.start();
 	}
-	
-	public void rotatePiece()
-	{
+
+	public void rotatePiece() {
 		setToBackground(backgroundColor);
-		
+
 		currentPiece.rotate();
-		
+
 		setToBackground(currentPiece.getColor());
-		
+
 		updateView();
 	}
 
@@ -140,14 +140,22 @@ public class GameManager {
 	public void sendGarbageLine(int numToSend) {
 		// Networking
 		tetrisClient.sendMessage("garbageline:" + numToSend);
-			garbageLinesSent = garbageLinesSent + numToSend;
+		garbageLinesSent = garbageLinesSent + numToSend;
 	}
-	
+
 	public int getGarbageLinesSent() {
 		return garbageLinesSent;
 	}
 
 	public void receiveGarbageLine() {
+		try {
+			while (!hasLanded) {
+				Thread.sleep(10);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		// Determine location of the notch
 		int notchLoc = rand.nextInt(10);
 
@@ -177,13 +185,13 @@ public class GameManager {
 				boardTiles[matrixHeight - 1][i] = backgroundColor;
 			}
 		}
-		
+
 		garbageLinesReceived++;
 
 		// Refresh BoardPanel
 		updateView();
 	}
-	
+
 	public int getGarbageLinesReceived() {
 		return garbageLinesReceived;
 	}
@@ -234,7 +242,7 @@ public class GameManager {
 	private Loc nextPoint(Loc l, String direction) {
 		if (direction.equals("down")) {
 			// Is at bottom?
-			//System.out.println("p.getx= " + l.row);
+			// System.out.println("p.getx= " + l.row);
 			if (l.row >= matrixHeight - 1) {
 				return null;
 			}
@@ -286,8 +294,8 @@ public class GameManager {
 
 	public void testFunction() {
 		currentPiece = new OPiece(this);
-//		int index = new Random().nextInt(pieceColors.length);
-//		currentPiece.setColor(pieceColors[index]);
+		// int index = new Random().nextInt(pieceColors.length);
+		// currentPiece.setColor(pieceColors[index]);
 		System.out.println("current piece: " + currentPiece);
 		System.out.println("location arr size in testfunction: " + currentPiece.getLocation().size());
 		setToBackground(currentPiece.getColor());
@@ -346,22 +354,20 @@ public class GameManager {
 		}
 		System.out.println("default speed: " + defaultSpeed);
 	}
-	
+
 	public int getLevel() {
 		return level;
 	}
-	
+
 	public int getLinesCleared() {
 		return numLinesCleared;
 	}
-	
-	public Color getTileColor(int row, int col)
-	{
-		if(row < 0)
-		{
+
+	public Color getTileColor(int row, int col) {
+		if (row < 0) {
 			return null;
 		}
-		
+
 		return boardTiles[row][col];
 	}
 
@@ -370,7 +376,8 @@ public class GameManager {
 		for (int i = 0; i < matrixHeight; i++) {
 			for (int j = 0; j < matrixWidth; j++) {
 				if (boardTiles[i][j] != backgroundColor) {
-					//System.out.println("adding to board row, col: " + i + ", " + j);
+					// System.out.println("adding to board row, col: " + i + ",
+					// " + j);
 				}
 				tileMatrix[i][j].setColor(boardTiles[i][j]);
 			}
@@ -386,7 +393,8 @@ public class GameManager {
 			JOptionPane.showMessageDialog(null, "Game is over.");
 			boardPanel.clickBackToMenuButton();
 		} else {
-			JOptionPane.showMessageDialog(null, "Game is over. Your score has been entered into the high score database.");
+			JOptionPane.showMessageDialog(null,
+					"Game is over. Your score has been entered into the high score database.");
 			MySQLDriver msql = new MySQLDriver();
 			msql.connect();
 			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
