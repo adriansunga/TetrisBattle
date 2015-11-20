@@ -21,6 +21,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -57,7 +58,7 @@ public class TetrisBattlePanel extends JPanel {
 	private JLabel linesSentLabel;
 	private JLabel linesSentTextLabel;
 	private int linesSent = 0;
-
+	private boolean isMuted = false;
 	// right side
 	private JPanel RightPanel;
 	private String oppUsername;
@@ -67,9 +68,7 @@ public class TetrisBattlePanel extends JPanel {
 	private JLabel oppScoreLabel;
 	private JLabel oppScoreTextLabel;
 	private int oppScore = 0;
-	private JPanel oppNextPeicePanel;
-	private JLabel oppNextPieceTextLabel;
-	private NextPiecePanel oppNextImage;
+	private JButton mute;
 	private JPanel oppjp;
 	private JPanel oppCenterPanel;
 	private BoardPanel oppBoardPanel;
@@ -86,6 +85,16 @@ public class TetrisBattlePanel extends JPanel {
 	private GameManager gameManager;
 	private PiecePlacer piecePlacer;
 	private PlayMusic pm;
+	
+	ImageIcon originalButton1 = new ImageIcon("images/mute/on.png");
+	Image img1 = originalButton1.getImage();
+	Image newImage1 = img1.getScaledInstance(75, 50, java.awt.Image.SCALE_SMOOTH);
+	ImageIcon on = new ImageIcon(newImage1);
+
+	ImageIcon originalButton3 = new ImageIcon("images/mute/off.png");
+	Image img3 = originalButton3.getImage();
+	Image newImage3 = img3.getScaledInstance(75, 50, java.awt.Image.SCALE_SMOOTH);
+	ImageIcon off = new ImageIcon(newImage3);
 
 	// constructor
 	public TetrisBattlePanel(CardLayout cardLayout, JPanel outerPanelForCardLayout, TetrisClient tc) {
@@ -215,7 +224,6 @@ public class TetrisBattlePanel extends JPanel {
 		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
 		scoreLabel = new JLabel("Score: ");
 		scoreLabel.setFont(font);
-		// TODO make it get score from game manager
 		scoreTextLabel = new JLabel(Integer.toString(score));
 		scoreTextLabel.setFont(font);
 		scoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -253,7 +261,6 @@ public class TetrisBattlePanel extends JPanel {
 		GameManager DELETEgameManager = new GameManager(DELETEpiecePlacer, DELETEnextPiecePanel);
 		oppBoardPanel = new BoardPanel(DELETEgameManager);
 		gameManager.setOppBoardPanel(oppBoardPanel);
-		// TODO
 
 		// west
 		oppSideBarPanel = new JPanel();
@@ -264,7 +271,6 @@ public class TetrisBattlePanel extends JPanel {
 		oppScorePanel.setLayout(new BoxLayout(oppScorePanel, BoxLayout.Y_AXIS));
 		oppScoreLabel = new JLabel("Score: ");
 		oppScoreLabel.setFont(font);
-		// TODO make it get score from game manager
 		oppScoreTextLabel = new JLabel(Integer.toString(oppScore));
 		oppScoreTextLabel.setFont(font);
 		oppScoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -275,14 +281,11 @@ public class TetrisBattlePanel extends JPanel {
 		oppLinesSentLabel.setFont(font);
 		oppLinesSentTextLabel = new JLabel(Integer.toString(oppLinesSent));
 		oppLinesSentTextLabel.setFont(font);
-
-		oppNextPeicePanel = new JPanel();
-		oppNextPeicePanel.setLayout(new BoxLayout(oppNextPeicePanel, BoxLayout.Y_AXIS));
-		oppNextPieceTextLabel = new JLabel("Next Piece");
-		oppNextPieceTextLabel.setFont(font);
-		oppNextImage = new NextPiecePanel(piecePlacer);
-		oppNextPieceTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
+		
+		mute = new JButton();
+		mute.setIcon(off);
+		mute.setPreferredSize(new Dimension(on.getIconWidth(), on.getIconHeight()));
+		mute.setMaximumSize(new Dimension(on.getIconWidth(), on.getIconHeight()));
 	}
 
 	private void createGUI() {
@@ -408,19 +411,6 @@ public class TetrisBattlePanel extends JPanel {
 		oppSideBarPanel.add(oppScorePanel);
 		oppSideBarPanel.add(Box.createGlue());
 
-		oppNextPeicePanel.setOpaque(false);
-		oppNextPeicePanel.add(oppNextPieceTextLabel);
-		oppjp.add(oppNextImage);
-		oppjp.setOpaque(false);
-		oppNextPeicePanel.add(oppjp);
-		oppNextPeicePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.MAGENTA));
-		oppNextPeicePanel.setPreferredSize(new Dimension(200, 150));
-		oppNextPeicePanel.setMaximumSize(new Dimension(200, 150));
-		oppNextPeicePanel.setMinimumSize(new Dimension(200, 150));
-		oppNextPeicePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		oppSideBarPanel.add(oppNextPeicePanel);
-		oppSideBarPanel.add(Box.createGlue());
-
 		oppLinesSentPanel.setOpaque(false);
 		JPanel jppp1 = new JPanel();
 		jppp1.setOpaque(false);
@@ -442,6 +432,9 @@ public class TetrisBattlePanel extends JPanel {
 		// oppSideBarPanel.add(Box.createGlue());
 		//
 		//
+		mute.setOpaque(false);
+		oppSideBarPanel.add(Box.createGlue());
+		oppSideBarPanel.add(mute);
 		oppSideBarPanel.add(Box.createGlue());
 		oppSideBarPanel.add(Box.createGlue());
 		oppSideBarPanel.add(Box.createGlue());
@@ -476,6 +469,19 @@ public class TetrisBattlePanel extends JPanel {
 	              oppLinesSentTextLabel.setText("" + gameManager.getGarbageLinesReceived());
 	          }
 	      };
+	      mute.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ae) {
+					if (isMuted) {
+						pm.unpause();
+						mute.setIcon(off);
+						isMuted = false;
+					} else {
+						pm.pause();
+						mute.setIcon(on);
+						isMuted = true;
+					}
+				}
+			});
 
 	}
 	
