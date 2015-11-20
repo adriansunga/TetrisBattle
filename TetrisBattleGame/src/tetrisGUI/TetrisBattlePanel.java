@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -25,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 import game.GameManager;
 import game.PiecePlacer;
@@ -75,9 +77,9 @@ public class TetrisBattlePanel extends JPanel {
 	private JLabel oppLinesSentLabel;
 	private JLabel oppLinesSentTextLabel;
 	private int oppLinesSent = 0;
-
+	private int delay = 500;
 	private Image bg;
-
+	private ActionListener scoreLevelUpdater;
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
 	private TetrisClient tc;
@@ -97,6 +99,7 @@ public class TetrisBattlePanel extends JPanel {
 		gameManager.startGame();
 
 		setKeyBindings();
+		new Timer(delay, scoreLevelUpdater).start();
 
 	}
 
@@ -462,6 +465,14 @@ public class TetrisBattlePanel extends JPanel {
 	}
 
 	private void addActionAdapters() {
+		scoreLevelUpdater = new ActionListener() {
+	          public void actionPerformed(ActionEvent evt) {
+	              scoreTextLabel.setText("" + (gameManager.getLinesCleared() - gameManager.getGarbageLinesReceived()));
+	              linesSentTextLabel.setText("" + gameManager.getLinesCleared());
+	              oppScoreTextLabel.setText("" + (gameManager.getGarbageLinesReceived() - gameManager.getGarbageLinesSent()));
+	              oppLinesSentTextLabel.setText("" + gameManager.getGarbageLinesReceived());
+	          }
+	      };
 
 	}
 	

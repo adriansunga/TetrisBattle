@@ -15,7 +15,8 @@ import tetrisGUI.NextPiecePanel;
 import tetrisGUI.TilePanel;
 
 public class GameManager {
-
+	private int garbageLinesReceived = 0;
+	private int garbageLinesSent = 0;
 	private Color[][] boardTiles;
 	private final int matrixHeight = 20;
 	private final int matrixWidth = 10;
@@ -138,6 +139,11 @@ public class GameManager {
 	public void sendGarbageLine(int numToSend) {
 		// Networking
 		tetrisClient.sendMessage("garbageline:" + numToSend);
+			garbageLinesSent = garbageLinesSent + numToSend;
+	}
+	
+	public int getGarbageLinesSent() {
+		return garbageLinesSent;
 	}
 
 	public void receiveGarbageLine() {
@@ -170,9 +176,15 @@ public class GameManager {
 				boardTiles[matrixHeight - 1][i] = backgroundColor;
 			}
 		}
+		
+		garbageLinesReceived++;
 
 		// Refresh BoardPanel
 		updateView();
+	}
+	
+	public int getGarbageLinesReceived() {
+		return garbageLinesReceived;
 	}
 
 	// Check to see if you should send a line
