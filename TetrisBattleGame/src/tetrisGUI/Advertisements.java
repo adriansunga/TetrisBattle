@@ -34,6 +34,9 @@ public class Advertisements extends Thread{
 			pictures.addElement("ads/1vote.png");
 			text.addElement("#Miller2016");
 			
+			pictures.addElement("ads/ford1.png");
+			text.addElement("Singles in Los Angeles want to meet you!");
+			
 			ImageIcon originalButton = new ImageIcon("images/" + pictures.elementAt(index));
 			Image img = originalButton.getImage();
 			Image newImage = img.getScaledInstance(originalButton.getIconWidth(), originalButton.getIconHeight()-30, java.awt.Image.SCALE_SMOOTH);
@@ -57,8 +60,11 @@ public class Advertisements extends Thread{
 			else if(index == 3){
 				return "https://twitter.com/search?q=%23miller2016";
 			}
+			else if(index == 4){
+				return "http://fordfiler.com/";
+			}
 			else{
-				return "http://www.google.com";
+				return "http://google.com";
 			}
 	}
 
