@@ -64,7 +64,8 @@ public class JoinPanel extends JPanel{
 			public void actionPerformed(ActionEvent ae){
 				if(portTF.getText().equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535");
+					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535",
+							"Port Problem", JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
 				
@@ -73,13 +74,15 @@ public class JoinPanel extends JPanel{
 				try {
 					portNum = Integer.parseInt(portTF.getText());
 				} catch(NumberFormatException nfe) {
-					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535");
+					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535",
+							"Port Problem", JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
 				
 				if(portNum < 1024 || portNum > 65535)
 				{
-					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535");
+					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535",
+							"Port Problem", JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
 				
