@@ -52,7 +52,12 @@ public class TetrisServer {
 	}
 	
 	public void sendMessageToAllClients(Object obj, TetrisThread sender) {
-		System.out.println(obj);
+		if(obj instanceof String){
+			String temp = (String) obj;
+			if(temp.startsWith("board") == false){
+				System.out.println(obj);
+			}
+		}
 		for(TetrisThread tt : ttVector) {
 			if(tt != sender)
 				tt.sendMessage(obj);
