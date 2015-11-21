@@ -18,6 +18,7 @@ public class MySQLDriver {
 	private final static String readScores2 = "SELECT SCORE FROM SCORES";
 	private final static String addScore = "INSERT INTO SCORES(USER, SCORE) VALUES (?,?)";
 	private final static String updateScore = "UPDATE SCORES SET SCORE = ? WHERE USER = ?";
+	private final static String selectUserScores = "SELECT * FROM SCORES WHERE USER = ?";
 	
 	public MySQLDriver() {
 		 try {
@@ -94,12 +95,11 @@ public class MySQLDriver {
 	
 	public void addScore(String userName, int score) {
 		try {
-			PreparedStatement ps = con.prepareStatement(selectUserName);
+			PreparedStatement ps = con.prepareStatement(selectUserScores);
 			ps.setString(1, userName);
 			ResultSet result = ps.executeQuery();
 			while(result.next()) {
 				if(result.getInt(2) < score) {
-				//TODO: ONLY UPDATE IF THE NEW SCORE IS HIGHER THAN THE OLD ONE
 					System.out.println(result.getString(1) + " already exists in the database with a lower score. Must update, instead of add score.");
 					PreparedStatement ps2 = con.prepareStatement(updateScore);
 					ps2.setInt(1, score);

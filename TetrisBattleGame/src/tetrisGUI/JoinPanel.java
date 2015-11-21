@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -61,7 +62,28 @@ public class JoinPanel extends JPanel{
 	private void addActionAdapters(){	
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
-				TetrisClient tc = new TetrisClient(ipTF.getText(), Integer.parseInt(portTF.getText()), username, outerPanelForCardLayout, cardLayout);
+				if(portTF.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535");
+					return;
+				}
+				
+				int portNum = -1;
+				
+				try {
+					portNum = Integer.parseInt(portTF.getText());
+				} catch(NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535");
+					return;
+				}
+				
+				if(portNum < 1024 || portNum > 65535)
+				{
+					JOptionPane.showMessageDialog(null, "Please select a valid port within the range 1024-65535");
+					return;
+				}
+				
+				TetrisClient tc = new TetrisClient(ipTF.getText(), portNum, username, outerPanelForCardLayout, cardLayout);
 				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout, tc);
 				outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
 				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");
