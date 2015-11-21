@@ -138,6 +138,8 @@ public class GuestTetrisPanel extends JPanel {
 		actionMap.put(vkDown, new KeyAction(vkDown));
 		actionMap.put(drop, new KeyAction(drop));
 		actionMap.put("PlayerDownRelease", new AbstractAction() {
+			private static final long serialVersionUID = 2088417225735086214L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("down release");
@@ -148,6 +150,8 @@ public class GuestTetrisPanel extends JPanel {
 	}
 
 	private class KeyAction extends AbstractAction {
+		private static final long serialVersionUID = 2511872532302802502L;
+
 		public KeyAction(String actionCommand) {
 			putValue(ACTION_COMMAND_KEY, actionCommand);
 		}
@@ -158,27 +162,27 @@ public class GuestTetrisPanel extends JPanel {
 			String keyCode = actionEvt.getActionCommand();
 			switch (keyCode) {
 			case "VK_UP":
-				System.out.println("up key pressed");
+				//System.out.println("up key pressed");
 				gameManager.rotatePiece();
 				break;
 			case "VK_DOWN":
-				System.out.println("down key pressed");
+				//System.out.println("down key pressed");
 				gameManager.zoomDown(50);
 				break;
 			case "VK_LEFT":
-				System.out.println("left key pressed");
+				//System.out.println("left key pressed");
 				gameManager.move("left");
 				break;
 			case "VK_RIGHT":
-				System.out.println("right key pressed");
+				//System.out.println("right key pressed");
 				gameManager.move("right");
 				break;
 			case "PlayerRightRelease":
-				System.out.println("Key released");
+				//System.out.println("Key released");
 				gameManager.zoomDown(1000);
 				break;
 			case "drop":
-				System.out.println("shift key pressed");
+				//System.out.println("shift key pressed");
 				gameManager.zoomDown(0); // TODO: should i make this instantaneous?
 				break;
 			}
@@ -501,6 +505,8 @@ public class GuestTetrisPanel extends JPanel {
 
 		backToMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				System.out.println("BACK TO MAIN MENU CALLED");
+				gameManager.stopDropTimer();
 				cardLayout.show(outerPanelForCardLayout, "loginPanel");
 				playMusic.stop();
 			}

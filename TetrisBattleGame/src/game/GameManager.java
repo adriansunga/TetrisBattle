@@ -95,7 +95,6 @@ public class GameManager {
 	}
 
 	public void nextPiece() {
-
 		// check if game is over
 		if (currentPiece != null) {
 			for (Loc l : currentPiece.getLocation()) {
@@ -105,7 +104,7 @@ public class GameManager {
 				}
 			}
 		}
-
+		
 		currentPiece = piecePlacer.nextPiece();
 
 		dropPiece();
@@ -362,8 +361,8 @@ public class GameManager {
 		// should work b/c of integer arithmetic
 		if(isTwoPlayer)
 			return;
-		System.out.println("speed up factor: " + speedUpFactor);
-		System.out.println("numlinescleared/6: " + numLinesCleared/6);
+		//System.out.println("speed up factor: " + speedUpFactor);
+		//System.out.println("numlinescleared/6: " + numLinesCleared/6);
 		if (speedUpFactor != numLinesCleared/6) {
 			// speed by 10% every lines cleared, needs to be checked
 			speedUpFactor = numLinesCleared/6;
@@ -371,7 +370,7 @@ public class GameManager {
 				defaultSpeed = defaultSpeed - 30*speedUpFactor;
 			level = speedUpFactor;
 		}
-		System.out.println("default speed: " + defaultSpeed);
+		//System.out.println("default speed: " + defaultSpeed);
 	}
 
 	public int getLevel() {
@@ -456,6 +455,9 @@ public class GameManager {
 
 	public void endGame() {
 		gameOver = true;
+		
+		//dropPieceTimer.stop();
+		
 		if (!isTwoPlayer) {
 			JOptionPane.showMessageDialog(null, "Game is over.");
 			boardPanel.clickBackToMenuButton();
@@ -471,14 +473,18 @@ public class GameManager {
 			tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
 		}
 	}
-
+	
+	public void stopDropTimer()
+	{
+		dropPieceTimer.stop();
+	}
+	
 	public void updateOppBoardPanel(String string) {
 		if(oppBoardPanel != null && !gameOver)
 		oppBoardPanel.setArray(string);
 	}
 	
-	
-	
+
 	public void setOppBoardPanel(BoardPanel obp){
 		System.out.println("Set Opp board panel");
 		this.oppBoardPanel = obp;
