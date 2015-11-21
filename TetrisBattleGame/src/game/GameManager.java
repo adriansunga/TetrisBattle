@@ -433,7 +433,7 @@ public class GameManager {
 						temp += "m";
 					}
 					else{
-						temp += "g";
+						temp += "a";
 					}
 				}
 			}
