@@ -3,6 +3,7 @@ package tetrisGUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.JFrame;
@@ -52,6 +53,8 @@ public class ScoresList extends JFrame {
 		for(int i = 0; i < names.size(); i++) {
 			listToSort.add(new NameScorePair(names.get(i),scores.get(i)));
 		}
+		
+		Collections.sort(listToSort);
 		for(int i = names.size() -1; i >= 0; i--)
 			tm.addRow(new Object[] {listToSort.get(i).name, listToSort.get(i).score});
 	}
