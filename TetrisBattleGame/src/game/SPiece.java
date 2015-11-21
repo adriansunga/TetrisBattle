@@ -33,6 +33,7 @@ public class SPiece extends Piece
 		orientations[1][2] = new Loc(-2, 5);
 		orientations[1][3] = new Loc(-1, 5);
 		
+		//TODO: accounts for shift up
 		//Third orientation
 		orientations[2][0] = new Loc(-2, 4);
 		orientations[2][1] = new Loc(-2, 5);

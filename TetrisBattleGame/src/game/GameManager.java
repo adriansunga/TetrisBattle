@@ -124,9 +124,9 @@ public class GameManager {
 					move("down");
 				} else {
 					hasLanded = true;
-					int numCleared = clearLines();
+					int numLines = clearLines();
 					if (isTwoPlayer) {
-						sendGarbageLine(numCleared);
+						sendGarbageLine(numLines);
 					}
 					updateSpeed();
 					dropPieceTimer.stop();
@@ -138,6 +138,7 @@ public class GameManager {
 		});
 		dropPieceTimer.start();
 	}
+	
 
 	public void rotatePiece() {
 		setToBackground(backgroundColor);
@@ -341,7 +342,32 @@ public class GameManager {
 			shiftDownBoard(removedRow);
 		}
 		updateView();
-		return linesToShift.size();
+		
+		int linesToSend = linesToShift.size();
+		
+		for(int i = 0; i < linesToShift.size(); i++)
+		{
+			if(isGarbageLine(linesToShift.get(i)))
+			{
+				linesToSend--;
+			}
+		}
+		
+		return linesToSend;
+	}
+	
+	private boolean isGarbageLine(int row)
+	{
+		for(int c = 0; c < boardTiles[row].length; c++)
+		{
+			if(boardTiles[row][c] == Color.GRAY)
+			{
+				System.out.println("IS GARBAGE LINE");
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	// recursion #lyf $wag
