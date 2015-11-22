@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import library.FontLibrary;
+
 public class HostJoinPanel extends JPanel{
 
 	private static final long serialVersionUID = -3365559486379271363L;
@@ -27,7 +29,8 @@ public class HostJoinPanel extends JPanel{
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout, tetrisPanel, buttonPanel;
 	private Image bg;
-	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
+	//Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
+	Font font = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 30);
 	ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
 	Image img = originalButton.getImage();
 	Image newImage = img.getScaledInstance(originalButton.getIconWidth()/4, originalButton.getIconHeight()/4, java.awt.Image.SCALE_SMOOTH);

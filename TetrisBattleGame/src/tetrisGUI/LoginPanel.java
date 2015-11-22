@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import library.FontLibrary;
 import database.MySQLDriver;
 
 public class LoginPanel extends JPanel{
@@ -49,8 +50,11 @@ public class LoginPanel extends JPanel{
 	ImageIcon ButtonImage1 = new ImageIcon(newImage);
 	Image newImage2 = img.getScaledInstance(originalButton.getIconWidth()/(5/2), originalButton.getIconHeight()/4, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon ButtonImage2 = new ImageIcon(newImage2);
-	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 25);
-	Font font2 = new Font("Tetris Mania Type", Font.BOLD, 30);
+//	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 25);
+//	Font font2 = new Font("Tetris Mania Type", Font.BOLD, 30);
+	
+	Font font1 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 25);
+	Font font2 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 30);
 	
 	//constructor
 	public LoginPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
