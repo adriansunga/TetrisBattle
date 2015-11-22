@@ -47,8 +47,8 @@ public class GuestTetrisPanel extends JPanel {
 //	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
 //	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 20);
 	
-	Font font = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 30);
-	Font font1 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 50);
+	Font font = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 14);
+	Font font1 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 20);
 	
 	private JLabel tetrisTitle;
 	private JPanel titlePanel;
@@ -206,7 +206,7 @@ public class GuestTetrisPanel extends JPanel {
 		adPicture1.setOpaque(false);
 		adPicture1.setEnabled(true);
 		adText1 = new JLabel();
-		adText1.setFont(new Font("Helvetica", Font.PLAIN, 15));
+	 	adText1.setFont(new Font("Helvetica", Font.PLAIN, 15));
 		adPicture1.setHorizontalAlignment(SwingConstants.CENTER);
 		adText1.setHorizontalAlignment(SwingConstants.CENTER);
 		ad1 = new Advertisements(adPicture1, adText1, 0);
