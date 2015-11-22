@@ -80,6 +80,17 @@ public class TetrisClient extends Thread{
 			msql.stop();
 			JOptionPane.showMessageDialog(null, "Your score has been entered into the score database if higher than your previous score.","Host has left the game!", JOptionPane.INFORMATION_MESSAGE);
 			cardLayout.show(outerPanelForCardLayout, "welcomePanel");
+			try {
+				if(oos!=null)
+					oos.close();
+				if(ois!=null)
+					ois.close();
+				if(s!=null)
+					s.close();
+			} catch (Exception e) {
+				System.out.println("exception in tetrisClient finally: " + e.getMessage());
+				e.printStackTrace();
+			}
 		}
 	}
 	

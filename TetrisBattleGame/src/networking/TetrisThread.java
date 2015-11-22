@@ -53,6 +53,17 @@ public class TetrisThread extends Thread {
 			System.out.println("ioe in TetrisThread.run(): " + ioe.getMessage());
 		} finally {
 			ts.disconnect(this);
+			try {
+				if(oos!=null)
+					oos.close();
+				if(ois!=null)
+					ois.close();
+				if(s!=null)
+					s.close();
+			} catch (Exception e) {
+				System.out.println("exception in tetrisThread finally: " + e.getMessage());
+				e.printStackTrace();
+			}
 		}
 	}
 }

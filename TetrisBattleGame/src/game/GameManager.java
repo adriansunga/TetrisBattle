@@ -124,9 +124,9 @@ public class GameManager {
 					move("down");
 				} else {
 					hasLanded = true;
-					int numLines = clearLines();
+					int numCleared = clearLines();
 					if (isTwoPlayer) {
-						sendGarbageLine(numLines);
+						sendGarbageLine(numCleared);
 					}
 					updateSpeed();
 					dropPieceTimer.stop();
@@ -138,7 +138,6 @@ public class GameManager {
 		});
 		dropPieceTimer.start();
 	}
-	
 
 	public void rotatePiece() {
 		setToBackground(backgroundColor);
@@ -327,9 +326,14 @@ public class GameManager {
 	}
 
 	private int clearLines() {
+		// to make sure we don't send gb lines for gb lines cleared
+		int numGarbageLines = 0;
 		ArrayList<Integer> linesToShift = new ArrayList<Integer>();
 		for (int r = 0; r < matrixHeight; r++) {
 			if (isLineFull(r)) {
+				if (isGarbageLine(r)) {
+					numGarbageLines++;
+				}
 				linesToShift.add(r);
 				numLinesCleared++;
 				for (int c = 0; c < matrixWidth; c++) {
@@ -342,31 +346,19 @@ public class GameManager {
 			shiftDownBoard(removedRow);
 		}
 		updateView();
-		
-		int linesToSend = linesToShift.size();
-		
-		for(int i = 0; i < linesToShift.size(); i++)
-		{
-			if(isGarbageLine(linesToShift.get(i)))
-			{
-				linesToSend--;
-			}
-		}
-		
-		return linesToSend;
+		return linesToShift.size() - numGarbageLines;
 	}
 	
-	private boolean isGarbageLine(int row)
-	{
-		for(int c = 0; c < boardTiles[row].length; c++)
-		{
-			if(boardTiles[row][c] == Color.GRAY)
-			{
-				System.out.println("IS GARBAGE LINE");
-				return true;
+	private boolean isGarbageLine(int row) {
+		int numGrey = 0;
+		for (int i = 0; i < matrixWidth; i++) {
+			if (boardTiles[row][i].equals(Color.GRAY)) {
+				numGrey++;
 			}
 		}
-		
+		if (numGrey == matrixWidth -1) {
+			return true;
+		}
 		return false;
 	}
 
