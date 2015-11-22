@@ -60,6 +60,10 @@ public class GameManager {
 
 	}
 	
+	public boolean getGameOver() {
+		return gameOver;
+	}
+	
 	public void setPlayMusic(PlayMusic pm) {
 		this.pm = pm;
 	}
