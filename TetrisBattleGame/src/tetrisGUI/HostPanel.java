@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import library.FontLibrary;
 import networking.TetrisServer;
 
 public class HostPanel extends JPanel{
@@ -31,7 +32,8 @@ public class HostPanel extends JPanel{
 	private String username;
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout, leftPanel, rightPanel, tetrisPanel, tfPanel, portPanel, buttonPanel;
-	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
+	//Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
+	Font font = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 30);
 	private Image bg;
 	ImageIcon originalButton1 = new ImageIcon("images/tetrisbattle.png");
 	Image img1 = originalButton1.getImage();

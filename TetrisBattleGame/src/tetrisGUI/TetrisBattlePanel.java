@@ -29,6 +29,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import library.FontLibrary;
 import game.GameManager;
 import game.PiecePlacer;
 import networking.TetrisClient;
@@ -37,7 +38,8 @@ public class TetrisBattlePanel extends JPanel {
 
 	private static final long serialVersionUID = -3365559486379271363L;
 
-	Font font = new Font("Tetris Mania Type", Font.BOLD, 20);
+	//Font font = new Font("Tetris Mania Type", Font.BOLD, 20);
+	Font font = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 20);
 
 	// left Side
 	private JPanel LeftPanel;

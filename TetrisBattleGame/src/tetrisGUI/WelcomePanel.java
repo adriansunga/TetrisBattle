@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import library.FontLibrary;
+
 public class WelcomePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private CardLayout cardLayout;
@@ -25,8 +27,9 @@ public class WelcomePanel extends JPanel{
 	private JButton play;
 	private JLabel welcome;
 	private String username;
-	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 50);
-	Font font2 = new Font("Tetris Mania Type", Font.BOLD, 30);
+	
+	Font font1 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 50);
+	Font font2 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 30);
 	ImageIcon originalButton = new ImageIcon("images/pieces/Tetris_I.svg.png");
 	Image img = originalButton.getImage();
 	Image newImage = img.getScaledInstance(originalButton.getIconWidth()/(7/2), originalButton.getIconHeight()/4, java.awt.Image.SCALE_SMOOTH);

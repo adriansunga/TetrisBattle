@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import library.FontLibrary;
+
 public class HelpMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +28,8 @@ public class HelpMenu extends JFrame {
 	HelpMenu() {
 		super("Help Menu");
 		setSize(300, 200);
-		Font customFont = new Font("Tetris Mania Type", Font.BOLD, 15);
+		//Font customFont = new Font("Tetris Mania Type", Font.BOLD, 15);
+		Font customFont = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 15);
 		setMinimumSize(new Dimension(200, 350));
 		setMaximumSize(new Dimension(200, 350));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

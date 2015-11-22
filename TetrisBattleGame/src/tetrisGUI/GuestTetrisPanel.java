@@ -32,6 +32,7 @@ import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import library.FontLibrary;
 import game.GameManager;
 import game.PiecePlacer;
 
@@ -43,9 +44,12 @@ public class GuestTetrisPanel extends JPanel {
 
 	private TitledBorder titledBorder;
 
-	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
-	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 20);
-
+//	Font font = new Font("Tetris Mania Type", Font.BOLD, 30);
+//	Font font1 = new Font("Tetris Mania Type", Font.BOLD, 20);
+	
+	Font font = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 30);
+	Font font1 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 50);
+	
 	private JLabel tetrisTitle;
 	private JPanel titlePanel;
 	private JPanel leftPanel;
