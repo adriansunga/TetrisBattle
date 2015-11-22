@@ -82,7 +82,7 @@ public class TetrisClientWindow extends JFrame{
 					    && (desktop = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
 					  URI mailto = null;
 					try {
-						mailto = new URI("mailto:zakeri@usc.edu?subject=Bug%20Report");
+						mailto = new URI("mailto:zakeri@usc.edu,hmanuel@usc.edu,asunga@usc.edu,mackraz@usc.edu?subject=Bug%20Report");
 					} catch (URISyntaxException e) {
 						e.printStackTrace();
 					}

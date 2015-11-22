@@ -65,7 +65,7 @@ public class HostPanel extends JPanel{
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		portLabel = new JLabel("Port:");
-		portTF = new JTextField(9);
+		portTF = new JTextField(6);
 		continueButton = new JButton("Continue");
 		continueButton.setIcon(ButtonImage1);
 		continueButton.setHorizontalTextPosition(SwingConstants.CENTER);
