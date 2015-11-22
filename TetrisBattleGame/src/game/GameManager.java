@@ -115,6 +115,9 @@ public class GameManager {
 		dropPieceTimer = new Timer(pieceSpeed, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+				if (gameOver)  {
+					return;
+				}
 				if (canMove("down")) {
 					if (firstTime) {
 						dropPieceTimer.setDelay(defaultSpeed);
@@ -133,6 +136,7 @@ public class GameManager {
 					pieceSpeed = 15;
 					firstTime = true;
 					nextPiece();
+					
 				}
 			}
 		});

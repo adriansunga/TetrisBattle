@@ -118,9 +118,9 @@ public class TetrisClient extends Thread{
 		if(message.substring(0, 4).equals("name")) {
 			parseName(message);
 		}
-		else if(command.equals("endgame"))
+		else if(command.equals("endgame")) {
 			gm.endGame(getUserName());
-		
+		}
 		if(command.equals(("boardpanel"))){
 			gm.updateOppBoardPanel(parsedMessage[1]);
 		}
