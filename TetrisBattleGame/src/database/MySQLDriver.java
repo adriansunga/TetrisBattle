@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import com.mysql.jdbc.Driver;
 
 public class MySQLDriver {
@@ -125,11 +127,12 @@ public class MySQLDriver {
 	public void add(String userName, char[] password) { //adds a user to the database
 		try {
 			PreparedStatement ps = con.prepareStatement(addUser);
-			String spassword = new String(password);
+			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+			String spassword = passwordEncryptor.encryptPassword(new String(password));
 			ps.setString(1, userName);
 			ps.setString(2, spassword);
 			ps.executeUpdate();
-			System.out.println("Adding username: " + userName + "to the database.");
+			System.out.println("Adding username: " + userName + "to the database with password " + spassword);
 		} catch (SQLException e) {
 			System.out.println("sql exception in add: " + e.getMessage());	
 			e.printStackTrace();
@@ -140,16 +143,18 @@ public class MySQLDriver {
 		try {
 			PreparedStatement ps = con.prepareStatement(checkPassword);
 			ResultSet result = ps.executeQuery();
-			String spassword = new String(password);
+			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+			String spassword = (new String(password));
 			while(result.next()) {
-				if(result.getString("USERNAME").equals(userName) && result.getString("PASSWORD").equals(spassword))
+				if(result.getString("USERNAME").equals(userName) && passwordEncryptor.checkPassword(spassword,result.getString("PASSWORD")))
 					return true;
-			} 
+			}
+			System.out.println("password i am checking " + spassword);
 		} catch (SQLException e) {
 				System.out.println("sql exception in doesExist: " + e.getMessage());
 				e.printStackTrace();
 			}
-		System.out.println("unable to find a username and password that match");
+		System.out.println("unable to find a username and password that match.");
 		return false;
 	}
 }

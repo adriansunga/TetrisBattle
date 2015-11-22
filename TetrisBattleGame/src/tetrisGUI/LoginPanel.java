@@ -2,6 +2,7 @@ package tetrisGUI;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -77,8 +78,9 @@ public class LoginPanel extends JPanel{
 		passwordLabel = new JLabel("Password: ");
 		loginTF = new JTextField(20);
 		passwordTF = new JPasswordField(20);
+		passwordTF.setForeground(Color.BLACK);
+		passwordTF.setFont(new Font("Helvetica", Font.BOLD, 25));
 		loginTF.setFont(font1);
-		passwordTF.setFont(font1);
 		
 		loginButton = new JButton("Login");
 		createUserButton = new JButton("Create User");
@@ -144,7 +146,6 @@ public class LoginPanel extends JPanel{
 				MySQLDriver msql = new MySQLDriver();
 				msql.connect();
 				if(msql.doesExist(loginTF.getText()) && msql.passwordMatches(loginTF.getText(), passwordTF.getPassword())) { //it is okay to login
-					System.out.println("user logged in with username: " + loginTF.getText() + " and password: " + new String(passwordTF.getPassword()));
 					WelcomePanel welcomePanel = new WelcomePanel(cardLayout, outerPanelForCardLayout, getUserName());
 					outerPanelForCardLayout.add(welcomePanel, "welcomePanel");
 					cardLayout.show(outerPanelForCardLayout, "welcomePanel");
@@ -170,7 +171,6 @@ public class LoginPanel extends JPanel{
 				else { //adds the username and password to the database
 					//TODO: hash the password that gets stored
 					msql.add(loginTF.getText(), passwordTF.getPassword());
-					System.out.println("user created with username: " + loginTF.getText() + " and password: " + new String(passwordTF.getPassword()));
 					WelcomePanel welcomePanel = new WelcomePanel(cardLayout, outerPanelForCardLayout, getUserName());
 					outerPanelForCardLayout.add(welcomePanel, "welcomePanel");
 					cardLayout.show(outerPanelForCardLayout, "welcomePanel");
