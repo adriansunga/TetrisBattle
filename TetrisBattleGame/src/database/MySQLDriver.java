@@ -53,14 +53,12 @@ public class MySQLDriver {
 			ps.setString(1, userName);
 			ResultSet result = ps.executeQuery();
 			while(result.next()) {
-				System.out.println(result.getString(1) + " already exists in the database.");
 				return true;
 			} 
 		} catch (SQLException e) {
 				System.out.println("sql exception in doesExist: " + e.getMessage());
 				e.printStackTrace();
 			}
-		System.out.println("unable to find a user with name: " + userName);
 		return false;
 	}
 	
@@ -69,7 +67,6 @@ public class MySQLDriver {
 		try {
 			PreparedStatement ps = con.prepareStatement(readScores);
 			ResultSet result = ps.executeQuery();
-			System.out.println(result.getFetchSize());
 			while(result.next()) {
 				users.add(result.getString(1));
 			} 
@@ -102,12 +99,10 @@ public class MySQLDriver {
 			ResultSet result = ps.executeQuery();
 			while(result.next()) {
 				if(result.getInt(2) < score) {
-					System.out.println(result.getString(1) + " already exists in the database with a lower score. Must update, instead of add score.");
 					PreparedStatement ps2 = con.prepareStatement(updateScore);
 					ps2.setInt(1, score);
 					ps2.setString(2, userName);
 					ps2.executeUpdate();
-					System.out.println("updated score for " + userName);
 					return;
 				}
 				else
@@ -117,7 +112,6 @@ public class MySQLDriver {
 			ps3.setString(1, userName);
 			ps3.setInt(2, score);
 			ps3.executeUpdate();
-			System.out.println("Adding username: " + userName + " with score: " + score + " to the database.");
 		} catch (SQLException e) {
 			System.out.println("sql exception in add score: " + e.getMessage());	
 			e.printStackTrace();
@@ -132,7 +126,6 @@ public class MySQLDriver {
 			ps.setString(1, userName);
 			ps.setString(2, spassword);
 			ps.executeUpdate();
-			System.out.println("Adding username: " + userName + "to the database with password " + spassword);
 		} catch (SQLException e) {
 			System.out.println("sql exception in add: " + e.getMessage());	
 			e.printStackTrace();
@@ -149,12 +142,10 @@ public class MySQLDriver {
 				if(result.getString("USERNAME").equals(userName) && passwordEncryptor.checkPassword(spassword,result.getString("PASSWORD")))
 					return true;
 			}
-			System.out.println("password i am checking " + spassword);
 		} catch (SQLException e) {
 				System.out.println("sql exception in doesExist: " + e.getMessage());
 				e.printStackTrace();
 			}
-		System.out.println("unable to find a username and password that match.");
 		return false;
 	}
 }
