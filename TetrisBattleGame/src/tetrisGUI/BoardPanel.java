@@ -2,21 +2,11 @@ package tetrisGUI;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
 import game.GameManager;
-import game.Loc;
-import game.Piece;
 
 public class BoardPanel extends JPanel {
 	/**
@@ -25,12 +15,10 @@ public class BoardPanel extends JPanel {
 	private static final long serialVersionUID = 1705626207127777875L;
 	private TilePanel[][] tileMatrix;
 	// private GameManager gameManager;
-	private GameManager gm;
 	
 	private JButton backToMenuButton;
 
 	public BoardPanel(GameManager gm) {
-		this.gm = gm;
 		gm.setBoardPanel(this);
 		initializeVariables();
 		createGUI();

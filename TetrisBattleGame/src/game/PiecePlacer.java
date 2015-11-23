@@ -1,17 +1,12 @@
 package game;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class PiecePlacer {
-	private ArrayList<Piece> pieceTypes;
-	private ArrayList<Piece> pieces;
 
-	private final int numPieces = 70;
 
 	private int index;
-	private int seed;
 
 	private Piece nextNextPiece;
 	private Piece currentPiece;
@@ -24,7 +19,6 @@ public class PiecePlacer {
 	public PiecePlacer() {
 		
 		index = 0;
-		seed = 0;
 
 		currentPiece = null;
 		nextNextPiece = null;

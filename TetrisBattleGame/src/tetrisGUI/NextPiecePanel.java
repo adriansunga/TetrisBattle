@@ -1,7 +1,6 @@
 package tetrisGUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -12,6 +11,7 @@ import game.PiecePlacer;
 
 public class NextPiecePanel extends JPanel{
 
+	private static final long serialVersionUID = 2543608478414517350L;
 	private TilePanel[][] tileMatrix;
 	private PiecePlacer piecePlacer;
 

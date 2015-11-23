@@ -3,17 +3,22 @@ package tetrisGUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -159,13 +164,51 @@ public class HostPanel extends JPanel{
 					return;
 				}
 				
+				//JOptionPane.showMessageDialog(null, "help", "waiting..", JOptionPane.NO_OPTION);
+//				WaitingDialog wd = new WaitingDialog();
+//				
+//				JFrame jf = new JFrame();
+//				jf.setSize(300, 300);
+//				jf.setLocationRelativeTo(null);
+//				jf.add(wd);
+//				jf.setVisible(true);
+//				
+				
 				TetrisServer ts = new TetrisServer(portNum, username, outerPanelForCardLayout, cardLayout);
 				TetrisBattlePanel tetrisBattlePanel = new TetrisBattlePanel(cardLayout, outerPanelForCardLayout, ts.getTC());
 				outerPanelForCardLayout.add(tetrisBattlePanel, "tetrisBattlePanel");
+				//jf.dispatchEvent(new WindowEvent(jf, WindowEvent.WINDOW_CLOSING));
 				cardLayout.show(outerPanelForCardLayout, "tetrisBattlePanel");		
 			}
 		});
 	}
+//	
+//	class WaitingDialog extends JPanel {
+//
+//		private static final long serialVersionUID = 4671012726997151955L;
+//		private Image bg1;
+//		
+//		WaitingDialog() {
+//			super();
+//			
+//			//ImageIcon a1 = new ImageIcon("images/backgrounds/tetrisloop.gif");
+//			//ImageIcon a1 = new ImageIcon("images/backgrounds/rainbow.png");
+//			//bg1 = a1.getImage();
+//			setOpaque(false);
+//			//add(new JButton(a1));
+//			//setSize(300, 300);
+//		//	System.out.println("constructor checkpoint");
+//		}
+//
+//		@Override
+//		protected void paintComponent(Graphics g) {
+//			super.paintComponent(g);
+//			//g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/backgrounds/tetrisloop.gif")), 0, 0, null);
+//			g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
+//			System.out.println("paintComponent checkpoint");
+//		}
+//		
+//	}
 	
 	protected void paintComponent(Graphics g) {
 		g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);

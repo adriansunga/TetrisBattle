@@ -13,7 +13,6 @@ import database.MySQLDriver;
 
 public class TetrisServer {
 	private Vector<TetrisThread> ttVector;
-	private String username;
 	private TetrisClient tc;
 	private CardLayout cardLayout;
 	private JPanel outerPanelForCardLayout;
@@ -22,7 +21,6 @@ public class TetrisServer {
 		ttVector = new Vector<TetrisThread>();
 		this.cardLayout = cardLayout;
 		this.outerPanelForCardLayout = outerPanelForCardLayout;
-		this.username = username;
 		try {
 			ServerSocket ss = new ServerSocket(port);
 			tc = new TetrisClient("localhost", port, username, outerPanelForCardLayout, cardLayout);
@@ -32,10 +30,13 @@ public class TetrisServer {
 				TetrisThread tt = new TetrisThread(s, this);
 				ttVector.add(tt);
 				tt.start();
+				
+				
 			}
+			ss.close();
 		} catch(IOException ioe) {
 			System.out.println("ioe in TetrisServer constructor: " + ioe.getMessage());
-		}
+		} 
 	}
 	
 	public TetrisClient getTC() {

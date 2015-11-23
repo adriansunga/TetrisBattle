@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -25,7 +24,14 @@ public class ScoresList extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		String[] columnNames = new String[] { "Name", "Score" };
 		Object[][] rowData = new Object[][] { { "", "" } };
-		tm = new DefaultTableModel(rowData, columnNames);
+		tm = new DefaultTableModel(rowData, columnNames) {
+			private static final long serialVersionUID = -1381285826157304026L;
+
+			@Override
+			public boolean isCellEditable(int row, int col) {
+				return false;
+			}
+		};
 		scoresTable = new JTable(tm);
 		scoresTable.setShowGrid(true);
 		readInNames();

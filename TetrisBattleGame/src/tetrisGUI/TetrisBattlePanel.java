@@ -139,6 +139,8 @@ public class TetrisBattlePanel extends JPanel {
 		actionMap.put(vkDown, new KeyAction(vkDown));
 		actionMap.put(drop, new KeyAction(drop));
 		actionMap.put("PlayerDownRelease", new AbstractAction() {
+			private static final long serialVersionUID = -2734523820756440830L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("down release");
@@ -149,6 +151,11 @@ public class TetrisBattlePanel extends JPanel {
 	}
 
 	private class KeyAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 5029896158360353751L;
+
 		public KeyAction(String actionCommand) {
 			putValue(ACTION_COMMAND_KEY, actionCommand);
 		}
