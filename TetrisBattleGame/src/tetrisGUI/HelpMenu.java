@@ -29,7 +29,7 @@ public class HelpMenu extends JFrame {
 		super("Help Menu");
 		setSize(300, 200);
 		//Font customFont = new Font("Tetris Mania Type", Font.BOLD, 15);
-		Font customFont = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 15);
+		Font customFont = FontLibrary.getFont("fonts/Tetris.ttf", Font.BOLD, 15);
 		setMinimumSize(new Dimension(200, 350));
 		setMaximumSize(new Dimension(200, 350));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
