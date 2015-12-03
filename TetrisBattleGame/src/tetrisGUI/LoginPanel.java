@@ -52,11 +52,11 @@ public class LoginPanel extends JPanel{
 	Image newImage2 = img.getScaledInstance(originalButton.getIconWidth()/(5/2), originalButton.getIconHeight()/4, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon ButtonImage2 = new ImageIcon(newImage2);
 	
-	Font font1 = FontLibrary.getFont("fonts/Tetris.ttf", Font.BOLD, 25);
-	Font font2 = FontLibrary.getFont("fonts/Tetris.ttf", Font.BOLD, 25);
+//	Font font1 = FontLibrary.getFont("fonts/Tetris.ttf", Font.BOLD, 25);
+//	Font font2 = FontLibrary.getFont("fonts/Tetris.ttf", Font.BOLD, 25);
 	
-	//Font font1 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 25);
-	//Font font2 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 25);
+	Font font1 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 25);
+	Font font2 = FontLibrary.getFont("fonts/Tetris_Mania_Type.ttf", Font.BOLD, 25);
 	
 	//constructor
 	public LoginPanel(CardLayout cardLayout, JPanel outerPanelForCardLayout){
