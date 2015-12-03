@@ -78,7 +78,7 @@ public class TetrisBattlePanel extends JPanel {
 	private JLabel oppLinesSentLabel;
 	private JLabel oppLinesSentTextLabel;
 	private int oppLinesSent = 0;
-	private int delay = 500;
+	private int delay = 100;
 	private Image bg;
 	private ActionListener scoreLevelUpdater;
 	private CardLayout cardLayout;
@@ -104,7 +104,6 @@ public class TetrisBattlePanel extends JPanel {
 		this.outerPanelForCardLayout = outerPanelForCardLayout;
 		this.username = tc.getUserName();
 		this.tc = tc;
-		tc.sendMessage("name:" + tc.getUserName());
 		initializeVariables();
 		createGUI();
 		addActionAdapters();
@@ -257,7 +256,7 @@ public class TetrisBattlePanel extends JPanel {
 
 		// north
 		oppUsername = tc.getOpponentName();
-		oppTetrisTitle = new JLabel("Opponent: " + oppUsername, JLabel.CENTER);
+		oppTetrisTitle = new JLabel("", JLabel.CENTER);
 		oppTetrisTitle.setFont(font);
 
 		// center
@@ -476,6 +475,8 @@ public class TetrisBattlePanel extends JPanel {
 	              linesSentTextLabel.setText("" + gameManager.getLinesCleared());
 	              oppScoreTextLabel.setText("" + (gameManager.getGarbageLinesReceived() - gameManager.getGarbageLinesSent()));
 	              oppLinesSentTextLabel.setText("" + gameManager.getGarbageLinesReceived());
+	              oppUsername = tc.getOpponentName();
+	              oppTetrisTitle.setText("Opponent: " + oppUsername);
 	          }
 	      };
 	      mute.addActionListener(new ActionListener() {

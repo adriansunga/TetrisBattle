@@ -57,7 +57,7 @@ public class GameManager {
 		this.piecePlacer = piecePlacer;
 		currentPiece = null;
 		this.nextPiecePanel = nextPiecePanel;
-
+		tc.sendMessage("name:" + tc.getUserName());
 	}
 	
 	public boolean getGameOver() {
