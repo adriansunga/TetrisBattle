@@ -122,9 +122,16 @@ public class TetrisClient extends Thread{
 		else if(command.equals("endgame")) {
 			gm.endGame(getUserName());
 		}
+		else if(command.equals("score")) {
+			MySQLDriver msql = new MySQLDriver();
+			msql.connect();
+			msql.addScore(parsedMessage[1], Integer.parseInt(parsedMessage[2]));
+			msql.stop();
+		}
 		if(command.equals(("boardpanel"))){
 			gm.updateOppBoardPanel(parsedMessage[1]);
 		}
+		
 		
 		//networking for garbage line
 		if(command.equals(("garbageline"))){

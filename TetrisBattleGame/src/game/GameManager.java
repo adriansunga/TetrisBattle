@@ -494,6 +494,7 @@ public class GameManager {
 			MySQLDriver msql = new MySQLDriver();
 			msql.connect();
 			msql.addScore(tetrisClient.getUserName(), numLinesCleared - garbageLinesReceived);
+			tetrisClient.sendMessage("score:"+tetrisClient.getUserName()+":"+(numLinesCleared-garbageLinesReceived));
 			msql.stop();
 			pm.stop();
 			tetrisClient.getCardLayout().show(tetrisClient.getOuterPanelForCardLayout(), "welcomePanel");
