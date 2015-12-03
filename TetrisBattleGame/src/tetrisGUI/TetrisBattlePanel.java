@@ -234,7 +234,7 @@ public class TetrisBattlePanel extends JPanel {
 		scoreLabel = new JLabel("Score: ");
 		scoreLabel.setFont(font);
 		scoreTextLabel = new JLabel(Integer.toString(score));
-		scoreTextLabel.setFont(font);
+		scoreTextLabel.setFont(FontLibrary.getFont("fonts/Tetris.ttf", Font.BOLD, 20));
 		scoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		linesSentPanel = new JPanel();
@@ -281,7 +281,7 @@ public class TetrisBattlePanel extends JPanel {
 		oppScoreLabel = new JLabel("Score: ");
 		oppScoreLabel.setFont(font);
 		oppScoreTextLabel = new JLabel(Integer.toString(oppScore));
-		oppScoreTextLabel.setFont(font);
+		oppScoreTextLabel.setFont(FontLibrary.getFont("fonts/Tetris.ttf", Font.BOLD, 20));
 		oppScoreTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		oppLinesSentPanel = new JPanel();
