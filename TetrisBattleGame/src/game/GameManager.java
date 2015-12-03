@@ -39,7 +39,7 @@ public class GameManager {
 	private Random rand = new Random();
 	private PlayMusic pm;
 	
-	private boolean hasLanded = false;
+	private int receivedGarbageLines = 0;
 	// TODO: if time, add more cute colors #thrive
 	
 	private boolean gameOver;
@@ -127,10 +127,10 @@ public class GameManager {
 						dropPieceTimer.setDelay(defaultSpeed);
 						firstTime = false;
 					}
-					hasLanded = false;
 					move("down");
 				} else {
-					hasLanded = true;
+					setGarbageLines(receivedGarbageLines);
+					receivedGarbageLines = 0;
 					int numCleared = clearLines();
 					if (isTwoPlayer) {
 						sendGarbageLine(numCleared);
@@ -169,14 +169,20 @@ public class GameManager {
 	}
 
 	public void receiveGarbageLine() {
-		try {
-			while (!hasLanded) {
-				Thread.sleep(10);
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
+		// only cares about this turn
+		receivedGarbageLines++;
+		// overall
+		garbageLinesReceived++;
+//		try {
+//			while (!hasLanded) {
+//				Thread.sleep(10);
+//			}
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+	}
+	public void setGarbageLines(int lines) {
+		for (int line =0; line < lines; line++) {
 		// Determine location of the notch
 		int notchLoc = rand.nextInt(10);
 
@@ -207,10 +213,9 @@ public class GameManager {
 			}
 		}
 
-		garbageLinesReceived++;
-
 		// Refresh BoardPanel
 		updateView();
+		}
 	}
 
 	public int getGarbageLinesReceived() {
